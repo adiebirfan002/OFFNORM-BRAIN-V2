@@ -16,16 +16,19 @@ Idea: **every collection is a coordinate.** One place in Malaysia, the weather a
 |---|---|---|---|---|
 | The Moss | OFN-MOS | Mossy Forest, Gunung Brinchang, Cameron Highlands | 4.5239°N, 101.3819°E | Cold, misty, dark, green |
 | The Wild | OFN-WLD | Gunung Tahan, Taman Negara, Pahang | 4.6325°N, 102.2342°E | Cold, misty, mysterious, wild, high altitude, the river |
-| The Sky | OFN-SKY | Sky Mirror, Sasaran, Kuala Selangor (suggested) | 3.2094°N, 101.1865°E | Harmonious, blue, warm, clouds |
+| The Sky | OFN-SKY | Sky Mirror, Sasaran, Kuala Selangor | 3.2094°N, 101.1865°E | Harmonious, blue, warm, clouds |
 | The Ocean | OFN-OCN | Pulau Redang, Terengganu | 5.7750°N, 103.0150°E | As far as the eyes can see, peace, blue, warmth, waves |
 | The Caves | OFN-CAV | Niah Caves, Sarawak | 3.8139°N, 113.7814°E | Mysterious, dark, unique, unpredictable, brown, green |
 | The Dune | OFN-DUN | Klebang dunes, Melaka | 2.2164°N, 102.1943°E | Warm, hot, dry, sandy |
-| The Monsoon | OFN-MSN | Cherating, Pahang (suggested), Nov to Mar | 4.1300°N, 103.3900°E | Dark, waves, wild ocean, chaotic |
+| The Monsoon | OFN-MSN | Cherating, Pahang, Nov to Mar | 4.1300°N, 103.3900°E | Dark, waves, wild ocean, chaotic |
+
+## Confirmed
+
+- All seven locations, including Sky Mirror (The Sky), Cherating (The Monsoon) and the Gunung Tahan summit
+  (The Wild). Founder, 2026-11-12.
 
 ## Not confirmed
 
-- The places for The Sky and The Monsoon are suggestions; the founder named none. The Wild uses the Gunung Tahan
-  summit; Kuala Tahan on the river is the alternative.
 - Coordinates come from public sources (Wikipedia, UNESCO dossier for Niah, The Star for the Klebang dunes, travel
   listings for the rest) and differ by a few hundred metres between sources. Take a reading on site before printing.
 - Temperature, humidity and time on each conditions label are estimates, not measurements.
