@@ -3,43 +3,60 @@ Run from the repo root:  python3 brand/identity/source/build.py"""
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from kit import *
-import mocks
+import mocks, mocks2
 OUT = os.path.dirname(HERE)
 INK, HAZE, MON, PINK = mocks.INK, mocks.HAZE, mocks.MON, mocks.PINK
+YEL = mocks2.YEL
 
 # ---------- marks (each: inner svg using currentColor / var(--ko), viewBox w, h)
-def m_wm(regmark=True):
-    s, w = word_svg("OFFNORM")
+PICK = "switch"   # the O the founder is being recommended
+KO = "var(--ko,#fff)"
+def m_wm(v=PICK, regmark=True):
+    s, w = word2("OFFNORM", v)
     return (s + (reg(w + 16, 11, 10) if regmark else ""), w + (28 if regmark else 0), 100)
 def m_ofn():
-    s, w = word_svg("OFN"); return s + reg(w + 16, 11, 10), w + 28, 100
-def m_off():
-    s, w = word_svg("OFF"); return s, w, 100
-def m_stray():
-    s, _ = stray(); return f'<g transform="translate(14,36)">{s}</g>', 130, 130
-def m_badge():
-    s, w = word_svg("OFN", fill="var(--ko,#fff)"); k = 0.66
-    W, H = w * k + 120, 100 * k + 64
-    return (f'<rect width="{W}" height="{H}" rx="{H/2}" fill="currentColor"/><g transform="translate(60,32) scale({k})">{s}</g>', W, H)
-def m_stack():
-    a, wa = word_svg("OFF"); b, wb = word_svg("NORM"); k = wb / wa
-    return (f'<g transform="scale({k})">{a}</g><g transform="translate(0,{100*k+20})">{b}</g>' + reg(wb + 16, 11, 10), wb + 28, 100 * k + 120)
-def m_lockh():
-    s, _ = stray(); w, ww = word_svg("OFFNORM")
-    return (f'<g transform="translate(11,28) scale(0.77)">{s}</g><g transform="translate(142,0)">{w}</g>' + reg(142 + ww + 16, 11, 10), 142 + ww + 28, 100)
-def m_lockv():
-    s, _ = stray(); w, ww = word_svg("OFN")
-    return (f'<g transform="translate({ww/2-56},50) scale(1.4)">{s}</g><g transform="translate(0,250)">{w}</g>' + reg(ww + 16, 261, 10), ww + 28, 350)
+    s, w = word2("OFN", PICK); return s + reg(w + 16, 11, 10), w + 28, 100
+def m_osw(v=PICK):
+    return f'<g fill="currentColor">{OVAR[v]()}</g>', OW, 100
+def e_switch(text):
+    """The switch badge: a toggle set to off. The knob is the O, the rest of the letters ride in the track."""
+    parts, wl = word(text); k = 0.6; H = 120; x0 = 60 + 42 + 24
+    W = x0 + wl * k + 44
+    letters = "".join(f'<path transform="translate({round(x,2)},0)" d="{d}"/>' for d, x in parts)
+    return (f'<rect width="{W}" height="{H}" rx="{H/2}" fill="currentColor"/><circle cx="60" cy="60" r="42" fill="{KO}"/>'
+            f'<circle cx="60" cy="60" r="16" fill="currentColor"/><g transform="translate({x0},30) scale({k})" fill="{KO}">{letters}</g>', W, H)
+def e_quad():
+    k = 0.6
+    def cell(frag, w, cx, cy): return f'<g transform="translate({cx - w*k/2},{cy - 30}) scale({k})">{frag}</g>'
+    g = (cell(OVAR[PICK](), OW, 92, 96) + cell(f'<path d="{F()[0]}"/>', F()[1], 208, 96)
+         + cell(f'<path d="{N()[0]}"/>', N()[1], 92, 204) + cell(f'<path d="{M()[0]}"/>', M()[1], 208, 204))
+    return f'<rect width="300" height="300" rx="58" fill="currentColor"/><g fill="{KO}">{g}</g>', 300, 300
+def e_row(text="OFN"):
+    x = 0; out = ""
+    for ch in text:
+        if ch == "O": out += f'<g transform="translate({x},0)">{OVAR[PICK]()}</g>'; x += OW + 70
+        else:
+            d, w = GLYPH[ch](); out += f'<path transform="translate({x},0)" d="{d}"/>'; x += w + 70
+    return f'<g fill="currentColor">{out}</g>', x - 70, 100
+def e_plate():
+    s, w = word2("OFN", PICK); k = 0.8
+    return (f'<rect x="6" y="6" width="428" height="268" rx="44" fill="none" stroke="currentColor" stroke-width="12"/>'
+            f'<g transform="translate({220 - w*k/2},44) scale({k})">{s}</g><rect x="44" y="150" width="352" height="8" fill="currentColor"/>'
+            f'<text class="hx" x="220" y="198" font-size="25" text-anchor="middle" fill="currentColor" textLength="352" lengthAdjust="spacingAndGlyphs">OFFNORM RUNNING</text>'
+            f'<text class="hx" x="220" y="236" font-size="25" text-anchor="middle" fill="currentColor" textLength="352" lengthAdjust="spacingAndGlyphs">KUALA LUMPUR 3°N</text>', 440, 280)
 def m_icon():
-    s, _ = stray()
-    return f'<rect width="200" height="200" rx="44" fill="currentColor"/><g transform="translate(49,71)" style="color:var(--ko,#fff)">{s}</g>', 200, 200
+    return f'<rect width="200" height="200" rx="44" fill="currentColor"/><g transform="translate(34,59) scale(0.9)" fill="{KO}" style="color:{KO}">{OVAR[PICK]()}</g>', 200, 200
 
-MARKS = {"wm": m_wm(), "wm0": m_wm(False), "ofn": m_ofn(), "off": m_off(), "stray": m_stray(), "badge": m_badge(),
-         "stack": m_stack(), "lockh": m_lockh(), "lockv": m_lockv(), "icon": m_icon()}
+MARKS = {"wm": m_wm(), "ofn": m_ofn(), "osw": m_osw(), "e_sw": e_switch("FN"), "e_sw4": e_switch("FNM"), "e_quad": e_quad(),
+         "e_row": e_row(), "e_plate": e_plate(), "icon": m_icon()}
+for v in OVAR:
+    if v != "plain": MARKS["wm_" + v] = m_wm(v, False); MARKS["o_" + v] = m_osw(v)
 AR = {k: v[1] / v[2] for k, v in MARKS.items()}
-FILES = {"wm": "wordmark", "ofn": "monogram-OFN", "stray": "symbol-stray", "badge": "badge", "stack": "stacked",
-         "lockh": "lockup-horizontal", "lockv": "lockup-vertical", "icon": "app-icon"}
-os.makedirs(f"{OUT}/svg", exist_ok=True)
+FILES = {"wm": "wordmark", "ofn": "monogram-OFN", "osw": "symbol-O", "e_sw": "emblem-switch-OFN", "e_sw4": "emblem-switch-OFNM",
+         "e_quad": "emblem-quad-OFNM", "e_row": "emblem-row-OFN", "e_plate": "emblem-plate-OFN", "icon": "app-icon"}
+FILES.update({"wm_" + v: "options/wordmark-O-" + v for v in OVAR if v != "plain"})
+import shutil; shutil.rmtree(f"{OUT}/svg", ignore_errors=True)
+os.makedirs(f"{OUT}/svg/options", exist_ok=True)
 for k, name in FILES.items():
     s, w, h = MARKS[k]
     for tone, fg, ko, bg in (("black", INK, "#FFFFFF", None), ("white", "#FFFFFF", INK, INK)):
@@ -72,46 +89,55 @@ def plate(k, title, note, dark=False, cls="", size=""):
             f'<figcaption><b>{title}</b><span>{note}</span></figcaption></figure>')
 
 # construction diagram: low waist
-fd, fw = F(); rd, rw = R(); od, ow = O()
+fd, fw = F(); rd, rw = R()
 constr = f'''<svg viewBox="-40 -30 560 160" class="diagram" role="img" aria-label="The low bar on F and R">
-<g fill="{INK}"><path d="{fd}"/><path transform="translate(130,0)" d="{rd}"/><path transform="translate(290,0)" d="{od}"/></g>
-<g stroke="{PINK}" stroke-width="1.6"><path d="M-30,50 H460" stroke-dasharray="5 5"/><path d="M-30,58 H270"/></g>
-<text class="mn" x="466" y="54" font-size="11" fill="{INK}">centre</text>
-</svg>'''
+<g fill="{INK}"><path d="{fd}"/><path transform="translate(130,0)" d="{rd}"/><g transform="translate(290,0)">{OVAR[PICK]()}</g></g>
+<g stroke="{YEL}" stroke-width="2"><path d="M-30,50 H460" stroke-dasharray="5 5"/><path d="M-30,58 H270"/></g>
+<text class="mn" x="466" y="54" font-size="11" fill="{INK}">centre</text></svg>'''
 tilt = f'''<svg viewBox="0 0 520 190" class="diagram" role="img" aria-label="Labels sit 3 degrees off level">
 <path d="M40,150 H480" stroke="{INK}" stroke-width="1.2" stroke-dasharray="5 5"/>
 <g transform="translate(260,96) rotate(-3)"><rect x="-150" y="-44" width="300" height="88" fill="{INK}"/>
 <svg x="-110" y="-16" width="220" height="{220/AR['wm']}" viewBox="0 0 {MARKS['wm'][1]} 100" style="color:#F3F4F2"><use href="#wm"/></svg></g>
-<path d="M40,150 L479.4,127" stroke="{PINK}" stroke-width="1.6"/><text class="mn" x="486" y="134" font-size="12" fill="{INK}">3°</text></svg>'''
-pattern = "".join(f'<circle cx="{20+c*26 + (9 if (r,c) in ((1,5),(3,13),(4,2),(0,20),(5,24),(2,17)) else 0)}" cy="{20+r*26 - (9 if (r,c) in ((1,5),(3,13),(4,2),(0,20),(5,24),(2,17)) else 0)}" r="5.4" fill="{"#F4A6C0" if (r,c) in ((1,5),(3,13),(4,2),(0,20),(5,24),(2,17)) else "#F3F4F2"}"/>' for r in range(7) for c in range(30))
+<path d="M40,150 L479.4,127" stroke="{YEL}" stroke-width="2"/><text class="mn" x="486" y="134" font-size="12" fill="{INK}">3°</text></svg>'''
 
-M = mocks
-tiles = [("Run tee, front", "OFN on the chest, product number under it, pink tab at the hem", M.tee_front(AR), ""),
-         ("Run tee, back", "The Stray, the belief line, and the conditions it was made for", M.tee_back(AR), ""),
-         ("Singlet", "The vent holes are the symbol: a grid with one hole off", M.singlet(AR), ""),
-         ("Cap", "OFN embroidered, pink under the brim", M.cap(AR), ""),
-         ("Shorts", "Small Stray at the hem, tab on the waistband", M.shorts(AR), ""),
-         ("Socks", "One mark per sock, pink band", M.socks(AR), ""),
-         ("Street posters", "Black, pink and white. The copy does the shouting, the logo stays small", M.posters(AR), "wide"),
+ONOTES = [("switch", "O1 Switch", "A toggle set to off. Norm: off. Reads as an O and as a switch", True),
+          ("shift", "O2 Shift", "The counter is knocked off centre. The quietest option", False),
+          ("slip", "O3 Slip", "Cut on the low-bar line, the lower half slips forward", False),
+          ("hole", "O4 Solid", "A solid pill with the hole pushed to one side. The heaviest", False),
+          ("exit", "O5 Exit", "A running track with a way out. Risk: can read as a C", False),
+          ("lanes", "O6 Lanes", "Two lanes of a track. Lighter than the other letters", False),
+          ("dots", "O7 Dots", "Reflective dots, one off. Best as a print, weak as a logo", False)]
+oplates = "".join(
+    f'<figure class="plate opt {"pick" if pk else ""}"><div class="stage">{mark("o_"+v, INK, "#fff", "osolo")}{mark("wm_"+v, INK, "#fff", "w90")}</div>'
+    f'<figcaption><b>{t}{" · recommended" if pk else ""}</b><span>{n}</span></figcaption></figure>' for v, t, n, pk in ONOTES)
+
+M = mocks2
+tiles = [("Panel tee, front", "Switch badge on the chest, contrast seams, a line of copy on each shoulder", M.tee_front(AR), ""),
+         ("Panel tee, back", "The O drawn in reflective dots, one dot off, with the run name inside", M.tee_back(AR), ""),
+         ("Chest mark close-up", "How the badge sits against the seam", M.detail(AR), ""),
+         ("Cap", "Two-tone five-panel, the O alone on the side", M.cap(AR), ""),
+         ("Shorts", "Spaced letters at the hem, one contrast seam", M.shorts(AR), ""),
          ("Labels", "Wordmark label and conditions label, both sewn 3° off level", M.labels(AR), ""),
-         ("Hang tags", "Front carries the symbol, back carries the conditions and one honest answer", M.hangtag(AR), ""),
-         ("Race bib", "For Off Day Club runs. Your pace is the number", M.bib(AR), ""),
-         ("Mailer", "Wordmark, address label, belief-line tape", M.mailer(AR), "")]
+         ("Street posters", "The copy does the shouting, the logo stays small", M.posters(AR), "wide"),
+         ("Hang tags", "Front carries the O, back carries the conditions and one honest answer", M.hangtag(AR), "")]
 mock_html = "".join(f'<figure class="mock {c}">{svg}<figcaption><b>{t}</b><span>{n}</span></figcaption></figure>' for t, n, svg, c in tiles)
 
 PAGE = open(f"{HERE}/page.html").read()
-html = (PAGE.replace("{{DEFS}}", DEFS).replace("{{HERO}}", mark("wm", "#F3F4F2", INK, "hero-mark"))
-        .replace("{{P_WM}}", plate("wm", "Wordmark", "Neck label, site header, packaging, back print", cls="span2", size="w80"))
-        .replace("{{P_OFN}}", plate("ofn", "Monogram", "The registered short mark. Chest, cap, sock", size="w60"))
-        .replace("{{P_STRAY}}", plate("stray", "Symbol: the Stray", "Nine dots, one off. Avatar, vent grid, pattern", size="h60"))
-        .replace("{{P_BADGE}}", plate("badge", "Badge", "Patches, stickers, zip pulls", True, size="w60"))
-        .replace("{{P_STACK}}", plate("stack", "Stacked", "Square spaces. Off is always the bigger word", True, size="h70"))
-        .replace("{{P_LOCKH}}", plate("lockh", "Horizontal lockup", "Symbol with wordmark, for headers and signage", cls="span2", size="w80"))
-        .replace("{{P_LOCKV}}", plate("lockv", "Vertical lockup", "Centre chest, hang tag, swing ticket", size="h70"))
-        .replace("{{P_ICON}}", plate("icon", "App icon and avatar", "Instagram, Strava club, favicon", size="h50"))
-        .replace("{{P_PINK}}", f'<figure class="plate pink"><div class="stage">{mark("ofn", INK, "#fff", "w60")}</div><figcaption><b>On Bandung pink</b><span>The one accent. Black marks only</span></figcaption></figure>')
-        .replace("{{CONSTR}}", constr).replace("{{TILT}}", tilt).replace("{{PATTERN}}", pattern)
-        .replace("{{SIZES}}", "".join(f'<div>{mark("wm", px=w)}<span>{w}px</span></div>' for w in (240, 120, 64)) + "".join(f'<div>{mark("stray", px=w)}<span>{w}px</span></div>' for w in (48, 24, 16)))
-        .replace("{{MOCKS}}", mock_html))
+R_ = {"DEFS": DEFS, "HERO": mark("wm", "#F3F4F2", INK, "hero-mark"), "OPLATES": oplates,
+      "IDEA": mark("osw", INK, "#fff", "idea-sym"),
+      "E_SW": plate("e_sw", "E1 Switch badge, OFN · recommended", "The knob is the O. One shape, like the ACG triangle", cls="pick", size="w60"),
+      "E_SW4": plate("e_sw4", "E2 Switch badge, OFNM", "Same idea with four letters", size="w70"),
+      "E_QUAD": plate("e_quad", "E3 Quad, OFNM", "Four letters in a square block", True, size="h60"),
+      "E_ROW": plate("e_row", "E4 Spaced letters", "The FPA way: small, wide apart, no box", size="w60"),
+      "E_PLATE": plate("e_plate", "E5 Plate", "Letters over the full name, the way ACG spells itself out", size="h70"),
+      "P_WM": plate("wm", "Wordmark", "The O in OFF is off. The O in NORM is normal", cls="span2", size="w80"),
+      "P_OSW": plate("osw", "Symbol", "The O alone: cap, sock, zip pull", size="w50"),
+      "P_BADGE": plate("e_sw", "Badge", "OFN in the switch. Chest, patch, hang tag", True, size="w60"),
+      "P_ICON": plate("icon", "App icon", "Instagram, Strava club, favicon", size="h50"),
+      "P_DARK": plate("e_sw", "Reversed", "White on Tarmac", True, size="w60"),
+      "P_YEL": f'<figure class="plate pink"><div class="stage">{mark("e_sw", INK, YEL, "w60")}</div><figcaption><b>On Kunyit</b><span>The seam colour from your reference</span></figcaption></figure>',
+      "CONSTR": constr, "TILT": tilt, "MOCKS": mock_html}
+html = PAGE
+for k, v in R_.items(): html = html.replace("{{" + k + "}}", v)
 open(f"{OUT}/proposal.html", "w").write(html)
-print("ok", {k: round(v, 2) for k, v in AR.items()})
+print("ok", [k for k in R_ if "{{" + k + "}}" not in PAGE])

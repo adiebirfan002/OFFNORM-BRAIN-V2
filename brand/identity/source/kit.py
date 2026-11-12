@@ -89,3 +89,65 @@ def stray(cell=40, dot=14, off=0.55, fill="currentColor"):
                 cy -= cell * off
             c.append(f'<circle cx="{cx}" cy="{cy}" r="{dot}"/>')
     return f'<g fill="{fill}">' + "".join(c) + "</g>", 2 * cell
+
+
+# ---------- O variants: the O carries the identity. Each returns an svg fragment, width 146, height 100.
+import math
+OW = 146
+_OUT = rrect(0, 0, OW, 100, 50)
+
+def _pill_points(n, x=13.5, y=12, w=119, h=76):
+    """n points evenly spaced along a pill centre line."""
+    r = h / 2; straight = w - 2 * r; per = 2 * straight + 2 * math.pi * r
+    pts = []
+    for i in range(n):
+        d = per * i / n
+        if d < straight: pts.append((x + r + d, y))
+        elif d < straight + math.pi * r:
+            a = (d - straight) / r - math.pi / 2; pts.append((x + w - r + r * math.cos(a), y + r + r * math.sin(a)))
+        elif d < 2 * straight + math.pi * r: pts.append((x + w - r - (d - straight - math.pi * r), y + h))
+        else:
+            a = (d - 2 * straight - math.pi * r) / r + math.pi / 2; pts.append((x + r + r * math.cos(a), y + r + r * math.sin(a)))
+    return pts
+
+def o_plain():
+    return f'<path d="{O()[0]}"/>'
+def o_switch():   # a toggle set to off: the knob sits at the left
+    return f'<path d="{_OUT}{rrect(S, T, OW-2*S, 100-2*T, 26, cw=False)}"/><circle cx="{S+26}" cy="50" r="15.5"/>'
+def o_hole():     # solid pill, round counter pushed to one side
+    return f'<path d="{_OUT}M77,50a27,27 0 1 0 -54,0a27,27 0 1 0 54,0Z"/>'
+def o_shift():    # counter knocked off centre
+    return f'<path d="{_OUT}{rrect(S+12, T-9, OW-2*S, 100-2*T, 26, cw=False)}"/>'
+def o_slip(dx=18):  # cut on the low-bar line, lower half slips
+    c = WAIST + T / 2 - 4
+    top = (f"M0,{c}V50A50,50 0 0 1 50,0H96A50,50 0 0 1 146,50V{c}Z"
+           f"M119,{c}V50A26,26 0 0 0 93,24H53A26,26 0 0 0 27,50V{c}Z")
+    bot = (f"M0,{c}H146V50A50,50 0 0 1 96,100H50A50,50 0 0 1 0,50Z"
+           f"M27,{c}V50A26,26 0 0 0 53,76H93A26,26 0 0 0 119,50V{c}Z")
+    return f'<path d="{top}"/><path transform="translate({dx},0)" d="{bot}"/>'
+def o_exit():     # the track with a way out
+    d = rrect(13, 12.5, 120, 75, 37.5)
+    return (f'<path d="{d}" fill="none" stroke="currentColor" stroke-width="25" pathLength="100" stroke-dasharray="8.5 5.5 86"/>')
+def o_lanes():    # two lanes of a track
+    return (f'<path d="{rrect(4.5,4.5,137,91,45.5)}" fill="none" stroke="currentColor" stroke-width="9"/>'
+            f'<path d="{rrect(22.5,22.5,101,55,27.5)}" fill="none" stroke="currentColor" stroke-width="9"/>')
+def o_dots(n=14, r=9.2, off=3):
+    out = ""
+    for i, (x, y) in enumerate(_pill_points(n)):
+        if i == off: x += 15; y -= 15
+        out += f'<circle cx="{round(x,1)}" cy="{round(y,1)}" r="{r}"/>'
+    return out
+OVAR = {"plain": o_plain, "switch": o_switch, "hole": o_hole, "shift": o_shift, "slip": o_slip, "exit": o_exit, "lanes": o_lanes, "dots": o_dots}
+
+def word2(text, first="plain", rest="plain", fill="currentColor"):
+    """Word where the first O uses one variant and later O's another. Returns (svg, width)."""
+    x = 0; out = []; prev = None; seen = 0
+    for ch in text:
+        if prev: x += KERN.get((prev, ch), GAP)
+        if ch == "O":
+            frag = OVAR[first if seen == 0 else rest](); seen += 1; w = OW
+            out.append(f'<g transform="translate({round(x,2)},0)">{frag}</g>')
+        else:
+            d, w = GLYPH[ch](); out.append(f'<path transform="translate({round(x,2)},0)" d="{d}"/>')
+        x += w; prev = ch
+    return f'<g fill="{fill}">' + "".join(out) + "</g>", x

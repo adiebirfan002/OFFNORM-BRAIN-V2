@@ -4,7 +4,7 @@
 <style>
 /* Layout: full-width bands (tarmac / haze), one 1180px column inside, plates and mock-ups on a 4-column grid. Single committed look. */
 :root{
-  --ink:#151617; --tarmac:#17181a; --haze:#ECEEEC; --paper:#F6F7F5; --mon:#8C9496; --line:#cfd3d1; --pink:#F4A6C0; --chalk:#F3F4F2;
+  --ink:#151617; --tarmac:#17181a; --haze:#ECEEEC; --paper:#F6F7F5; --mon:#8C9496; --line:#cfd3d1; --pink:#D9CC3C; --chalk:#F3F4F2;
   --display:"Archivo","Arial Narrow",Arial,sans-serif; --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box}
@@ -59,7 +59,7 @@ figcaption span{opacity:.72}
 .mock .hx{font-family:var(--display);font-stretch:125%;font-weight:900}
 svg .mn{font-family:var(--mono)}
 .mgrid{grid-template-columns:repeat(3,1fr)}
-.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:14px}
+.rules{align-items:start;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:14px}
 .rule{background:var(--paper);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
 .rule p{font-size:15px}
 .diagram{width:100%;height:auto;display:block}
@@ -82,15 +82,24 @@ ol.ask span{font-size:15px}
 ol.ask em{font-style:normal;font-family:var(--mono);font-size:12.5px;background:var(--pink);padding:2px 6px;align-self:flex-start}
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.mgrid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.grid,.mgrid{grid-template-columns:1fr}.span2,.wide{grid-column:auto}dl.frame{grid-template-columns:1fr}dl.frame dt{border-bottom:0;padding-bottom:0}dl.frame dd{padding-top:4px}}
+.plate .w90{width:92%}.plate .w70{width:70%}.plate .w50{width:46%}
+.opt .stage{flex-direction:column;gap:22px;align-items:flex-start;padding:26px 22px}
+.opt .osolo{width:38%}
+.pick{outline:3px solid var(--ink);outline-offset:-3px}
+.pick figcaption b{background:var(--pink);align-self:flex-start;padding:2px 6px}
+.ogrid{grid-template-columns:repeat(4,1fr)}
+.refnote{font-family:var(--mono);font-size:12.5px;line-height:1.5;border:1px solid var(--mon);padding:12px 14px;max-width:70ch;opacity:.9}
+@media (max-width:900px){.ogrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.ogrid{grid-template-columns:1fr}}
 </style>
 {{DEFS}}
 
 <header class="band dark"><div class="in">
-  <div class="eyebrow"><span>Identity proposal</span><span>For founder review</span><span>12 Nov 2026</span><span>Kuala Lumpur, 3°N</span></div>
+  <div class="eyebrow"><span>Identity proposal, round 2</span><span>For founder review</span><span>12 Nov 2026</span><span>Kuala Lumpur, 3°N</span></div>
   {{HERO}}
   <div class="hero-foot">
-    <div class="big">Running goods for the off days.</div>
-    <div class="status"><b>Proposal</b>Nothing on this page is final. Logo, colour, type and story all wait for your okay.</div>
+    <div class="big">The O in off is off.</div>
+    <div class="status"><b>Proposal</b>Round 2, after your notes: keep the letters, make the O the identity, add a mark like ACG or FPA, and draw the mock-ups from your Collection Reference.</div>
   </div>
 </div></header>
 
@@ -98,89 +107,80 @@ ol.ask em{font-style:normal;font-family:var(--mono);font-size:12.5px;background:
   <div class="split">
     <div class="col">
       <div class="eyebrow"><span>The idea</span></div>
-      <h2>One is off.</h2>
-      <p class="lede">Nine dots sit in a grid. One has left it. That dot is the brand.</p>
-      <p>It is the runner who is not on pace. The run that goes a bit wrong. A cotton tee in a polyester sport. A Malaysian label in a category designed for cold countries. Every piece of the identity is built from that one move: keep everything in order, then let one thing be off.</p>
+      <h2>Norm: off.</h2>
+      <p class="lede">The first O is a switch, and the switch is set to off.</p>
+      <p>OFFNORM has two O's. The one in OFF is off. The one in NORM stays normal. You read the brand name and see what it means at the same time. Alone, the O is the symbol. With FN riding in its track, it becomes the badge.</p>
     </div>
-    <svg class="mk idea-sym" viewBox="0 0 130 130" style="color:#151617" role="img" aria-label="The Stray symbol"><use href="#stray"/></svg>
+    {{IDEA}}
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <div class="col"><div class="eyebrow"><span>Playing with the O</span><span>Same letters, seven O's</span></div>
+  <h2>Seven ways to turn the O off</h2>
+  <p>Every option keeps your letters untouched and changes only the first O. Each is shown alone and inside the word.</p></div>
+  <div class="grid ogrid">{{OPLATES}}</div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <div class="col"><div class="eyebrow"><span>A mark like ACG or FPA</span><span>OFN and OFNM</span></div>
+  <h2>Five emblems</h2>
+  <p>ACG puts three letters inside one fixed shape. FPA sets three small letters wide apart. Both are tried here with your letters, in OFN and in OFNM.</p></div>
+  <div class="grid">{{E_SW}}{{E_SW4}}{{E_QUAD}}{{E_ROW}}{{E_PLATE}}{{P_DARK}}{{P_YEL}}{{P_ICON}}</div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <h2>The set I would take forward</h2>
+  <div class="grid">{{P_WM}}{{P_OSW}}{{P_BADGE}}</div>
+  <div class="rules">
+    <div class="rule"><h3>Low bars</h3>{{CONSTR}}<p>The bar of the F and the waist of the R sit below the centre line. This is the part of the font you liked, and it stays.</p></div>
+    <div class="rule"><h3>3° off level</h3>{{TILT}}<p>Kuala Lumpur sits at 3° north. Every sewn label and tab is set 3° off level. The master logo stays straight.</p></div>
+    <div class="rule"><h3>Colour, from your reference</h3><div class="sw">
+      <div style="background:#17181a;color:#F3F4F2"><b>Tarmac</b>#17181A</div>
+      <div style="background:#4B3B25;color:#F3F4F2"><b>Kopi</b>#4B3B25</div>
+      <div style="background:#1B2233;color:#F3F4F2"><b>Subuh</b>#1B2233</div>
+      <div style="background:#E9E3D5"><b>Santan</b>#E9E3D5</div>
+      <div style="background:#C7CEC9"><b>Monsoon</b>#C7CEC9</div>
+      <div style="background:#D9CC3C"><b>Kunyit</b>#D9CC3C</div></div>
+      <p>The logo is black or white. Garment colours follow your reference: coffee brown, dawn navy, coconut-milk cream, with turmeric yellow for the seams. This replaces the pink from round 1.</p></div>
   </div>
 </div></section>
 
 <section class="band dark"><div class="in">
-  <div class="eyebrow"><span>Narrative</span></div>
-  <div class="story">
-    <span>Running tells you there is a right way to do it. Right pace, right shoes, right weather, right shirt.</span>
-    <span>We run in Malaysia. It is 27 degrees before the sun is up. The air is wet. It rains at four. Most runs here go a bit wrong, and people go out anyway.</span>
-    <span>OFFNORM makes running clothes for those runs. Cotton, cut properly, built for the heat. <mark>Not for the perfect run. Nobody has had one.</mark></span>
-    <strong>No run is perfect.</strong>
-  </div>
-  <div class="lines">
-    <div>Off day? Run anyway.</div><div>6:45 pace. Still counts.</div><div>Walked the last 2K. Listed as a run.</div>
-    <div>Wash cold. Run hot.</div><div>Designed at 3°N.</div><div>Will it get heavy in rain? Yes. So will you.</div>
-  </div>
+  <div class="col"><div class="eyebrow"><span>On product</span><span>Drawn from your Collection Reference</span></div>
+  <h2>How it wears</h2>
+  <p class="refnote">Your six reference shots are FPA product photos. I did not edit our logo onto their photos. These are new drawings that follow the same construction: raglan panels, contrast flatlock seams, colour-blocked sleeves, reflective dots at the seam ends, a small chest mark, a dotted back graphic and a two-tone cap.</p></div>
+  <div class="grid mgrid">{{MOCKS}}</div>
 </div></section>
 
 <section class="band"><div class="in">
   <div class="split" style="align-items:start">
     <div class="col">
-      <h2>What the brand stands on</h2>
-      <p>Satisfy owns the high. ACG owns all conditions. norda owns a fibre. OFFNORM takes the word already inside its name. A runner has an off day far more often than a runner's high, so there is always something true to say.</p>
-      <p class="note"><b>One condition.</b> Cotton holds sweat. The story only works if the fabric really runs in KL heat: light open knit, loose cut, fast to dry. If the sample fails a real 10 km, the line softens to "run in it, live in it" and the page changes with it.</p>
+      <div class="eyebrow"><span>Narrative</span><span>Unchanged from round 1</span></div>
+      <div class="story" style="font-size:clamp(18px,2vw,23px)">
+        <span>Running tells you there is a right way to do it. Right pace, right shoes, right weather, right shirt.</span>
+        <span>We run in Malaysia. It is 27 degrees before the sun is up. Most runs here go a bit wrong, and people go out anyway.</span>
+        <span>OFFNORM makes running clothes for those runs. <mark>Not for the perfect run. Nobody has had one.</mark></span>
+        <strong>No run is perfect.</strong>
+      </div>
     </div>
     <dl class="frame">
-      <dt>Enemy</dt><dd>The perfect run. Perfect pace, perfect weather, perfect feed.</dd>
-      <dt>Belief</dt><dd><b>No run is perfect.</b> Already confirmed by you.</dd>
-      <dt>Our word</dt><dd><b>Off.</b> Off day, off pace, off hours, off road, off the norm.</dd>
-      <dt>Place</dt><dd>The equator. Hot, wet, dark at both ends of the day. Kuala Lumpur sits at 3° north.</dd>
-      <dt>Proof</dt><dd>Cotton built to be run in here, with one fabric name to come from the first sample.</dd>
-      <dt>People</dt><dd><b>Off Day Club.</b> Runners who are not only runners, and not only fast.</dd>
-      <dt>Tone</dt><dd>Dry, funny, honest. Serious about the clothes, never about ourselves. English with light rojak.</dd>
+      <dt>Enemy</dt><dd>The perfect run.</dd>
+      <dt>Belief</dt><dd><b>No run is perfect.</b></dd>
+      <dt>Our word</dt><dd><b>Off.</b> Off day, off pace, off hours. Now also the switch in the logo.</dd>
+      <dt>Place</dt><dd>The equator. Kuala Lumpur, 3° north.</dd>
+      <dt>People</dt><dd><b>Off Day Club.</b></dd>
+      <dt>Tone</dt><dd>Dry, funny, honest. English with light rojak.</dd>
     </dl>
   </div>
 </div></section>
 
-<section class="band" style="padding-top:0"><div class="in">
-  <div class="col"><div class="eyebrow"><span>Logo system</span><span>Every letter drawn, none typed</span></div>
-  <h2>Eight marks, one family</h2>
-  <p>Wide, heavy capitals with a flat-sided O. No tricks inside any letter. The character is in the proportion and in one shared rule: the bars sit low.</p></div>
-  <div class="grid">
-    {{P_WM}}{{P_OFN}}{{P_STRAY}}
-    {{P_BADGE}}{{P_STACK}}{{P_LOCKH}}
-    {{P_LOCKV}}{{P_ICON}}{{P_PINK}}
-    <figure class="plate dark patt"><div class="stage" style="padding:0"><svg viewBox="0 0 400 196" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%" role="img" aria-label="Dot pattern"><g transform="translate(-180,0)">{{PATTERN}}</g></svg></div><figcaption><b>Pattern</b><span>Linings, tissue, mesh. A few dots stray</span></figcaption></figure>
-  </div>
-</div></section>
-
-<section class="band" style="padding-top:0"><div class="in">
-  <h2>The rules behind it</h2>
-  <div class="rules">
-    <div class="rule"><h3>Low bars</h3>{{CONSTR}}<p>The bar of the F and the waist of the R sit below the centre line. One rule, shared by every letter, so the word looks slightly off without any single letter being a trick.</p></div>
-    <div class="rule"><h3>3° off level</h3>{{TILT}}<p>Kuala Lumpur sits at 3° north. Every sewn label, tab and sticker is set 3° off level. The master logo itself stays straight.</p></div>
-    <div class="rule"><h3>Small sizes</h3><div class="sizes">{{SIZES}}</div><p>The wordmark holds to 64px wide and the symbol to 16px. Below that, use the symbol alone.</p></div>
-    <div class="rule"><h3>Colour</h3><div class="sw">
-      <div style="background:#17181a;color:#F3F4F2"><b>Tarmac</b>#17181A</div>
-      <div style="background:#F6F7F5"><b>Cotton</b>#F6F7F5</div>
-      <div style="background:#8C9496"><b>Monsoon</b>#8C9496</div>
-      <div style="background:#F4A6C0"><b>Bandung</b>#F4A6C0</div></div>
-      <p>Black and white carry the logo. One accent, named after sirap bandung. Later colours are taken from Malaysian places and named after them.</p></div>
-    <div class="rule"><h3>Type</h3><div class="type-a">Off day? Run anyway.</div><div class="type-b">Archivo for reading text. Plain, wide enough to sit beside the logo, free to use.</div><div class="type-c">31°C / 84% RH / 05:30 / OFN—001</div><p>Archivo Expanded for headlines, Archivo for text, IBM Plex Mono for product numbers and conditions. The logo letters stay custom and are never typed.</p></div>
-    <div class="rule"><h3>The support set</h3><p><b>Product number.</b> Every piece is numbered from OFN—001.</p><p><b>Conditions label.</b> States the weather the piece was made for: 31°C, 84% humidity, 05:30.</p><p><b>Origin line.</b> Designed at 3°N, plus the true place it was made.</p><p><b>® or ™.</b> Drawn into the mark. Use ™ until the trademark is registered with MyIPO.</p></div>
-  </div>
-</div></section>
-
-<section class="band dark"><div class="in">
-  <div class="col"><div class="eyebrow"><span>On product</span><span>Drawn mock-ups, not photographs</span></div>
-  <h2>How it wears</h2></div>
-  <div class="grid mgrid">{{MOCKS}}</div>
-</div></section>
-
 <section class="band pinkb"><div class="in">
-  <div class="col"><div class="eyebrow"><span>Your call</span></div><h2>Four things to decide</h2></div>
+  <div class="col"><div class="eyebrow"><span>Your call</span></div><h2>Three picks</h2></div>
   <ol class="ask">
-    <li><b>The system</b><span>Wordmark, OFN monogram and the Stray symbol as one family. Okay to take forward?</span><em>Recommended: yes</em></li>
-    <li><b>OFN or OFF</b><span>OFN is easier to trademark. Off stays as the word in copy and as the big word in the stacked mark.</span><em>Recommended: OFN</em></li>
-    <li><b>The accent</b><span>Bandung pink as the single accent beside black and white.</span><em>Recommended: yes, test on cloth</em></li>
-    <li><b>The people</b><span>Off Day Club as the name for the community and the run.</span><em>Recommended: yes</em></li>
+    <li><b>Which O</b><span>O1 to O7. The switch is the only one that is a clear symbol on its own and still reads as an O.</span><em>Recommended: O1 Switch</em></li>
+    <li><b>Which emblem</b><span>E1 to E5, and OFN or OFNM. Three letters read faster and sit closer to ACG and FPA.</span><em>Recommended: E1, OFN</em></li>
+    <li><b>The colours</b><span>Brown, navy, cream and yellow seams taken from your reference, in place of pink.</span><em>Recommended: yes</em></li>
   </ol>
-  <p>Say okay, or tell me what to change. Once you approve, I turn this into a deck you can present to your team.</p>
+  <p>Tell me your picks, or what to change. Once you say okay, I turn the chosen set into a deck for your team.</p>
 </div></section>
