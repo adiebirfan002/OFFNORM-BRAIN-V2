@@ -8,6 +8,7 @@ brands and turns it into a narrative and a logo brief.
 1. [research/patterns.md](research/patterns.md): what the four brands share and where the gaps are
 2. [brand/narrative.md](brand/narrative.md): proposed OFFNORM narrative
 3. [brand/logo-brief.md](brand/logo-brief.md): proposed logo brief
+4. [brand/identity/](brand/identity/README.md): proposed logo system, mock-ups and proposal page
 
 ## Brand studies
 
@@ -28,7 +29,7 @@ Sources and what could not be verified: [research/sources.md](research/sources.m
 | Malaysian, cotton-led, running | Confirmed (from V1) |
 | Narrative in brand/narrative.md | Proposal, awaiting founder |
 | Logo brief in brand/logo-brief.md | Proposal, awaiting founder |
-| Logo | Not decided. Rounds v1 to v11 live in Brain V1 |
+| Logo | Proposal in brand/identity, awaiting founder. Rounds v1 to v11 live in Brain V1 |
 | Colours, fonts, price, target runner | Not decided. Recommendations in narrative.md |
 
 ## Rules for this repo

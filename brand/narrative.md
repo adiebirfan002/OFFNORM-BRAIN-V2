@@ -4,6 +4,9 @@
 Built from [../research/patterns.md](../research/patterns.md). Carried over from Brain V1 as confirmed: the brand
 is Malaysian, cotton-led, fashion-forward, for running, and the belief line is **"No run is perfect."**
 
+The visual side of this proposal is in [identity/](identity/README.md): idea "one is off", the Stray symbol,
+Bandung pink as the one accent.
+
 ## Which norm?
 
 The name asks a question the brand has to answer. Three possible answers, each a different brand:
@@ -28,7 +31,7 @@ C falls out for free once the clothes exist.
 | Owned word | **Off.** Off day, off pace, off road, off hours, off season, off the norm |
 | Place | The equator. Hot, wet, dark at both ends of the day |
 | Proof | Cotton that is built to be run in here (see "Product truth" below) |
-| People | Runners who are not only runners, and not only fast |
+| People | **Off Day Club**: runners who are not only runners, and not only fast |
 | Tone | Dry, funny, honest. Serious about the clothes, never about ourselves |
 
 Why "off" as the owned word: it is already half the name, it is the three-letter mark the founder asked for, it
@@ -95,7 +98,7 @@ Sample lines (drafts):
 | Numbering | norda, FPA | Every product OFN-001 upward. Every drop numbered |
 | Place names | ACG | Colours and pieces named after Malaysian routes, hills and roads |
 | Fabric name | Satisfy | One named cotton, explained properly |
-| Member name | Satisfy | A name for the people. Draft: "Off Runners" or simply "the Off" |
+| Member name | Satisfy | Off Day Club (proposed in the identity page) |
 | Acronym play | FPA | OFN re-expanded in copy: Off Normal. Off Form, Nevermind. Out For Nasi |
 | Label as graphic | Satisfy | Care label, size label and a "conditions" label carry the jokes |
 | Publish culture | Satisfy | Run reports from real off days before product posts |

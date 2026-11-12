@@ -1,0 +1,186 @@
+<title>OFFNORM Identity Proposal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: full-width bands (tarmac / haze), one 1180px column inside, plates and mock-ups on a 4-column grid. Single committed look. */
+:root{
+  --ink:#151617; --tarmac:#17181a; --haze:#ECEEEC; --paper:#F6F7F5; --mon:#8C9496; --line:#cfd3d1; --pink:#F4A6C0; --chalk:#F3F4F2;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif; --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--haze);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;margin:0}
+.band{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:clamp(48px,7vw,96px)}
+.band.dark{background:var(--tarmac);color:var(--chalk)}
+.band.pinkb{background:var(--pink)}
+.in{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)}
+.eyebrow,.mn{font-family:var(--mono)}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;display:flex;flex-wrap:wrap;gap:6px 22px;color:inherit;opacity:.78}
+h1,h2,h3,.hx{font-family:var(--display);font-stretch:125%;font-weight:850;text-transform:uppercase;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,5vw,58px);line-height:.98}
+h3{font-size:clamp(17px,2vw,21px);line-height:1.1;font-weight:800}
+p{margin:0;max-width:64ch}
+.lede{font-size:clamp(19px,2.2vw,24px);line-height:1.4;max-width:34ch;font-weight:500}
+.mk{display:block;height:auto;max-width:100%}
+.hero-mark{width:100%}
+.hero-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px}
+.hero-foot .big{font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(20px,3vw,34px);line-height:1.05;max-width:16ch}
+.status{font-family:var(--mono);font-size:13px;border:1px solid currentColor;padding:10px 14px;max-width:38ch;line-height:1.45}
+.status b{background:var(--pink);color:var(--ink);padding:1px 6px;font-weight:600;margin-right:6px}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,5vw,72px);align-items:center}
+.split>*{min-width:0}
+.col{display:flex;flex-direction:column;gap:18px}
+.idea-sym{width:min(100%,360px);justify-self:center}
+.story{font-size:clamp(20px,2.5vw,28px);line-height:1.34;font-weight:500;display:flex;flex-direction:column;gap:.7em;max-width:27em}
+.story strong{font-family:var(--display);font-stretch:125%;font-weight:850;text-transform:uppercase;letter-spacing:-.01em}
+.story mark{background:var(--pink);color:var(--ink);padding:0 .15em}
+dl.frame{display:grid;grid-template-columns:minmax(90px,150px) 1fr;margin:0;border-top:1px solid var(--ink)}
+dl.frame dt,dl.frame dd{margin:0;padding:14px 0;border-bottom:1px solid var(--line)}
+dl.frame dt{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-top:18px}
+dl.frame dd b{font-weight:700}
+.lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--mon);border:1px solid var(--mon)}
+.lines div{background:var(--tarmac);padding:22px 20px;font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(17px,1.9vw,22px);line-height:1.08;min-height:104px;display:flex;align-items:flex-end}
+.lines div:nth-child(4){background:var(--pink);color:var(--ink)}
+.note{border-left:4px solid var(--pink);padding:4px 0 4px 16px;font-size:15.5px;max-width:70ch}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid>*{min-width:0}
+figure{margin:0}
+.plate{background:var(--paper);display:flex;flex-direction:column}
+.plate.dark{background:var(--tarmac);color:var(--chalk)}
+.plate.pink{background:var(--pink)}
+.plate .stage{flex:1;min-height:clamp(170px,20vw,250px);display:flex;align-items:center;justify-content:center;padding:28px}
+.plate .w80{width:82%}.plate .w60{width:58%}.plate .h60{width:auto;height:120px}.plate .h70{width:auto;height:150px}.plate .h50{width:auto;height:104px}
+figcaption{display:flex;flex-direction:column;gap:2px;padding:12px 14px 14px;font-size:13.5px;line-height:1.35}
+figcaption b{font-family:var(--mono);font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase}
+figcaption span{opacity:.72}
+.span2{grid-column:span 2}
+.wide{grid-column:span 2}
+.mock{background:var(--paper);color:var(--ink)}
+.mock svg{display:block;width:100%;height:auto}
+.mock .hx{font-family:var(--display);font-stretch:125%;font-weight:900}
+svg .mn{font-family:var(--mono)}
+.mgrid{grid-template-columns:repeat(3,1fr)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:14px}
+.rule{background:var(--paper);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.rule p{font-size:15px}
+.diagram{width:100%;height:auto;display:block}
+.sizes{display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px 26px}
+.sizes div{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.sizes span{font-family:var(--mono);font-size:11px;opacity:.7}
+.sw{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.sw div{aspect-ratio:1/1;max-width:100%;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;font-family:var(--mono);font-size:11px;line-height:1.4;border:1px solid var(--line)}
+.sw b{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.type-a{font-family:var(--display);font-stretch:125%;font-weight:850;text-transform:uppercase;font-size:34px;line-height:1}
+.type-b{font-size:17px}
+.type-c{font-family:var(--mono);font-size:14px;letter-spacing:.08em}
+.patt{background:var(--tarmac);padding:0}
+.patt svg{display:block;width:100%;height:auto}
+ol.ask{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px;counter-reset:q}
+ol.ask li{background:var(--paper);padding:20px;display:flex;flex-direction:column;gap:8px;counter-increment:q;min-width:0}
+ol.ask li::before{content:"Q" counter(q);font-family:var(--mono);font-size:12px;letter-spacing:.14em}
+ol.ask b{font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:18px;line-height:1.1}
+ol.ask span{font-size:15px}
+ol.ask em{font-style:normal;font-family:var(--mono);font-size:12.5px;background:var(--pink);padding:2px 6px;align-self:flex-start}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.mgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grid,.mgrid{grid-template-columns:1fr}.span2,.wide{grid-column:auto}dl.frame{grid-template-columns:1fr}dl.frame dt{border-bottom:0;padding-bottom:0}dl.frame dd{padding-top:4px}}
+</style>
+{{DEFS}}
+
+<header class="band dark"><div class="in">
+  <div class="eyebrow"><span>Identity proposal</span><span>For founder review</span><span>12 Nov 2026</span><span>Kuala Lumpur, 3°N</span></div>
+  {{HERO}}
+  <div class="hero-foot">
+    <div class="big">Running goods for the off days.</div>
+    <div class="status"><b>Proposal</b>Nothing on this page is final. Logo, colour, type and story all wait for your okay.</div>
+  </div>
+</div></header>
+
+<section class="band"><div class="in">
+  <div class="split">
+    <div class="col">
+      <div class="eyebrow"><span>The idea</span></div>
+      <h2>One is off.</h2>
+      <p class="lede">Nine dots sit in a grid. One has left it. That dot is the brand.</p>
+      <p>It is the runner who is not on pace. The run that goes a bit wrong. A cotton tee in a polyester sport. A Malaysian label in a category designed for cold countries. Every piece of the identity is built from that one move: keep everything in order, then let one thing be off.</p>
+    </div>
+    <svg class="mk idea-sym" viewBox="0 0 130 130" style="color:#151617" role="img" aria-label="The Stray symbol"><use href="#stray"/></svg>
+  </div>
+</div></section>
+
+<section class="band dark"><div class="in">
+  <div class="eyebrow"><span>Narrative</span></div>
+  <div class="story">
+    <span>Running tells you there is a right way to do it. Right pace, right shoes, right weather, right shirt.</span>
+    <span>We run in Malaysia. It is 27 degrees before the sun is up. The air is wet. It rains at four. Most runs here go a bit wrong, and people go out anyway.</span>
+    <span>OFFNORM makes running clothes for those runs. Cotton, cut properly, built for the heat. <mark>Not for the perfect run. Nobody has had one.</mark></span>
+    <strong>No run is perfect.</strong>
+  </div>
+  <div class="lines">
+    <div>Off day? Run anyway.</div><div>6:45 pace. Still counts.</div><div>Walked the last 2K. Listed as a run.</div>
+    <div>Wash cold. Run hot.</div><div>Designed at 3°N.</div><div>Will it get heavy in rain? Yes. So will you.</div>
+  </div>
+</div></section>
+
+<section class="band"><div class="in">
+  <div class="split" style="align-items:start">
+    <div class="col">
+      <h2>What the brand stands on</h2>
+      <p>Satisfy owns the high. ACG owns all conditions. norda owns a fibre. OFFNORM takes the word already inside its name. A runner has an off day far more often than a runner's high, so there is always something true to say.</p>
+      <p class="note"><b>One condition.</b> Cotton holds sweat. The story only works if the fabric really runs in KL heat: light open knit, loose cut, fast to dry. If the sample fails a real 10 km, the line softens to "run in it, live in it" and the page changes with it.</p>
+    </div>
+    <dl class="frame">
+      <dt>Enemy</dt><dd>The perfect run. Perfect pace, perfect weather, perfect feed.</dd>
+      <dt>Belief</dt><dd><b>No run is perfect.</b> Already confirmed by you.</dd>
+      <dt>Our word</dt><dd><b>Off.</b> Off day, off pace, off hours, off road, off the norm.</dd>
+      <dt>Place</dt><dd>The equator. Hot, wet, dark at both ends of the day. Kuala Lumpur sits at 3° north.</dd>
+      <dt>Proof</dt><dd>Cotton built to be run in here, with one fabric name to come from the first sample.</dd>
+      <dt>People</dt><dd><b>Off Day Club.</b> Runners who are not only runners, and not only fast.</dd>
+      <dt>Tone</dt><dd>Dry, funny, honest. Serious about the clothes, never about ourselves. English with light rojak.</dd>
+    </dl>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <div class="col"><div class="eyebrow"><span>Logo system</span><span>Every letter drawn, none typed</span></div>
+  <h2>Eight marks, one family</h2>
+  <p>Wide, heavy capitals with a flat-sided O. No tricks inside any letter. The character is in the proportion and in one shared rule: the bars sit low.</p></div>
+  <div class="grid">
+    {{P_WM}}{{P_OFN}}{{P_STRAY}}
+    {{P_BADGE}}{{P_STACK}}{{P_LOCKH}}
+    {{P_LOCKV}}{{P_ICON}}{{P_PINK}}
+    <figure class="plate dark patt"><div class="stage" style="padding:0"><svg viewBox="0 0 400 196" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%" role="img" aria-label="Dot pattern"><g transform="translate(-180,0)">{{PATTERN}}</g></svg></div><figcaption><b>Pattern</b><span>Linings, tissue, mesh. A few dots stray</span></figcaption></figure>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <h2>The rules behind it</h2>
+  <div class="rules">
+    <div class="rule"><h3>Low bars</h3>{{CONSTR}}<p>The bar of the F and the waist of the R sit below the centre line. One rule, shared by every letter, so the word looks slightly off without any single letter being a trick.</p></div>
+    <div class="rule"><h3>3° off level</h3>{{TILT}}<p>Kuala Lumpur sits at 3° north. Every sewn label, tab and sticker is set 3° off level. The master logo itself stays straight.</p></div>
+    <div class="rule"><h3>Small sizes</h3><div class="sizes">{{SIZES}}</div><p>The wordmark holds to 64px wide and the symbol to 16px. Below that, use the symbol alone.</p></div>
+    <div class="rule"><h3>Colour</h3><div class="sw">
+      <div style="background:#17181a;color:#F3F4F2"><b>Tarmac</b>#17181A</div>
+      <div style="background:#F6F7F5"><b>Cotton</b>#F6F7F5</div>
+      <div style="background:#8C9496"><b>Monsoon</b>#8C9496</div>
+      <div style="background:#F4A6C0"><b>Bandung</b>#F4A6C0</div></div>
+      <p>Black and white carry the logo. One accent, named after sirap bandung. Later colours are taken from Malaysian places and named after them.</p></div>
+    <div class="rule"><h3>Type</h3><div class="type-a">Off day? Run anyway.</div><div class="type-b">Archivo for reading text. Plain, wide enough to sit beside the logo, free to use.</div><div class="type-c">31°C / 84% RH / 05:30 / OFN—001</div><p>Archivo Expanded for headlines, Archivo for text, IBM Plex Mono for product numbers and conditions. The logo letters stay custom and are never typed.</p></div>
+    <div class="rule"><h3>The support set</h3><p><b>Product number.</b> Every piece is numbered from OFN—001.</p><p><b>Conditions label.</b> States the weather the piece was made for: 31°C, 84% humidity, 05:30.</p><p><b>Origin line.</b> Designed at 3°N, plus the true place it was made.</p><p><b>® or ™.</b> Drawn into the mark. Use ™ until the trademark is registered with MyIPO.</p></div>
+  </div>
+</div></section>
+
+<section class="band dark"><div class="in">
+  <div class="col"><div class="eyebrow"><span>On product</span><span>Drawn mock-ups, not photographs</span></div>
+  <h2>How it wears</h2></div>
+  <div class="grid mgrid">{{MOCKS}}</div>
+</div></section>
+
+<section class="band pinkb"><div class="in">
+  <div class="col"><div class="eyebrow"><span>Your call</span></div><h2>Four things to decide</h2></div>
+  <ol class="ask">
+    <li><b>The system</b><span>Wordmark, OFN monogram and the Stray symbol as one family. Okay to take forward?</span><em>Recommended: yes</em></li>
+    <li><b>OFN or OFF</b><span>OFN is easier to trademark. Off stays as the word in copy and as the big word in the stacked mark.</span><em>Recommended: OFN</em></li>
+    <li><b>The accent</b><span>Bandung pink as the single accent beside black and white.</span><em>Recommended: yes, test on cloth</em></li>
+    <li><b>The people</b><span>Off Day Club as the name for the community and the run.</span><em>Recommended: yes</em></li>
+  </ol>
+  <p>Say okay, or tell me what to change. Once you approve, I turn this into a deck you can present to your team.</p>
+</div></section>
