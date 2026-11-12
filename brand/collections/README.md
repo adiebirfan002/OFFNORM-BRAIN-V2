@@ -26,13 +26,15 @@ Idea: **every collection is a coordinate.** One place in Malaysia, the weather a
 
 - All seven locations, including Sky Mirror (The Sky), Cherating (The Monsoon) and the Gunung Tahan summit
   (The Wild). Founder, 2026-11-12.
+- Drop order: 1 The Sky + The Dune, 2 The Ocean, 3 The Monsoon (Nov to Mar), 4 The Moss + The Wild, 5 The Caves.
+  Founder, 2026-11-12.
 
 ## Not confirmed
 
 - Coordinates come from public sources (Wikipedia, UNESCO dossier for Niah, The Star for the Klebang dunes, travel
   listings for the rest) and differ by a few hundred metres between sources. Take a reading on site before printing.
 - Temperature, humidity and time on each conditions label are estimates, not measurements.
-- Palettes, pieces and the drop order are proposals.
+- Palettes and pieces are proposals.
 - The logo is shown plain because the O and emblem are not chosen yet.
 
 Rebuild: `python3 brand/collections/source/build.py`
