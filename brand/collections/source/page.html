@@ -1,0 +1,107 @@
+<title>OFFNORM Collection Line-up</title>
+{{HEAD}}
+.chart{width:100%;height:auto;display:block;min-width:640px}
+.chartwrap{overflow-x:auto}
+.chart .hx{font-family:var(--display);font-stretch:125%;font-weight:850}
+.col-band{padding-block:clamp(40px,6vw,80px)}
+.chead{display:flex;flex-direction:column;gap:8px}
+.cname{font-size:clamp(44px,9vw,120px);line-height:.9}
+.coord{font-family:var(--mono);font-size:clamp(16px,2.4vw,26px);letter-spacing:.06em;font-weight:500}
+.place{font-family:var(--mono);font-size:13px;letter-spacing:.06em;opacity:.8}
+.cgrid{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:14px;align-items:start}
+.cgrid>*{min-width:0}
+.cinfo{display:flex;flex-direction:column;gap:18px;padding-right:clamp(0px,2vw,24px)}
+.cinfo p{font-size:16px}
+.words{font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(17px,1.8vw,21px)!important;line-height:1.12}
+.condlabel{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:2px 18px;font-family:var(--mono);border:1px solid currentColor;padding:12px 14px;align-self:flex-start;transform:rotate(-3deg);margin:6px 0 6px 4px}
+.condlabel b{grid-column:1/-1;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.condlabel span{font-size:19px;font-weight:600}
+.condlabel i{grid-column:1/-1;font-style:normal;font-size:10.5px;opacity:.7;letter-spacing:.04em}
+.sw5{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.sw5 div{aspect-ratio:1/1.15;padding:7px;display:flex;flex-direction:column;justify-content:flex-end;font-family:var(--mono);font-size:9.5px;line-height:1.3;outline:1px solid rgba(128,128,128,.35);outline-offset:-1px;overflow:hidden}
+.sw5 b{font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.pcs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.pcs li{font-family:var(--mono);font-size:12px;border:1px solid currentColor;padding:5px 9px;opacity:.85}
+.pcs li.hero{background:var(--cfg);color:var(--cbg);border-color:var(--cfg);opacity:1;font-weight:600}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ink)}
+tbody th{font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;white-space:nowrap}
+td:nth-child(2),td:nth-child(3),td:nth-child(4){font-family:var(--mono);font-size:13px;white-space:nowrap}
+.drops{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.drop{background:var(--paper);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.drop small{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.drop b{font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:20px;line-height:1.05}
+.drop span{font-size:15px}
+ul.watch{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:14px}
+ul.watch li{border-left:4px solid var(--pink);padding:2px 0 2px 16px;font-size:15.5px}
+ul.watch b{display:block;font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:16px;margin-bottom:4px}
+@media (max-width:900px){.cgrid{grid-template-columns:1fr 1fr}.cinfo{grid-column:1/-1}}
+@media (max-width:560px){.cgrid{grid-template-columns:1fr}}
+</style>
+{{DEFS}}
+
+<header class="band dark"><div class="in">
+  <div class="eyebrow"><span>Collection line-up proposal</span><span>For founder review</span><span>12 Nov 2026</span></div>
+  {{HERO}}
+  <div class="hero-foot">
+    <div class="big">Seven conditions. One country.</div>
+    <div class="status"><b>Proposal</b>Built from your list of seven places. The logo is shown plain because the O is not chosen yet. Colours, pieces and order are suggestions.</div>
+  </div>
+</div></header>
+
+<section class="band"><div class="in">
+  <div class="split" style="align-items:start;grid-template-columns:1fr">
+    <div class="col">
+      <div class="eyebrow"><span>The idea</span></div>
+      <h2>Every collection is a coordinate</h2>
+      <p class="lede">Each collection is named after one place in Malaysia and built for the weather at that exact point.</p>
+      <p>The coordinate goes on the garment, on the conditions label and on the back print. The colours are taken from the place. The fabric weight follows the weather there. A runner can go to the coordinate and find the conditions the piece was made for.</p>
+      <p>This also widens the brand story. Round 1 said hot and wet. Your list is truer: Malaysia is cold mist at 2,000 metres, dry sand in Melaka, a calm sea in July and a wild one in December. No single condition is the norm.</p>
+    </div>
+  </div>
+  <div class="col">
+    <div class="chartwrap">{{CHART}}</div>
+    <p style="font-family:var(--mono);font-size:12px;opacity:.75;max-width:none">The seven coordinates plotted by latitude and longitude, with Kuala Lumpur marked +. Points only, no coastline is drawn. Six are on the peninsula, The Caves is in Sarawak.</p>
+  </div>
+</div></section>
+
+{{BANDS}}
+
+<section class="band"><div class="in">
+  <div class="col"><div class="eyebrow"><span>The system</span></div><h2>One kit, seven places</h2>
+  <p>Every collection carries the same five core pieces, so the pattern-making is done once and only colour, fabric weight and the back print change. Each collection then adds one or two pieces that only make sense in that place.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Collection</th><th>Code</th><th>Coordinate</th><th>Conditions (estimate)</th><th>Pieces only this place gets</th></tr></thead>
+    <tbody>{{MATRIX}}</tbody>
+  </table></div>
+  <div class="rules">
+    <div class="rule"><h3>Numbering</h3><p class="type-c">OFN—MOS—001</p><p>Brand, collection, piece. The number is printed under the chest mark and on the hang tag.</p></div>
+    <div class="rule"><h3>The conditions label</h3><p>Each piece has a woven label with the temperature, humidity and time of day at its coordinate, sewn 3° off level. The figures on this page are estimates. The real ones should be logged on site, which is also the first shoot for each collection.</p></div>
+    <div class="rule"><h3>The back print</h3><p>Always dots, always one colour, always with the collection name and coordinate under it. Moss clusters, a river, a sun ring, waves, stalactites, sand ripples, sideways rain.</p></div>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <div class="col"><h2>A suggested order</h2><p>Seven collections at once is a lot of stock for a new brand. Releasing one or two at a time keeps each drop small and gives the brand something new to say five times.</p></div>
+  <div class="drops">
+    <div class="drop"><small>Drop 1</small><b>The Sky + The Dune</b><span>Hot, lowland, close to KL and Melaka. This is the weather most of your runners train in, and the two cheapest places to shoot.</span></div>
+    <div class="drop"><small>Drop 2</small><b>The Ocean</b><span>The calm sea, for the dry months on the east coast.</span></div>
+    <div class="drop"><small>Drop 3</small><b>The Monsoon</b><span>The same sea in the other season. Released for the northeast monsoon, November to March.</span></div>
+    <div class="drop"><small>Drop 4</small><b>The Moss + The Wild</b><span>The cold pair. Heavier fabrics and long sleeves, the highest price points.</span></div>
+    <div class="drop"><small>Drop 5</small><b>The Caves</b><span>The night-running collection, and the first one from Borneo.</span></div>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <h2>Things to settle</h2>
+  <ul class="watch">
+    <li><b>Moss and Wild are close</b>Both are cold, misty and green in your notes. Here they are split: Moss is still and green, Wild is moving, night black and river brown with an orange seam.</li>
+    <li><b>Sky and Ocean are close</b>Both are blue and warm. Here Sky is pale blue and white for air, Ocean is teal and sand with coral for water.</li>
+    <li><b>Three places are my picks</b>You gave no exact spot for The Sky or The Monsoon, so I suggested Sky Mirror in Kuala Selangor and Cherating in Pahang. For The Wild I used the Gunung Tahan summit for the altitude; Kuala Tahan on the river is the alternative.</li>
+    <li><b>Cotton in the cold and the wet</b>The Moss, The Wild and The Monsoon need warmth or rain cover. The shells cannot be cotton, and the brushed long sleeves need a fabric test like the tee does.</li>
+    <li><b>Exact coordinates</b>The points come from public sources and differ by a few hundred metres between them. Before anything is printed, stand on the spot and take the reading yourselves.</li>
+    <li><b>The logo</b>Marks on this page are plain. Once you choose the O and the emblem, every tee here updates.</li>
+  </ul>
+</div></section>
