@@ -47,13 +47,49 @@ def e_plate():
 def m_icon():
     return f'<rect width="200" height="200" rx="44" fill="currentColor"/><g transform="translate(34,59) scale(0.9)" fill="{KO}" style="color:{KO}">{OVAR[PICK]()}</g>', 200, 200
 
-MARKS = {"wm": m_wm(), "ofn": m_ofn(), "osw": m_osw(), "e_sw": e_switch("FN"), "e_sw4": e_switch("FNM"), "e_quad": e_quad(),
+def wm_flip():
+    """Founder's idea in the wordmark: the second F faces the wrong way."""
+    x = 0; out = ""; prev = None; nf = 0
+    for ch in "OFFNORM":
+        if prev: x += 26 if (ch == "N" and nf == 2) else KERN.get((prev, ch), GAP)
+        if ch == "O" and prev is None: out += f'<g transform="translate({x},0)">{OVAR[PICK]()}</g>'; w = OW
+        elif ch == "F" and nf == 1: frag, w = f_mirror(x); out += frag; nf += 1
+        else:
+            d, w = GLYPH[ch](); out += f'<path transform="translate({round(x,2)},0)" d="{d}"/>'; nf += ch == "F"
+        x += w; prev = ch
+    return f'<g fill="currentColor">{out}</g>', x, 100
+def e_tri(container=True):
+    """Founder's sketch: O on top, F and mirrored F below, in a rounded triangle."""
+    k = 0.56; fw = F()[1]
+    o = f'<g transform="translate({170 - OW*k/2},{92 if container else 0}) scale({k})">{OVAR[PICK]()}</g>'
+    y = 172 if container else 80; gap = 22; x0 = 170 - (2*fw*k + gap)/2
+    fm, _ = f_mirror()
+    ff = (f'<g transform="translate({x0},{y}) scale({k})"><path d="{F()[0]}"/></g>'
+          f'<g transform="translate({x0 + fw*k + gap},{y}) scale({k})">{fm}</g>')
+    if not container: return f'<g fill="currentColor">{o}{ff}</g>', 340, 136
+    tri = '<path d="M170,26 L318,262 L22,262 Z" fill="none" stroke="currentColor" stroke-width="15" stroke-linejoin="round"/>'
+    return tri + f'<g fill="currentColor">{o}{ff}</g>', 340, 278
+def e_rowff():
+    fm, fw = f_mirror(OW + 14)
+    return (f'<g fill="currentColor">{OVAR[PICK]()}{fm}<path transform="translate({OW + 14 + fw + 4},0)" d="{F()[0]}"/></g>', OW + 14 + 2*fw + 4, 100)
+def e_ff():
+    """Founder's interlocked FF block: one F upright, one turned over, bars slotted together."""
+    fl, fw = f_flip(36, 46)
+    return f'<g fill="currentColor"><path d="{F()[0]}"/>{fl}</g>', 36 + fw, 146
+def e_ofnm_scatter():
+    k = 1; fm, fw = f_mirror(OW + 60)
+    n = f'<path transform="translate(70,124)" d="{N()[0]}"/>'; m = f'<path transform="translate({70 + N()[1] + 46},124)" d="{M()[0]}"/>'
+    return f'<g fill="currentColor">{OVAR[PICK]()}{fm}{n}{m}</g>', 70 + N()[1] + 46 + M()[1], 224
+
+MARKS = {"wm_flip": wm_flip(), "e_tri": e_tri(), "e_stack": e_tri(False), "e_rowff": e_rowff(), "e_ff": e_ff(), "e_scatter": e_ofnm_scatter(), "wm": m_wm(), "ofn": m_ofn(), "osw": m_osw(), "e_sw": e_switch("FN"), "e_sw4": e_switch("FNM"), "e_quad": e_quad(),
          "e_row": e_row(), "e_plate": e_plate(), "icon": m_icon()}
 for v in OVAR:
     if v != "plain": MARKS["wm_" + v] = m_wm(v, False); MARKS["o_" + v] = m_osw(v)
 AR = {k: v[1] / v[2] for k, v in MARKS.items()}
 FILES = {"wm": "wordmark", "ofn": "monogram-OFN", "osw": "symbol-O", "e_sw": "emblem-switch-OFN", "e_sw4": "emblem-switch-OFNM",
-         "e_quad": "emblem-quad-OFNM", "e_row": "emblem-row-OFN", "e_plate": "emblem-plate-OFN", "icon": "app-icon"}
+         "e_quad": "emblem-quad-OFNM", "e_row": "emblem-row-OFN", "e_plate": "emblem-plate-OFN", "icon": "app-icon",
+         "wm_flip": "sketch-wordmark-mirrored-F", "e_tri": "sketch-triangle-OFF", "e_stack": "sketch-stack-OFF", "e_rowff": "sketch-row-OFF",
+         "e_ff": "sketch-FF-block", "e_scatter": "sketch-OFNM"}
 FILES.update({"wm_" + v: "options/wordmark-O-" + v for v in OVAR if v != "plain"})
 import shutil; shutil.rmtree(f"{OUT}/svg", ignore_errors=True)
 os.makedirs(f"{OUT}/svg/options", exist_ok=True)
@@ -106,7 +142,13 @@ ONOTES = [("switch", "O1 Switch", "A toggle set to off. Norm: off. Reads as an O
           ("hole", "O4 Solid", "A solid pill with the hole pushed to one side. The heaviest", False),
           ("exit", "O5 Exit", "A running track with a way out. Risk: can read as a C", False),
           ("lanes", "O6 Lanes", "Two lanes of a track. Lighter than the other letters", False),
-          ("dots", "O7 Dots", "Reflective dots, one off. Best as a print, weak as a logo", False)]
+          ("dots", "O7 Dots", "Reflective dots, one off. Best as a print, weak as a logo", False),
+          ("hook", "O8 Hook · new", "Two halves that miss each other, from your interlocked FF block", False),
+          ("peak", "O9 Peak · new", "Your triangle becomes the hole inside the O", False),
+          ("mirror", "O10 Half · new", "One half solid, one half open. Your mirror idea applied to the O", False),
+          ("bar", "O11 Low bar · new", "The low bar of the F runs through the O", False),
+          ("lean", "O12 Lean · new", "Leaning forward, after your italic sketches", False),
+          ("block", "O13 Block · new", "The squarer O from your sketches, no trick", False)]
 oplates = "".join(
     f'<figure class="plate opt {"pick" if pk else ""}"><div class="stage">{mark("o_"+v, INK, "#fff", "osolo")}{mark("wm_"+v, INK, "#fff", "w90")}</div>'
     f'<figcaption><b>{t}{" · recommended" if pk else ""}</b><span>{n}</span></figcaption></figure>' for v, t, n, pk in ONOTES)
@@ -130,6 +172,12 @@ R_ = {"DEFS": DEFS, "HERO": mark("wm", "#F3F4F2", INK, "hero-mark"), "OPLATES": 
       "E_QUAD": plate("e_quad", "E3 Quad, OFNM", "Four letters in a square block", True, size="h60"),
       "E_ROW": plate("e_row", "E4 Spaced letters", "The FPA way: small, wide apart, no box", size="w60"),
       "E_PLATE": plate("e_plate", "E5 Plate", "Letters over the full name, the way ACG spells itself out", size="h70"),
+      "S_TRI": plate("e_tri", "S1 Triangle", "Your pages 2 and 3. Strong, but a triangle with letters will be read as ACG", size="h80"),
+      "S_STACK": plate("e_stack", "S2 O over F and F", "Your page 4, no container. The FPA arrangement", size="h60"),
+      "S_ROW": plate("e_rowff", "S3 Row", "Your page 5. The F's stand back to back", size="w70"),
+      "S_FF": plate("e_ff", "S4 FF block", "Your page 1. One F upright, one turned over", True, size="h70"),
+      "S_SCAT": plate("e_scatter", "S5 OFNM", "Your page 6, with the mirrored F", size="w60"),
+      "S_WM": plate("wm_flip", "S6 Mirrored F in the wordmark", "Your mirror idea and the switch O together", cls="span2", size="w80"),
       "P_WM": plate("wm", "Wordmark", "The O in OFF is off. The O in NORM is normal", cls="span2", size="w80"),
       "P_OSW": plate("osw", "Symbol", "The O alone: cap, sock, zip pull", size="w50"),
       "P_BADGE": plate("e_sw", "Badge", "OFN in the switch. Chest, patch, hang tag", True, size="w60"),

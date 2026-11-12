@@ -1,4 +1,4 @@
-# OFFNORM identity (proposal, round 2)
+# OFFNORM identity (proposal, round 3)
 
 **Status: proposal, awaiting founder.** Nothing here is final.
 
@@ -17,9 +17,15 @@ The reference photos themselves are not in this repo and were not edited; the mo
 | [svg/options/](svg/options) | The wordmark with each of the seven O options |
 | [source/](source) | `kit.py` letters and O variants, `mocks.py` + `mocks2.py` mock-ups, `build.py` builds everything |
 
-## O options (founder to pick)
+## O options (founder and team to pick)
 
-O1 Switch (recommended), O2 Shift, O3 Slip, O4 Solid, O5 Exit, O6 Lanes, O7 Dots.
+Round 2: O1 Switch (recommended), O2 Shift, O3 Slip, O4 Solid, O5 Exit, O6 Lanes, O7 Dots.
+Round 3, mixed with the founder's sketches: O8 Hook, O9 Peak, O10 Half, O11 Low bar, O12 Lean, O13 Block.
+
+## Founder's sketches, redrawn (`svg/sketch-*`)
+
+From `Logo Making/OFFNORM.pdf` (six pages; the shared move is an F that faces the wrong way): S1 Triangle,
+S2 O over F and F, S3 Row, S4 FF block, S5 OFNM, S6 mirrored F in the wordmark. The PDF itself is not in this repo.
 
 ## Emblems (founder to pick)
 

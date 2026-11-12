@@ -151,3 +151,39 @@ def word2(text, first="plain", rest="plain", fill="currentColor"):
             d, w = GLYPH[ch](); out.append(f'<path transform="translate({round(x,2)},0)" d="{d}"/>')
         x += w; prev = ch
     return f'<g fill="{fill}">' + "".join(out) + "</g>", x
+
+
+# ---------- Round 3 O's: the founder's own sketches (mirrored F, triangle, interlocked FF, italic) mixed with the pill O.
+def _rtri(pts, t=0.22):
+    """Rounded triangle path through three points (corner rounding t)."""
+    d = ""
+    n = len(pts)
+    for i in range(n):
+        p0, p1, p2 = pts[i - 1], pts[i], pts[(i + 1) % n]
+        a = (p1[0] + (p0[0] - p1[0]) * t, p1[1] + (p0[1] - p1[1]) * t)
+        b = (p1[0] + (p2[0] - p1[0]) * t, p1[1] + (p2[1] - p1[1]) * t)
+        d += ("M" if i == 0 else "L") + f"{a[0]:.1f},{a[1]:.1f}Q{p1[0]},{p1[1]} {b[0]:.1f},{b[1]:.1f}"
+    return d + "Z"
+def o_hook(dy=9):     # two halves that do not line up, after the interlocked FF block
+    l = "M73,0H50A50,50 0 0 0 50,100H73ZM73,24H53A26,26 0 0 0 53,76H73Z"
+    r = "M73,0H96A50,50 0 0 1 96,100H73ZM73,24H93A26,26 0 0 1 93,76H73Z"
+    return f'<path fill-rule="evenodd" transform="translate(0,{-dy})" d="{l}"/><path fill-rule="evenodd" transform="translate(0,{dy})" d="{r}"/>'
+def o_peak():         # the triangle from the founder's sketch becomes the hole of the O
+    return f'<path fill-rule="evenodd" d="{_OUT}{_rtri([(73,14),(118,80),(28,80)])}"/>'
+def o_lean():         # leaning forward, after the italic sketches
+    return f'<g transform="translate(11,0) skewX(-13)"><path d="{O()[0]}"/></g>'
+def o_bar():          # the low bar of the F runs through the O
+    return f'<path d="{_OUT}{rrect(S, T, OW-2*S, WAIST-T, 11, cw=False)}{rrect(S, WAIST+13, OW-2*S, 100-T-WAIST-13, 8.5, cw=False)}"/>'
+def o_block():        # the squarer O drawn in the sketches
+    return f'<path d="{O(r=30)[0]}"/>'
+def o_mirror():       # one half solid, one half open: half of it is off
+    return (f'<path fill-rule="evenodd" d="M73,0H50A50,50 0 0 0 50,100H73Z"/>'
+            f'<path fill-rule="evenodd" d="M73,0H96A50,50 0 0 1 96,100H73ZM73,24H93A26,26 0 0 1 93,76H73Z"/>')
+OVAR.update({"hook": o_hook, "peak": o_peak, "lean": o_lean, "bar": o_bar, "block": o_block, "mirror": o_mirror})
+
+def f_mirror(x=0):
+    d, w = F()
+    return f'<path transform="translate({x + w},0) scale(-1,1)" d="{d}"/>', w
+def f_flip(x=0, y=0):
+    d, w = F()
+    return f'<path transform="translate({x + w},{y + 100}) scale(-1,-1)" d="{d}"/>', w
