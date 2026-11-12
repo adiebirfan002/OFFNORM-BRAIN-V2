@@ -1,0 +1,104 @@
+<title>OFFNORM Line-up 02</title>
+{{HEAD}}
+.chart{width:100%;height:auto;display:block;min-width:640px}
+.chartwrap{overflow-x:auto}
+.chart .hx{font-family:var(--display);font-stretch:125%;font-weight:850}
+.col-band{padding-block:clamp(40px,6vw,80px)}
+.chead{display:flex;flex-direction:column;gap:8px}
+.cname{font-size:clamp(44px,9vw,120px);line-height:.9}
+.coord{font-family:var(--mono);font-size:clamp(16px,2.4vw,26px);letter-spacing:.06em;font-weight:500}
+.place{font-family:var(--mono);font-size:13px;letter-spacing:.06em;opacity:.8}
+.cgrid{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:14px;align-items:start}
+.cgrid>*{min-width:0}
+.cinfo{display:flex;flex-direction:column;gap:18px;padding-right:clamp(0px,2vw,24px)}
+.cinfo p{font-size:16px}
+.words{font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(17px,1.8vw,21px)!important;line-height:1.12}
+.condlabel{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:2px 18px;font-family:var(--mono);border:1px solid currentColor;padding:12px 14px;align-self:flex-start;transform:rotate(-3deg);margin:6px 0 6px 4px}
+.condlabel b{grid-column:1/-1;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.condlabel span{font-size:19px;font-weight:600}
+.condlabel i{grid-column:1/-1;font-style:normal;font-size:10.5px;opacity:.7;letter-spacing:.04em}
+.sw5{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.sw5 div{aspect-ratio:1/1.15;padding:7px;display:flex;flex-direction:column;justify-content:flex-end;font-family:var(--mono);font-size:9.5px;line-height:1.3;outline:1px solid rgba(128,128,128,.35);outline-offset:-1px;overflow:hidden}
+.sw5 b{font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.pcs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.pcs li{font-family:var(--mono);font-size:12px;border:1px solid currentColor;padding:5px 9px;opacity:.85}
+.pcs li.hero{background:var(--cfg);color:var(--cbg);border-color:var(--cfg);opacity:1;font-weight:600}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ink)}
+tbody th{font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;white-space:nowrap}
+td:nth-child(2),td:nth-child(3),td:nth-child(4){font-family:var(--mono);font-size:13px;white-space:nowrap}
+.drops{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.drop{background:var(--paper);padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.drop small{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.drop b{font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:20px;line-height:1.05}
+.drop span{font-size:15px}
+ul.watch{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:14px}
+ul.watch li{border-left:4px solid var(--pink);padding:2px 0 2px 16px;font-size:15.5px}
+ul.watch b{display:block;font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:16px;margin-bottom:4px}
+@media (max-width:900px){.cgrid{grid-template-columns:1fr 1fr}.cinfo{grid-column:1/-1}}
+@media (max-width:560px){.cgrid{grid-template-columns:1fr}}
+</style>
+{{DEFS}}
+
+<header class="band dark"><div class="in">
+  <div class="eyebrow"><span>Collection line-up 02</span><span>For founder review</span><span>12 Nov 2026</span></div>
+  {{HERO}}
+  <div class="hero-foot">
+    <div class="big">Seven locals. One country.</div>
+    <div class="status"><b>Proposal</b>Built from your list of seven Malaysian animals and flowers. You named no places, so all seven habitats are my picks. Colours, pieces and order are suggestions.</div>
+  </div>
+</div></header>
+
+<section class="band"><div class="in">
+  <div class="col">
+    <div class="eyebrow"><span>The idea</span></div>
+    <h2>Every collection is something that lives here</h2>
+    <p class="lede">Line-up 01 was seven places. Line-up 02 is seven living things that belong to Malaysia, each pinned to a coordinate where it can still be found.</p>
+    <p>The colours come from the animal or the flower itself. The back print draws it in dots. Each one also lends the collection a job: the hornbill is the be-seen kit, the turtle is for long slow runs, the Rafflesia is for rest days. That keeps seven collections from being seven colourways of the same tee.</p>
+  </div>
+  <div class="col">
+    <div class="chartwrap">{{CHART}}</div>
+    <p style="font-family:var(--mono);font-size:12px;opacity:.75;max-width:none">The seven habitats plotted by latitude and longitude, with Kuala Lumpur marked +. Points only, no coastline is drawn. Three are on the peninsula, one in Sarawak, three in Sabah.</p>
+  </div>
+</div></section>
+
+{{BANDS}}
+
+<section class="band"><div class="in">
+  <div class="col"><div class="eyebrow"><span>The system</span></div><h2>Same kit, same rules as line-up 01</h2>
+  <p>The five core pieces, the numbering, the conditions label and the dotted back print all carry over, so the two line-ups read as one brand. Only the subject changes, from a place to a living thing.</p></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Collection</th><th>Code</th><th>Coordinate</th><th>Habitat</th><th>Pieces only this one gets</th></tr></thead>
+    <tbody>{{MATRIX}}</tbody>
+  </table></div>
+  <div class="rules">
+    <div class="rule"><h3>One job each</h3><p>Enggang: be seen. Harimau: dusk. Rafflesia: rest day. Bunga Raya: race day. Penyu: long and slow. Beruang Matahari: short and hard. Gajah Pygmy: the group run.</p></div>
+    <div class="rule"><h3>Give something back</h3><p>Five of the seven are protected or threatened. A brand that sells a tiger should fund tigers. Each collection should name one conservation partner and a fixed share per piece. This needs real agreements before any of it is announced.</p></div>
+    <div class="rule"><h3>Names stay in Malay</h3><p>Enggang, Harimau, Penyu. Short, local, and no other running brand has them. The Latin name and status go on the hang tag.</p></div>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <div class="col"><h2>A suggested order</h2><p>Five drops again, starting with the one every Malaysian already knows.</p></div>
+  <div class="drops">
+    <div class="drop"><small>Drop 1</small><b>Bunga Raya</b><span>The national flower, for Merdeka on 31 August and Malaysia Day on 16 September. The easiest story to tell first.</span></div>
+    <div class="drop"><small>Drop 2</small><b>Harimau + Enggang</b><span>The two best-known animals. Dusk and dawn, orange on black and black with orange.</span></div>
+    <div class="drop"><small>Drop 3</small><b>Penyu</b><span>The long-run collection, on its own so the slower story has room.</span></div>
+    <div class="drop"><small>Drop 4</small><b>Beruang Matahari + Gajah Pygmy</b><span>The Sabah pair. The smallest bear and the smallest elephant.</span></div>
+    <div class="drop"><small>Drop 5</small><b>Rafflesia</b><span>Seven days on sale, then gone until it blooms again.</span></div>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <h2>Things to settle</h2>
+  <ul class="watch">
+    <li><b>All seven places are my picks</b>You gave species, not locations. Each coordinate is a park or sanctuary where it is found. Penyu could move to Terengganu if you want it near The Ocean.</li>
+    <li><b>How the two line-ups run together</b>Fourteen collections is two to three years of drops. Either finish line-up 01 first, or alternate one place with one living thing.</li>
+    <li><b>Harimau is crowded ground</b>Harimau Malaya is also the national football team, and tiger stripes are on many jerseys. Keep this one dark and quiet so it does not read as a football shirt.</li>
+    <li><b>Check the facts with a partner</b>Population figures and statuses here come from news and conservation sources and change over time. A conservation partner should confirm them before they are printed.</li>
+    <li><b>Rafflesia spelling and species</b>It is spelled Rafflesia, with two f's. Malaysia has several species; the one at Gunung Gading is Rafflesia tuan-mudae.</li>
+    <li><b>Estimates and the logo</b>Weather figures are estimates, coordinates are park-level points from public sources, and the logo is plain until the O is chosen.</li>
+  </ul>
+</div></section>

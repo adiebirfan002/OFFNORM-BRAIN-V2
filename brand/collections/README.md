@@ -38,3 +38,32 @@ Idea: **every collection is a coordinate.** One place in Malaysia, the weather a
 - The logo is shown plain because the O and emblem are not chosen yet.
 
 Rebuild: `python3 brand/collections/source/build.py`
+
+---
+
+# Line-up 02: seven living things (proposal)
+
+**Status: proposal, awaiting founder.** Built from the founder's list of seven Malaysian animals and flowers on
+2026-11-12. Files: [lineup-02.png](lineup-02.png), [lineup-02.html](lineup-02.html), `source/build_02.py`
+(reuses the drawing code in `build.py`).
+
+| Collection | Code | Habitat (my pick) | Coordinate | Job |
+|---|---|---|---|---|
+| Enggang | OFN-ENG | Royal Belum State Park, Perak | 5.5497°N, 101.3479°E | Be seen |
+| Harimau | OFN-HRM | Endau-Rompin National Park | 2.4389°N, 103.2728°E | Dusk |
+| Rafflesia | OFN-RAF | Gunung Gading National Park, Sarawak | 1.6905°N, 109.8458°E | Rest day, seven-day drop |
+| Bunga Raya | OFN-RYA | Perdana Botanical Garden, Kuala Lumpur | 3.1430°N, 101.6847°E | Race day, Merdeka |
+| Penyu | OFN-PNY | Turtle Islands Park, Selingan, Sabah | 6.1494°N, 118.0540°E | Long and slow |
+| Beruang Matahari | OFN-BRG | Bornean Sun Bear Conservation Centre, Sepilok | 5.8636°N, 117.9500°E | Short and hard |
+| Gajah Pygmy | OFN-GJH | Sukau, Lower Kinabatangan, Sabah | 5.5095°N, 118.2874°E | Group run |
+
+## Not confirmed (line-up 02)
+
+- All seven habitats are suggestions; the founder gave species only.
+- The Perdana Botanical Garden coordinate is approximate and was not checked against a source. The others are
+  park-level points from Wikipedia and travel listings.
+- Species facts (fewer than 150 Malayan tigers; Bornean elephant Endangered, about 1,000; sun bear and rhinoceros
+  hornbill Vulnerable; bunga raya declared 28 July 1960) come from news and conservation sources. Confirm with a
+  conservation partner before printing.
+- No conservation partner has been contacted. The give-back idea needs real agreements.
+- Weather figures are estimates. Palettes, pieces, jobs and drop order are proposals.
