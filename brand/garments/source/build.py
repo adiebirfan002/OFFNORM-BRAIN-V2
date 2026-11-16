@@ -40,59 +40,92 @@ T2 = ("M324,148 C352,190 448,190 476,148 L612,186 C660,204 722,276 748,330 L672,
       "L212,712 Q200,712 200,700 L200,356 L128,410 L52,330 C78,276 140,204 188,186 Z")
 T2B = T2.replace("C352,190 448,190", "C362,166 438,166")
 RL, RR = "M340,168 C300,198 232,272 204,352", "M460,168 C500,198 568,272 596,352"
-def base(extra, back, cid, c=SKY):
+# --- sleeve construction. The raglan seam is split at its midpoint J; the lower-sleeve panel is bounded by
+#     the raglan seam from J to the underarm, the sleeve hem, and one panel seam that starts exactly at J.
+JX, JY = 267.5, 241.25
+PANEL_L = f"M{JX},{JY} C242,273.5 218,312 204,352 L200,356 L128,410 L82.4,362 C150,318 212,268 {JX},{JY} Z"
+PSEAM_L = f"M{JX},{JY} C212,268 150,318 82.4,362"
+def flip(d):
+    import re
+    nums = iter(re.findall(r"-?\d+\.?\d*", d)); res = ""; k = 0
+    for m in re.finditer(r"[A-Za-z]|-?\d+\.?\d*", d):
+        t_ = m.group(0)
+        if t_.isalpha(): res += t_; k = 0
+        else:
+            v = round(800 - float(t_), 2) if k % 2 == 0 else float(t_)
+            res += ("," if k % 2 else (" " if res and not res[-1].isalpha() else "")) + f"{v:g}"; k += 1
+    return res
+PANEL_R, PSEAM_R = flip(PANEL_L), flip(PSEAM_L)
+def base(extra, back, cid, c=SKY, vb=None):
     f = (fold("M290,340 C310,440 280,560 300,720", "#000", .05) + fold("M520,340 C500,440 530,580 510,720", "#000", .05)
          + fold("M400,250 C380,400 420,560 400,720", "#000", .12, 64))
-    neck = ('<path d="M324,148 C362,166 438,166 476,148 L468,138 C438,152 362,152 332,138 Z" fill="#000" opacity=".16"/>' if back else
+    neck = ('<path d="M324,148 C362,166 438,166 476,148 L468,138 C438,152 362,152 332,138 Z" fill="#000" opacity=".16"/>'
+            + stitch("M330,152 C364,170 436,170 470,152", "#000", .28, 1.2) if back else
             '<path d="M324,148 C352,190 448,190 476,148 L464,141 C440,174 360,174 336,141 Z" fill="#000" opacity=".13"/>'
-            '<path d="M336,141 C360,156 440,156 464,141 C440,174 360,174 336,141Z" fill="#000" opacity=".42"/>')
-    return tile(cloth(T2B if back else T2, c["body"], False, f, cid, extra[0] + neck + extra[1] + stitch("M206,692 H594", "#000", .16)), "#F1F2F0")
-def sleeve_panels(c, left=True, right=True):
-    pl = f'<path d="M262,230 C234,268 214,310 204,352 L200,356 L128,410 L74,352 C130,308 204,256 262,230Z" fill="{c["panel"]}"/>'
-    pr = f'<path d="M538,230 C566,268 586,310 596,352 L600,356 L672,410 L726,352 C670,308 596,256 538,230Z" fill="{c["panel"]}"/>'
-    sl = seam("M262,230 C204,256 130,308 74,352", c["thread"], 3); sr = seam("M538,230 C596,256 670,308 726,352", c["thread"], 3)
-    return (pl if left else "") + (pr if right else ""), (sl if left else "") + (sr if right else "")
+            '<path d="M336,141 C360,156 440,156 464,141 C440,174 360,174 336,141Z" fill="#000" opacity=".42"/>'
+            + stitch("M320,154 C350,198 450,198 480,154", "#000", .28, 1.2))
+    # construction every tee has: turned sleeve hems, body hem, side seams
+    hems = (stitch("M138,400 L62,320", "#000", .3, 1.3) + stitch("M662,400 L738,320", "#000", .3, 1.3) + stitch("M206,690 H594", "#000", .3, 1.3)
+            + '<path d="M200,356 V700 M600,356 V700" stroke="#000" stroke-opacity=".10" stroke-width="2" fill="none"/>')
+    svg = tile(cloth(T2B if back else T2, c["body"], False, f, cid, extra[0] + neck + hems + extra[1]) + (extra[2] if len(extra) > 2 else ""), "#F1F2F0")
+    return svg.replace('viewBox="0 0 800 800"', f'viewBox="{vb}"') if vb else svg
+def bartack(x, y, c, rot=0):
+    return f'<g transform="translate({x},{y}) rotate({rot})"><rect x="-7" y="-2.6" width="14" height="5.2" rx="1" fill="{c}"/><rect x="-7" y="-2.6" width="14" height="5.2" rx="1" fill="none" stroke="#000" stroke-opacity=".3" stroke-width=".7"/></g>'
+def sleeve(c, side, thread=None):
+    """One lower-sleeve panel with its seams, joined to the raglan at J. side: 'L' or 'R' as drawn."""
+    th = thread or c["thread"]; L = side == "L"
+    pan = f'<path d="{PANEL_L if L else PANEL_R}" fill="{c["panel"]}"/>'
+    jx = JX if L else 800 - JX; ux = 204 if L else 596
+    seams = (seam(PSEAM_L if L else PSEAM_R, th, 3.4) + bartack(jx, JY, th, -50 if L else 50) + rdot(ux, 352, 3.6))
+    return pan, seams
+def raglans(c, tl=None, tr=None):
+    return seam(RL, tl or c["thread"]) + seam(RR, tr or c["thread"])
 def cap(t, x, y, anchor="start", fs=8.5): return mono(t, x, y, fs, INK, anchor, .1)
+def spin(n, x, y, tx, ty, r=14, fs=13):
+    return (f'<path d="M{x},{y} L{tx},{ty}" stroke="{INK}" stroke-width="{r/12:.1f}"/><circle cx="{x}" cy="{y}" r="{r/5:.1f}" fill="{INK}"/>'
+            f'<circle cx="{tx}" cy="{ty}" r="{r}" fill="{INK}"/><text class="mn" x="{tx}" y="{ty+fs*.35:.1f}" font-size="{fs}" font-weight="600" text-anchor="middle" fill="#fff">{n}</text>')
+TONAL = "#4F8DC2"
+HEMBREAK = lambda c: (seam("M200,640 H392", c["thread"], 3) + seam("M408,628 H600", c["thread"], 3) + rdot(392, 640, 3.2) + rdot(408, 628, 3.2))
 
 def dirA(back):
-    """A. Centre: a plain tee, two contrast raglan seams, the O small in the middle of the chest."""
+    """A2. Centre: plain body, both raglans in contrast thread, the O small in the middle of the chest."""
     c = SKY
-    seams = (seam(RL, c["thread"]) + seam(RR, c["thread"]) + seam("M200,640 H392", c["thread"], 3) + seam("M408,628 H600", c["thread"], 3)
-             + rdot(392, 640, 3.2) + rdot(408, 628, 3.2))                    # one hem seam that breaks and misses
-    if not back:
-        g = logo("sym", 368, 296, 64) + cap("3.2094°N  101.1865°E", 400, 358, "middle", 7.5)
-    else:
-        g = logo("wm", 322, 236, 156) + cap("OFN—SKY—001  /  30°C  70%  07:10", 400, 270, "middle", 7.5)
+    seams = raglans(c) + rdot(204, 352, 3.6) + rdot(596, 352, 3.6) + HEMBREAK(c)
+    g = (logo("sym", 368, 296, 64) + cap("3.2094°N  101.1865°E", 400, 358, "middle", 7.5)) if not back else \
+        (logo("wm", 322, 236, 156) + cap("OFN—SKY—001  /  30°C  70%  07:10", 400, 270, "middle", 7.5))
     return base(("", seams + g), back, "dA" + ("b" if back else "f"))
 
-def dirB(back):
-    """B. Arm: nothing on the chest. One white sleeve carries the O."""
-    c = SKY
-    pan, ps = sleeve_panels(c, left=not back, right=back)
-    rag = seam(RL if not back else RR, c["thread"])
+def dirB(back, vb=None, pins=""):
+    """B2. Arm: nothing on the chest. The white lower-sleeve panel carries the O; every seam meets at a point."""
+    c = SKY; side = "R" if back else "L"
+    pan, ps = sleeve(c, side)
+    rag = raglans(c, tr=TONAL) if not back else raglans(c, tl=TONAL)
     if not back:
-        g = (f'<g transform="translate(150,342) rotate(-38)">{logo("sym", -30, -20, 60)}</g>'
-             + cap("3.2094°N  101.1865°E", 216, 684, "start", 7.5)
-             + f'<g transform="translate(566,650) rotate(-3)"><rect width="34" height="20" fill="{c["thread"]}"/></g>')
+        g = (f'<g transform="translate(160,338) rotate(-40)">{logo("sym", -27, -19, 54)}</g>' + cap("3.2094°N  101.1865°E", 216, 680, "start", 7.5)
+             + f'<g transform="translate(566,648) rotate(-3)"><rect width="34" height="20" fill="{c["thread"]}"/></g>')
     else:
-        g = (f'<g transform="translate(650,342) rotate(38)">{logo("sym", -30, -20, 60)}</g>'
-             + logo("f", 222, 636, 40) + logo("nm", 532, 636, 48) + cap("30°C / 70% / 07:10", 400, 684, "middle", 7.5))
-    return base((pan, ps + rag + g), back, "dB" + ("b" if back else "f"))
+        g = (f'<g transform="translate(640,338) rotate(40)">{logo("sym", -27, -19, 54)}</g>'
+             + logo("f", 222, 632, 40) + logo("nm", 532, 632, 48) + cap("30°C / 70% / 07:10", 400, 680, "middle", 7.5))
+    return base((pan, rag + ps + g, pins), back, "dB" + ("b" if back else "f") + ("z" if vb else ""), vb=vb)
 
-def dirC(back):
-    """C. The quiet O: the body's panel lines trace the logo's O in tonal thread. Logo on the arm."""
-    c = SKY; th = "#4F8DC2"
+def dirAB(back):
+    """AB. Both: the O in the middle of the chest, one white lower-sleeve panel carrying the coordinate."""
+    c = SKY; side = "R" if back else "L"
+    pan, ps = sleeve(c, side)
+    seams = raglans(c) + ps + rdot(596 if not back else 204, 352, 3.6) + HEMBREAK(c)
     if not back:
-        ring = seam("M356,236 H330 A94,94 0 0 0 236,330 V548 A94,94 0 0 0 330,642 H352", th) + seam("M444,236 H470 A94,94 0 0 1 564,330 V548 A94,94 0 0 1 470,642 H374", th)
-        bar = seam("M236,470 H384", th, 3.4) + seam("M408,458 H564", th, 3.4)
-        cut = seam("M352,642 L436,236", th, 2.2) + seam("M374,642 L458,236", th, 2.2)
-        g = f'<g transform="translate(662,348) rotate(38)">{logo("sym", -26, -18, 52, "t_white")}</g>' + cap("3.2094°N  101.1865°E", 216, 684, "start", 7.5)
+        g = (logo("sym", 368, 296, 64) + cap("OFN—SKY—001", 400, 358, "middle", 7.5)
+             + f'<text class="mn" transform="translate(132,352) rotate(-40)" font-size="7.5" fill="{INK}" letter-spacing=".1em">3.2094°N</text>'
+             + f'<text class="mn" transform="translate(140,364) rotate(-40)" font-size="7.5" fill="{INK}" letter-spacing=".1em">101.1865°E</text>')
     else:
-        ring = seam("M444,236 H470 A94,94 0 0 1 564,330 V548 A94,94 0 0 1 470,642 H448", th) + seam("M356,236 H330 A94,94 0 0 0 236,330 V548 A94,94 0 0 0 330,642 H426", th)
-        bar = seam("M564,470 H416", th, 3.4) + seam("M392,458 H236", th, 3.4)
-        cut = seam("M448,642 L364,236", th, 2.2) + seam("M426,642 L342,236", th, 2.2)
-        g = f'<g transform="translate(138,348) rotate(-38)">{logo("sym", -26, -18, 52, "t_white")}</g>' + cap("30°C / 70% / 07:10", 584, 684, "end", 7.5)
-    return base(("", ring + bar + cut + g), back, "dC" + ("b" if back else "f"))
+        g = (logo("wm", 322, 236, 156) + cap("30°C  /  70%  /  07:10", 400, 270, "middle", 7.5)
+             + f'<text class="mn" transform="translate(634,322) rotate(40)" font-size="7.5" fill="{INK}" letter-spacing=".1em">THE SKY</text>')
+    return base((pan, seams + g), back, "dAB" + ("b" if back else "f"))
+
+def detail():
+    pins = (spin(1, 300, 204, 330, 176, 9, 8.5) + spin(2, JX, JY, 318, 262, 9, 8.5) + spin(3, 176, 300, 150, 252, 9, 8.5)
+            + spin(4, 204, 352, 262, 372, 9, 8.5) + spin(5, 100, 360, 78, 404, 9, 8.5) + spin(6, 180, 358, 208, 424, 9, 8.5))
+    return dirB(False, vb="40 150 310 310", pins=pins)
 
 head = open(os.path.join(OUT, "..", "identity", "source", "page.html")).read()
 head = head[head.index("<meta"):head.index("</style>")]
@@ -106,6 +139,6 @@ html = (PAGE.replace("{{HEAD}}", head).replace("{{DEFS}}", DEFS)
         .replace("{{PARTS}}", part("sym", ("The O", "Chest mark, cap, labels"), "62%") + part("f", ("The F", "Back, sleeve, sock"), "44%")
                  + part("nm", ("The NM", "Back, hem, shorts"), "52%") + part("wm", ("Wordmark", "Neck label, hang tag, packaging"), "86%"))
         .replace("{{A_F}}", dirA(False)).replace("{{A_B}}", dirA(True)).replace("{{B_F}}", dirB(False)).replace("{{B_B}}", dirB(True))
-        .replace("{{C_F}}", dirC(False)).replace("{{C_B}}", dirC(True)))
+        .replace("{{C_F}}", dirAB(False)).replace("{{C_B}}", dirAB(True)).replace("{{DETAIL}}", detail()))
 open(f"{OUT}/designs.html", "w").write(html)
 print("ok", {k: round(v, 2) for k, v in AR.items()})

@@ -19,6 +19,7 @@ ol.call b{font-weight:700}
 .steps .now{outline:3px solid var(--ink);outline-offset:-3px}
 .steps .now small::after{content:" · waiting for you"}
 @media (max-width:640px){.two{grid-template-columns:1fr}}
+.pickme .dhead small{background:var(--pink);align-self:flex-start;padding:2px 6px}
 .dirs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .dir{display:flex;flex-direction:column;gap:10px;min-width:0}
 .dhead{display:flex;flex-direction:column;gap:4px;min-height:150px}
@@ -33,15 +34,15 @@ ol.call b{font-weight:700}
   <div class="eyebrow"><span>Garment designs</span><span>Line-up 01</span><span>One piece at a time</span></div>
   {{HERO}}
   <div class="hero-foot">
-    <div class="big">Design 01, round 2: The Sky tee</div>
-    <div class="status"><b>Step 2</b>Round 1 was rejected. Here are three new directions for the same tee. Nothing moves to a 3D mock-up until you approve one.</div>
+    <div class="big">Design 01, round 3: The Sky tee</div>
+    <div class="status"><b>Step 2</b>You picked directions A and B. Both are refined here with proper sleeve construction, plus one version that joins them. Nothing moves to 3D until you approve one.</div>
   </div>
 </div></header>
 
 <section class="band"><div class="in">
   <div class="steps">
     <div class="done"><small>Step 1</small>FPA analysis and OFFNORM design rules</div>
-    <div class="now"><small>Step 2, round 2</small>The Sky tee, pick a direction</div>
+    <div class="now"><small>Step 2, round 3</small>The Sky tee, A2, B2 or AB</div>
     <div><small>Step 3</small>The Sky tee, 3D mock-up</div>
     <div><small>Step 4 onward</small>The Dune, then Ocean, Monsoon, Moss, Wild, Caves</div>
   </div>
@@ -52,15 +53,33 @@ ol.call b{font-weight:700}
 </div></section>
 
 <section class="band" style="padding-top:0"><div class="in">
-  <div class="col"><div class="eyebrow"><span>Design 01, round 2</span><span>OFN—SKY—001</span><span>3.2094°N 101.1865°E</span></div>
-  <h2>The Sky tee, three directions</h2>
-  <p>Round 1, the single slash across the body, was rejected. You asked for the logo in the middle or on the arm, and a minimal design that still shows the identity. These are three ways to do that, in the same colours. The cut is now boxier and closer to your reference.</p></div>
+  <div class="col"><div class="eyebrow"><span>Design 01, round 3</span><span>OFN—SKY—001</span><span>3.2094°N 101.1865°E</span></div>
+  <h2>The Sky tee, A and B refined</h2>
+  <p>You liked Centre and Arm. Both are redrawn with proper construction: turned sleeve hems, a neck rib stitch, side seams, and a sleeve panel whose seams now meet. The third option puts the two together.</p></div>
   <div class="dirs">
-    <div class="dir"><div class="dhead"><small>Direction A</small><b>Centre</b><span>A plain tee. Two yellow raglan seams, one hem seam that breaks and misses, and the O small in the middle of the chest. The wordmark sits high on the back.</span></div>
+    <div class="dir"><div class="dhead"><small>A2</small><b>Centre</b><span>Both raglan seams in yellow, ending in a reflective dot at each underarm. The O in the middle of the chest. One hem seam that breaks and misses. Wordmark high on the back.</span></div>
       <figure class="flat">{{A_F}}<figcaption><b>Front</b></figcaption></figure><figure class="flat">{{A_B}}<figcaption><b>Back</b></figcaption></figure></div>
-    <div class="dir"><div class="dhead"><small>Direction B</small><b>Arm</b><span>Nothing on the chest at all. One white sleeve carries the O. The F and the NM sit small at the two back hem corners.</span></div>
+    <div class="dir"><div class="dhead"><small>B2</small><b>Arm</b><span>Nothing on the chest. The white panel is now built into the raglan sleeve and carries the O. The other raglan is stitched tone-on-tone. F and NM at the back hem corners.</span></div>
       <figure class="flat">{{B_F}}<figcaption><b>Front</b></figcaption></figure><figure class="flat">{{B_B}}<figcaption><b>Back</b></figcaption></figure></div>
-    <div class="dir"><div class="dhead"><small>Direction C</small><b>The quiet O</b><span>One colour. The panel lines on the body trace your O at full size in tone-on-tone thread, so the identity is in the build. The O itself is small on the arm.</span></div>
+    <div class="dir pickme"><div class="dhead"><small>AB · my suggestion</small><b>Centre + Arm</b><span>The O in the middle of the chest, and the white sleeve panel from B carrying the coordinate instead of a second logo. One logo on the front, one wordmark on the back.</span></div>
       <figure class="flat">{{C_F}}<figcaption><b>Front</b></figcaption></figure><figure class="flat">{{C_B}}<figcaption><b>Back</b></figcaption></figure></div>
-  <div class="gate"><b>Your approval</b><span>Pick A, B or C, or mix them (for example the seams of B with the back of A). If none is right, tell me one thing you dislike and one FPA piece you want it closer to.</span></div>
+  </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <div class="col"><div class="eyebrow"><span>Close-up</span><span>The sleeve you flagged</span></div>
+  <h2>How the sleeve panel is built</h2>
+  <p>In round 2 the yellow raglan stitch and the white panel did not touch. Here the panel is cut as part of the sleeve, so its seam starts on the raglan seam and every line ends at a point.</p></div>
+  <div class="split" style="align-items:start">
+    <figure class="flat">{{DETAIL}}<figcaption><b>Sleeve, front view, enlarged</b><span>Shown on B2. The same build is used on AB</span></figcaption></figure>
+    <ol class="call" style="grid-template-columns:1fr">
+      <li><span><b>Raglan seam.</b> Runs from the neck rib to the underarm in one line of yellow cover stitch.</span></li>
+      <li><span><b>The junction.</b> Halfway down the raglan, the panel seam branches off. A bar tack in the same thread locks the point where the two seams meet.</span></li>
+      <li><span><b>Panel seam.</b> Curves from the junction to the sleeve hem, dividing the sleeve into a blue upper and a white lower.</span></li>
+      <li><span><b>Underarm point.</b> The raglan, the side seam and the bottom of the panel all end here, marked with a reflective dot.</span></li>
+      <li><span><b>Sleeve hem.</b> Turned and stitched, running across both colours in one line.</span></li>
+      <li><span><b>Logo.</b> The O sits in the middle of the white panel, square to the arm, clear of every seam.</span></li>
+    </ol>
+  </div>
+  <div class="gate"><b>Your approval</b><span>Pick A2, B2 or AB to take to a 3D mock-up, or tell me what to adjust. The sleeve build can go on whichever you choose.</span></div>
 </div></section>
