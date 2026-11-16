@@ -127,6 +127,38 @@ def detail():
             + spin(4, 204, 352, 262, 372, 9, 8.5) + spin(5, 100, 360, 78, 404, 9, 8.5) + spin(6, 180, 358, 208, 424, 9, 8.5))
     return dirB(False, vb="40 150 310 310", pins=pins)
 
+# ---------- Design 01, round 4: the founder's brief. B2 with both white sleeve panels, the O centre front,
+#            A2's wordmark and details on the back, and the data block rearranged.
+def rule(d_, w=.8, o=1): return f'<path d="{d_}" stroke="{INK}" stroke-width="{w}" stroke-opacity="{o}" fill="none"/>'
+def t(txt, x, y, fs=6, anchor="middle", o=1, w=500, sp=.08):
+    return f'<text class="mn" x="{x}" y="{y}" font-size="{fs}" fill="{INK}" fill-opacity="{o}" text-anchor="{anchor}" font-weight="{w}" letter-spacing="{sp}em">{txt}</text>'
+def block(kind):
+    wm = logo("wm", 300, 226, 200)                      # wordmark spans x 300..500
+    if kind == "D1":     # stack
+        return (wm + rule("M300,260 H500") + t("OFN—SKY—001", 400, 273, 6.6, w=600) + t("3.2094°N  101.1865°E", 400, 284, 6.2)
+                + t("30°C  /  70% RH  /  07:10", 400, 295, 6.2))
+    if kind == "D2":     # spec strip: three labelled cells, the width of the wordmark
+        cells = [(333, "NO.", ["OFN—SKY—001"]), (400, "COORDINATE", ["3.2094°N", "101.1865°E"]), (467, "CONDITIONS", ["30°C / 70% RH", "07:10"])]
+        g = wm + rule("M300,258 H500") + rule("M300,296 H500") + rule("M366.5,262 V292", .6, .6) + rule("M433.5,262 V292", .6, .6)
+        for x, lab, vals in cells:
+            g += t(lab, x, 268, 4.2, o=.62, sp=.16)
+            y0 = 281 if len(vals) == 1 else 277
+            for i, v in enumerate(vals): g += t(v, x, y0 + i * 8.4, 5.9, w=600, sp=.04)
+        return g
+    # D3: split. number left, conditions right, coordinate centred below
+    return (wm + t("OFN—SKY—001", 300, 266, 6.4, "start", w=600) + t("THE SKY", 300, 276, 5.6, "start", .7)
+            + t("30°C / 70% RH", 500, 266, 6.4, "end", w=600) + t("07:10", 500, 276, 5.6, "end", .7)
+            + rule("M300,284 H500", .6, .6) + t("3.2094°N  101.1865°E", 400, 295, 6.2))
+def final(back, kind="D2", vb=None):
+    c = SKY
+    pl, sl = sleeve(c, "L"); pr, sr = sleeve(c, "R")
+    seams = raglans(c) + sl + sr
+    if not back:
+        g = logo("sym", 368, 296, 64) + f'<g transform="translate(566,648) rotate(-3)"><rect width="34" height="20" fill="{c["thread"]}"/></g>'
+    else:
+        g = block(kind) + logo("f", 222, 632, 40) + logo("nm", 532, 632, 48)
+    return base((pl + pr, seams + g), back, "fin" + ("b" if back else "f") + kind + ("z" if vb else ""), vb=vb)
+
 head = open(os.path.join(OUT, "..", "identity", "source", "page.html")).read()
 head = head[head.index("<meta"):head.index("</style>")]
 PAGE = open(f"{HERE}/page.html").read()
@@ -138,7 +170,7 @@ html = (PAGE.replace("{{HEAD}}", head).replace("{{DEFS}}", DEFS)
         .replace("{{HERO}}", f'<svg class="mk hero-mark" viewBox="0 0 781 83"><use href="#lg_wm" width="781" height="83" filter="url(#t_white)"/></svg>')
         .replace("{{PARTS}}", part("sym", ("The O", "Chest mark, cap, labels"), "62%") + part("f", ("The F", "Back, sleeve, sock"), "44%")
                  + part("nm", ("The NM", "Back, hem, shorts"), "52%") + part("wm", ("Wordmark", "Neck label, hang tag, packaging"), "86%"))
-        .replace("{{A_F}}", dirA(False)).replace("{{A_B}}", dirA(True)).replace("{{B_F}}", dirB(False)).replace("{{B_B}}", dirB(True))
-        .replace("{{C_F}}", dirAB(False)).replace("{{C_B}}", dirAB(True)).replace("{{DETAIL}}", detail()))
+        .replace("{{F_F}}", final(False)).replace("{{F_B}}", final(True))
+        .replace("{{D1}}", final(True, "D1", "262 212 276 100")).replace("{{D2}}", final(True, "D2", "262 212 276 100")).replace("{{D3}}", final(True, "D3", "262 212 276 100")))
 open(f"{OUT}/designs.html", "w").write(html)
 print("ok", {k: round(v, 2) for k, v in AR.items()})

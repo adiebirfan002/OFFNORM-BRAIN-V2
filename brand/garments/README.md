@@ -28,7 +28,8 @@ One piece at a time. **Nothing moves to the next step without the founder's appr
 | 1 | FPA analysis and design rules | Approved |
 | 2 | The Sky tee flat, round 1 (the slash) | Rejected |
 | 2 | The Sky tee flat, round 2: A Centre, B Arm, C The quiet O | Founder liked A and B; asked for the raglan stitch to connect to the white sleeve panel |
-| 2 | The Sky tee flat, round 3: A2 Centre, B2 Arm, AB Centre + Arm, with sleeve close-up | **Awaiting founder's pick** |
+| 2 | The Sky tee flat, round 3: A2 Centre, B2 Arm, AB Centre + Arm, with sleeve close-up | Founder chose B2 with changes |
+| 2 | The Sky tee flat, round 4: B2 base, white lower-sleeve panels on both arms, O centre front, A2's wordmark and details on the back; data block options D1 Stack, D2 Spec strip, D3 Split | **Awaiting approval** |
 | 3 | The Sky tee, 3D mock-up | Not started; tool not chosen (no Blender/Adobe on the Mac) |
 | 4+ | The Dune, Ocean, Monsoon, Moss, Wild, Caves | Not started |
 
