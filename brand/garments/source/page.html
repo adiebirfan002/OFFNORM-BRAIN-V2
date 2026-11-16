@@ -1,0 +1,69 @@
+<title>OFFNORM Garment Designs</title>
+{{HEAD}}
+.plate .stage svg{height:auto;display:block;max-width:100%}
+.flat{background:var(--paper);color:var(--ink)}
+.flat svg{display:block;width:100%;height:auto}
+.flat svg .mn{font-family:var(--mono)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two>*{min-width:0}
+ol.call{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:10px 28px;counter-reset:c}
+ol.call li{counter-increment:c;display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:15.5px;align-items:start}
+ol.call li::before{content:counter(c);font-family:var(--mono);font-weight:600;font-size:13px;background:var(--ink);color:var(--chalk);width:28px;height:28px;border-radius:50%;display:grid;place-items:center}
+ol.call b{font-weight:700}
+.gate{border:2px solid var(--ink);padding:18px 20px;display:flex;flex-direction:column;gap:6px;max-width:70ch}
+.gate b{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;background:var(--pink);align-self:flex-start;padding:2px 6px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px}
+.steps div{background:var(--paper);padding:14px 16px;font-size:14.5px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.steps small{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase}
+.steps .done small::after{content:" · approved"}
+.steps .now{outline:3px solid var(--ink);outline-offset:-3px}
+.steps .now small::after{content:" · waiting for you"}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
+</style>
+{{DEFS}}
+
+<header class="band dark"><div class="in">
+  <div class="eyebrow"><span>Garment designs</span><span>Line-up 01</span><span>One piece at a time</span></div>
+  {{HERO}}
+  <div class="hero-foot">
+    <div class="big">Design 01: The Sky tee</div>
+    <div class="status"><b>Step 2</b>The design rules are approved. This is the first flat design. Nothing moves to a 3D mock-up until you approve it.</div>
+  </div>
+</div></header>
+
+<section class="band"><div class="in">
+  <div class="steps">
+    <div class="done"><small>Step 1</small>FPA analysis and OFFNORM design rules</div>
+    <div class="now"><small>Step 2</small>The Sky tee, flat design</div>
+    <div><small>Step 3</small>The Sky tee, 3D mock-up</div>
+    <div><small>Step 4 onward</small>The Dune, then Ocean, Monsoon, Moss, Wild, Caves</div>
+  </div>
+  <div class="col"><div class="eyebrow"><span>Your logo</span><span>Cut from the PNGs you sent, not redrawn</span></div>
+  <h2>The three parts and the wordmark</h2>
+  <p>FPA's logo comes apart into F, p and a. Yours comes apart into the O, the F and the NM. These are used separately on the garment, the same way.</p></div>
+  <div class="grid">{{PARTS}}</div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <div class="col"><div class="eyebrow"><span>Design 01</span><span>OFN—SKY—001</span><span>3.2094°N 101.1865°E</span></div>
+  <h2>The Sky panel tee</h2>
+  <p>Pale sky blue with one white panel and sun-yellow thread. The seam lines are the design; the print stays small on the front and large on the back.</p></div>
+  <div class="two">
+    <figure class="flat">{{SKY_F}}<figcaption><b>Front</b><span>Flat drawing, not to final pattern</span></figcaption></figure>
+    <figure class="flat">{{SKY_B}}<figcaption><b>Back</b><span>Flat drawing, not to final pattern</span></figcaption></figure>
+  </div>
+  <ol class="call">
+    <li><span><b>The slash.</b> One double seam crosses the body at the same angle as the cut in your logo. This replaces FPA's curved frame.</span></li>
+    <li><span><b>One raglan only.</b> A contrast raglan seam and white sleeve panel on one side. The other shoulder is plain.</span></li>
+    <li><span><b>Seams that miss.</b> The two hem seams sit about a centimetre apart where they meet the slash, on purpose.</span></li>
+    <li><span><b>Small chest mark.</b> The O at about 3 cm, with the product number under it.</span></li>
+    <li><span><b>Coordinate on the seam.</b> The coordinate runs along the slash in small type, where FPA would put a slogan.</span></li>
+    <li><span><b>Reflective dots</b> at every seam end.</span></li>
+    <li><span><b>Hem tab</b> in thread yellow, sewn 3° off level.</span></li>
+    <li><span><b>Mirrored on the back.</b> The slash and the single panel continue round to the other side.</span></li>
+    <li><span><b>The O in a sun ring.</b> The Sky's dot graphic circles the O above the slash, with one dot off.</span></li>
+    <li><span><b>The F and the NM</b> sit below the slash, so the seam splits the logo into two zones.</span></li>
+    <li><span><b>Captions are data.</b> The conditions under the O, latitude under the F, longitude under the NM.</span></li>
+  </ol>
+  <div class="gate"><b>Your approval</b><span>Approve this flat design, or tell me what to change: the slash, the single panel, the colours, the back layout or the logo placement. Once approved it goes to a 3D mock-up.</span></div>
+</div></section>
