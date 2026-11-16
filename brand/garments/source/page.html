@@ -17,7 +17,7 @@ ol.call b{font-weight:700}
 .steps small{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase}
 .steps .done small::after{content:" · approved"}
 .steps .now{outline:3px solid var(--ink);outline-offset:-3px}
-.steps .now small::after{content:" · waiting for you"}
+.steps .now small::after{content:" · on the line-up page"}
 @media (max-width:640px){.two{grid-template-columns:1fr}}
 .pickme figcaption b{background:var(--pink);align-self:flex-start;padding:2px 6px}
 .pickme .dhead small{background:var(--pink);align-self:flex-start;padding:2px 6px}
@@ -35,17 +35,17 @@ ol.call b{font-weight:700}
   <div class="eyebrow"><span>Garment designs</span><span>Line-up 01</span><span>One piece at a time</span></div>
   {{HERO}}
   <div class="hero-foot">
-    <div class="big">Design 01, round 4: The Sky tee</div>
-    <div class="status"><b>Step 2</b>B2 with your changes: both sleeves white, logo centre front, A2's back. Nothing moves to 3D until you approve it.</div>
+    <div class="big">Design 01: The Sky tee, final flat</div>
+    <div class="status"><b>Step 2</b>Final flat with your last amendment: white panel on the right arm only, D3 on the back. The 3D mock-ups are on the line-up page.</div>
   </div>
 </div></header>
 
 <section class="band"><div class="in">
   <div class="steps">
     <div class="done"><small>Step 1</small>FPA analysis and OFFNORM design rules</div>
-    <div class="now"><small>Step 2, round 4</small>The Sky tee, your version</div>
-    <div><small>Step 3</small>The Sky tee, 3D mock-up</div>
-    <div><small>Step 4 onward</small>The Dune, then Ocean, Monsoon, Moss, Wild, Caves</div>
+    <div class="done"><small>Step 2</small>The Sky tee, flat design</div>
+    <div class="now"><small>Step 3</small>3D mock-ups, all seven collections</div>
+    <div><small>Step 4</small>Other pieces: singlet, shorts, cap, sock</div>
   </div>
   <div class="col"><div class="eyebrow"><span>Your logo</span><span>Cut from the PNGs you sent, not redrawn</span></div>
   <h2>The three parts and the wordmark</h2>
@@ -54,30 +54,22 @@ ol.call b{font-weight:700}
 </div></section>
 
 <section class="band" style="padding-top:0"><div class="in">
-  <div class="col"><div class="eyebrow"><span>Design 01, round 4</span><span>OFN—SKY—001</span><span>3.2094°N 101.1865°E</span></div>
-  <h2>The Sky tee, your version</h2>
-  <p>B2 as the base, changed the way you asked: white lower-sleeve panels on both arms, the logo off the sleeve and into the middle of the front, and A2's wordmark and details on the back.</p></div>
+  <div class="col"><div class="eyebrow"><span>Design 01, final flat</span><span>OFN—SKY—001</span><span>3.2094°N 101.1865°E</span></div>
+  <h2>The Sky tee, approved</h2>
+  <p>Your last amendment is applied without a further round, as you asked: the white lower-sleeve panel is on the right arm only, and the back uses the D3 layout. This flat is now the master for every collection.</p></div>
   <div class="two">
-    <figure class="flat">{{F_F}}<figcaption><b>Front</b><span>The O alone in the middle of the chest. Nothing else but the hem tab</span></figcaption></figure>
-    <figure class="flat">{{F_B}}<figcaption><b>Back</b><span>Wordmark with the data strip under it. F and NM at the hem corners</span></figcaption></figure>
+    <figure class="flat">{{F_F}}<figcaption><b>Front</b><span>The O alone in the middle of the chest. White panel on the wearer's right arm</span></figcaption></figure>
+    <figure class="flat">{{F_B}}<figcaption><b>Back</b><span>Wordmark, D3 details, F and NM at the hem corners</span></figcaption></figure>
   </div>
-  <ol class="call">
-    <li><span><b>Both sleeves.</b> The white lower-sleeve panel is on both arms, each joined to its raglan seam at a bar tack, as in the close-up you saw.</span></li>
-    <li><span><b>Both raglans in yellow.</b> With two matching panels, both seams now use the contrast thread.</span></li>
-    <li><span><b>Logo centre front.</b> The O at about 3 cm, with no text under it. The sleeve panels are left clean.</span></li>
-    <li><span><b>All writing on the back.</b> The wordmark sits high, and the number, coordinate and conditions sit together under it.</span></li>
-    <li><span><b>Kept from B2.</b> The F and the NM at the back hem corners, and the yellow hem tab sewn 3° off level. Say the word if you want either removed.</span></li>
-  </ol>
-</div></section>
-
-<section class="band" style="padding-top:0"><div class="in">
-  <div class="col"><div class="eyebrow"><span>The details, rearranged</span><span>Back neck, enlarged</span></div>
-  <h2>Three ways to set the number and conditions</h2>
-  <p>Before, the product number and the conditions ran together in one line. Here they are separated and given an order. The tee above uses D2.</p></div>
-  <div class="dirs">
-    <div class="dir"><figure class="flat">{{D1}}<figcaption><b>D1 Stack</b><span>Three centred lines under a rule: number, coordinate, conditions. The quietest</span></figcaption></figure></div>
-    <div class="dir pickme"><figure class="flat">{{D2}}<figcaption><b>D2 Spec strip · used above</b><span>Three labelled cells the width of the wordmark, like a garment spec label</span></figcaption></figure></div>
-    <div class="dir"><figure class="flat">{{D3}}<figcaption><b>D3 Split</b><span>Number on the left, conditions on the right, coordinate centred below</span></figcaption></figure></div>
+  <div class="split" style="align-items:start">
+    <figure class="flat">{{D3}}<figcaption><b>Back details, D3</b><span>Number and name on the left, conditions on the right, coordinate centred below</span></figcaption></figure>
+    <ol class="call" style="grid-template-columns:1fr">
+      <li><span><b>Right arm only.</b> One white lower-sleeve panel on the wearer's right arm, joined to the raglan seam at a bar tack. The left sleeve is plain.</span></li>
+      <li><span><b>Both raglans</b> stay in the contrast thread, each ending in a reflective dot at the underarm.</span></li>
+      <li><span><b>Front:</b> the O in the middle of the chest, and the hem tab.</span></li>
+      <li><span><b>Back:</b> wordmark, the D3 block, and the F and NM at the hem corners.</span></li>
+      <li><span><b>For each collection</b> only three things change: body, panel and thread colour; the product code and name; the coordinate and conditions.</span></li>
+    </ol>
   </div>
-  <div class="gate"><b>Your approval</b><span>Approve this tee and pick D1, D2 or D3 for the back details, or tell me what to move. Once approved it goes to a 3D mock-up.</span></div>
+  <div class="gate"><b>Next</b><span>The 3D mock-ups for all seven collections are on the Collection Line-up page.</span></div>
 </div></section>

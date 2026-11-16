@@ -35,7 +35,9 @@ Idea: **every collection is a coordinate.** One place in Malaysia, the weather a
   listings for the rest) and differ by a few hundred metres between sources. Take a reading on site before printing.
 - Temperature, humidity and time on each conditions label are estimates, not measurements.
 - Palettes and pieces are proposals.
-- The logo is shown plain because the O and emblem are not chosen yet.
+- 3D mock-ups (2026-11-16): each collection shows the approved tee as a 3D model, front and back, built in
+  `source/tee3d.js` with three.js. Only colours, code, name, coordinate and conditions change per collection.
+  It is a simplified model (no real drape), not a photograph. Other pieces are not designed yet.
 
 Rebuild: `python3 brand/collections/source/build.py`
 

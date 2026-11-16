@@ -149,14 +149,14 @@ def block(kind):
     return (wm + t("OFN—SKY—001", 300, 266, 6.4, "start", w=600) + t("THE SKY", 300, 276, 5.6, "start", .7)
             + t("30°C / 70% RH", 500, 266, 6.4, "end", w=600) + t("07:10", 500, 276, 5.6, "end", .7)
             + rule("M300,284 H500", .6, .6) + t("3.2094°N  101.1865°E", 400, 295, 6.2))
-def final(back, kind="D2", vb=None):
+def final(back, kind="D3", vb=None):
     c = SKY
-    pl, sl = sleeve(c, "L"); pr, sr = sleeve(c, "R")
-    seams = raglans(c) + sl + sr
+    pl, sl = sleeve(c, "R" if back else "L"); pr, sr = "", ""      # wearer's right arm only (founder, round 5)
+    seams = raglans(c) + sl + rdot(204 if back else 596, 352, 3.6)
     if not back:
         g = logo("sym", 368, 296, 64) + f'<g transform="translate(566,648) rotate(-3)"><rect width="34" height="20" fill="{c["thread"]}"/></g>'
     else:
-        g = block(kind) + logo("f", 222, 632, 40) + logo("nm", 532, 632, 48)
+        g = block(kind) + logo("f", 248, 632, 40) + logo("nm", 504, 632, 48)
     return base((pl + pr, seams + g), back, "fin" + ("b" if back else "f") + kind + ("z" if vb else ""), vb=vb)
 
 head = open(os.path.join(OUT, "..", "identity", "source", "page.html")).read()
@@ -171,6 +171,6 @@ html = (PAGE.replace("{{HEAD}}", head).replace("{{DEFS}}", DEFS)
         .replace("{{PARTS}}", part("sym", ("The O", "Chest mark, cap, labels"), "62%") + part("f", ("The F", "Back, sleeve, sock"), "44%")
                  + part("nm", ("The NM", "Back, hem, shorts"), "52%") + part("wm", ("Wordmark", "Neck label, hang tag, packaging"), "86%"))
         .replace("{{F_F}}", final(False)).replace("{{F_B}}", final(True))
-        .replace("{{D1}}", final(True, "D1", "262 212 276 100")).replace("{{D2}}", final(True, "D2", "262 212 276 100")).replace("{{D3}}", final(True, "D3", "262 212 276 100")))
+        .replace("{{D3}}", final(True, "D3", "262 212 276 100")))
 open(f"{OUT}/designs.html", "w").write(html)
 print("ok", {k: round(v, 2) for k, v in AR.items()})

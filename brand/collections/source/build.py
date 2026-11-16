@@ -134,7 +134,11 @@ pts = "".join(f'<circle cx="{X(c["lon"]):.1f}" cy="{Y(c["lat"]):.1f}" r="9" fill
 kl = f'<path d="M{X(101.69)-6:.1f},{Y(3.14):.1f}h12m-6,-6v12" stroke="currentColor" stroke-width="2"/><text class="mn" x="{X(101.69)+10:.1f}" y="{Y(3.14)+22:.1f}" font-size="11" fill="currentColor" opacity=".8">KL 3.14°N</text>'
 chart = f'<svg viewBox="0 0 1000 340" class="chart" role="img" aria-label="The seven coordinates plotted by latitude and longitude">{grid}{kl}{pts}</svg>'
 
-def band(c, i):
+def fig3d(c, view):
+    cap = ("Front", "O centre chest, white panel on the right arm") if view == "front" else ("Back", "Wordmark, product number, conditions, coordinate")
+    return (f'<figure class="mock m3d"><div class="r3dwrap"><img class="r3d" data-code="{c["code"]}" data-view="{view}" alt="{c["n"]} tee, 3D model, {view}"></div>'
+            f'<figcaption><b>{cap[0]} · 3D model</b><span>{cap[1]}</span></figcaption></figure>')
+def band(c, i, threed=False):
     bg, fg = c["band"]
     sw = "".join(f'<div style="background:{h};color:{"#151617" if sum(int(h[j:j+2],16) for j in (1,3,5))>380 else "#F3F4F2"}"><b>{n}</b>{h.upper()}</div>' for n, h in c["pal"])
     core = ["Panel tee", "Singlet", "5-inch short", "Cap", "Crew sock"]
@@ -152,17 +156,33 @@ def band(c, i):
       <div class="sw5">{sw}</div>
       <ul class="pcs">{pcs}</ul>
     </div>
-    <figure class="mock">{tee(c, i, False)}<figcaption><b>Front</b><span>Small mark, product number, contrast seams</span></figcaption></figure>
-    <figure class="mock">{tee(c, i, True)}<figcaption><b>Back</b><span>The place drawn in dots, with its coordinate</span></figcaption></figure>
+    {fig3d(c, "front") if threed else f'<figure class="mock">{tee(c, i, False)}<figcaption><b>Front</b><span>Small mark, product number, contrast seams</span></figcaption></figure>'}
+    {fig3d(c, "back") if threed else f'<figure class="mock">{tee(c, i, True)}<figcaption><b>Back</b><span>The place drawn in dots, with its coordinate</span></figcaption></figure>'}
   </div>
 </div></section>'''
 
+import json, base64
+sys.path.insert(0, os.path.join(OUT, "..", "garments", "source"))
+G = os.path.join(OUT, "..", "garments")
+_b = lambda p: "data:image/png;base64," + base64.b64encode(open(p, "rb").read()).decode()
+gsrc = open(os.path.join(G, "source", "build.py")).read()
+_ns = {}
+exec(gsrc[gsrc.index("JX, JY = "):gsrc.index("def base(")].replace("def flip", "import re\ndef flip"), _ns)   # the sleeve paths of the approved flat
+PATHS = {"RL": "M340,168 C300,198 232,272 204,352", "RR": "M460,168 C500,198 568,272 596,352",
+         "PANEL_L": _ns["PANEL_L"], "PANEL_R": _ns["PANEL_R"], "PSEAM_L": _ns["PSEAM_L"], "PSEAM_R": _ns["PSEAM_R"]}
+COLS = [dict(code=c["code"], name=c["n"], body=c["tee"][0], panel=c["tee"][1], thread=c["tee"][2], light=c["tee"][3],
+             lat=c["lat"], lon=c["lon"], cond=[c["cond"][0], c["cond"][1], c["cond"][2]]) for c in C]
+SCRIPT = ('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>\n<script>window.OFN_COLS=' + json.dumps(COLS)
+          + ';window.OFN_PATHS=' + json.dumps(PATHS) + ';window.OFN_P8="' + _b(os.path.join(G, "logo", "offnorm-logo-parts.png"))
+          + '";window.OFN_P9="' + _b(os.path.join(G, "logo", "offnorm-logo-full.png")) + '";</script>\n<script>' + open(f"{HERE}/tee3d.js").read() + '</script>')
 head = open(os.path.join(OUT, "..", "identity", "source", "page.html")).read()
 head = head[head.index("<meta"):head.index("</style>")]
 PAGE = open(f"{HERE}/page.html").read()
 matrix = "".join(f'<tr><th>{c["n"]}</th><td>OFN—{c["code"]}</td><td>{c["lat"]:.4f}°N, {c["lon"]:.4f}°E</td><td>{" / ".join(c["cond"])}</td><td>{", ".join(c["hero"])}</td></tr>' for c in C)
 html = (PAGE.replace("{{HEAD}}", head).replace("{{DEFS}}", DEFS).replace("{{CHART}}", chart)
-        .replace("{{HERO}}", f'<svg class="mk hero-mark" viewBox="0 0 {WMW} 100" style="color:#F3F4F2"><use href="#wm"/></svg>')
-        .replace("{{BANDS}}", "".join(band(c, i) for i, c in enumerate(C))).replace("{{MATRIX}}", matrix))
+        .replace("{{HERO}}", '<svg class="mk hero-mark" viewBox="176 670 787 89" role="img" aria-label="OFFNORM"><filter id="tw" color-interpolation-filters="sRGB"><feColorMatrix values="0 0 0 0 .953  0 0 0 0 .957  0 0 0 0 .949  1.55 0 0 0 -0.42"/></filter><image href="' + _b(os.path.join(G, "logo", "offnorm-logo-full.png")) + '" width="1112" height="920" filter="url(#tw)"/></svg>')
+        .replace("{{BANDS}}", "".join(band(c, i, True) for i, c in enumerate(C))).replace("{{MATRIX}}", matrix)
+        .replace("{{PICKS}}", "".join(f'<button type="button" data-pick="{c["code"]}" style="--sw:{c["tee"][0]}">{c["n"]}</button>' for c in C))
+        .replace("{{SCRIPT}}", SCRIPT))
 open(f"{OUT}/lineup.html", "w").write(html)
 print("ok")
