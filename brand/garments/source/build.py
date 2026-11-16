@@ -34,52 +34,65 @@ def pin(n, x, y, tx, ty):
     return (f'<path d="M{x},{y} L{tx},{ty}" stroke="{INK}" stroke-width="1.2"/><circle cx="{x}" cy="{y}" r="3" fill="{INK}"/>'
             f'<circle cx="{tx}" cy="{ty}" r="14" fill="{INK}"/><text class="mn" x="{tx}" y="{ty+4.5}" font-size="13" font-weight="600" text-anchor="middle" fill="#fff">{n}</text>')
 
-# ---------- Design 01: The Sky panel tee
+# ---------- Design 01, round 2: The Sky tee in three directions (round 1, "the slash", was rejected)
 SKY = dict(body="#7FB2DD", panel="#F1F2EF", thread="#F4D24A", deep="#2E5C8A")
-def sky_front():
+T2 = ("M324,148 C352,190 448,190 476,148 L612,186 C660,204 722,276 748,330 L672,410 L600,356 L600,700 Q600,712 588,712 "
+      "L212,712 Q200,712 200,700 L200,356 L128,410 L52,330 C78,276 140,204 188,186 Z")
+T2B = T2.replace("C352,190 448,190", "C362,166 438,166")
+RL, RR = "M340,168 C300,198 232,272 204,352", "M460,168 C500,198 568,272 596,352"
+def base(extra, back, cid, c=SKY):
+    f = (fold("M290,340 C310,440 280,560 300,720", "#000", .05) + fold("M520,340 C500,440 530,580 510,720", "#000", .05)
+         + fold("M400,250 C380,400 420,560 400,720", "#000", .12, 64))
+    neck = ('<path d="M324,148 C362,166 438,166 476,148 L468,138 C438,152 362,152 332,138 Z" fill="#000" opacity=".16"/>' if back else
+            '<path d="M324,148 C352,190 448,190 476,148 L464,141 C440,174 360,174 336,141 Z" fill="#000" opacity=".13"/>'
+            '<path d="M336,141 C360,156 440,156 464,141 C440,174 360,174 336,141Z" fill="#000" opacity=".42"/>')
+    return tile(cloth(T2B if back else T2, c["body"], False, f, cid, extra[0] + neck + extra[1] + stitch("M206,692 H594", "#000", .16)), "#F1F2F0")
+def sleeve_panels(c, left=True, right=True):
+    pl = f'<path d="M262,230 C234,268 214,310 204,352 L200,356 L128,410 L74,352 C130,308 204,256 262,230Z" fill="{c["panel"]}"/>'
+    pr = f'<path d="M538,230 C566,268 586,310 596,352 L600,356 L672,410 L726,352 C670,308 596,256 538,230Z" fill="{c["panel"]}"/>'
+    sl = seam("M262,230 C204,256 130,308 74,352", c["thread"], 3); sr = seam("M538,230 C596,256 670,308 726,352", c["thread"], 3)
+    return (pl if left else "") + (pr if right else ""), (sl if left else "") + (sr if right else "")
+def cap(t, x, y, anchor="start", fs=8.5): return mono(t, x, y, fs, INK, anchor, .1)
+
+def dirA(back):
+    """A. Centre: a plain tee, two contrast raglan seams, the O small in the middle of the chest."""
     c = SKY
-    pl = f'<path d="M276,226 C250,262 232,300 224,338 L216,340 L152,392 L98,340 C150,300 220,250 276,226Z" fill="{c["panel"]}"/>'
-    wedge = f'<path d="M216,588 L295,588 L218,716 Z" fill="{c["panel"]}"/>'
-    f = (fold("M300,330 C320,430 290,560 310,720", "#000", .05) + fold("M510,330 C490,440 520,580 500,720", "#000", .05)
-         + fold("M400,240 C380,400 420,560 400,720", "#000", .13, 60))
-    neck = ('<path d="M318,150 C350,196 450,196 482,150 L470,143 C444,180 356,180 330,143 Z" fill="#000" opacity=".13"/>'
-            '<path d="M330,143 C356,158 444,158 470,143 C444,180 356,180 330,143Z" fill="#000" opacity=".42"/>')
-    x = (pl + wedge + neck + seam("M338,170 C292,200 244,262 224,338", c["thread"]) + seam("M276,226 C220,250 150,300 98,340", c["thread"], 3)
-         + seam("M548,176 L224,716", c["thread"]) + seam("M560,182 L236,722", c["thread"], 2.6)
-         + seam("M216,588 H292", c["thread"], 3) + seam("M287,612 H584", c["thread"], 3)
-         + rdot(548, 176) + rdot(292, 588, 3.4) + rdot(287, 612, 3.4) + rdot(584, 612, 3.4)
-         + logo("sym", 504, 300, 58) + mono("OFN—SKY—001", 504, 354, 7.5, INK, sp=.1)
-         + f'<text class="mn" transform="translate(402,434) rotate(-59)" font-size="8.5" fill="{INK}" letter-spacing=".14em">3.2094°N  101.1865°E</text>'
-         + f'<text class="mn" transform="translate(524,206) rotate(38)" font-size="8.5" fill="{INK}" letter-spacing=".12em">The Sky</text>'
-         + stitch("M222,694 H578", "#000", .18)
-         + f'<g transform="translate(574,650) rotate(-3)"><rect x="0" y="0" width="34" height="20" fill="{c["thread"]}"/></g>')
-    pins = (pin(1, 388, 440, 110, 520) + pin(2, 200, 330, 70, 190) + pin(3, 290, 600, 110, 640) + pin(4, 548, 318, 700, 250)
-            + pin(5, 420, 404, 700, 470) + pin(6, 548, 176, 690, 120) + pin(7, 592, 660, 716, 640))
-    return tile(cloth(TEE, c["body"], False, f, "g1f", x) + pins, "#F1F2F0", label="The Sky panel tee, front")
-def sky_back():
+    seams = (seam(RL, c["thread"]) + seam(RR, c["thread"]) + seam("M200,640 H392", c["thread"], 3) + seam("M408,628 H600", c["thread"], 3)
+             + rdot(392, 640, 3.2) + rdot(408, 628, 3.2))                    # one hem seam that breaks and misses
+    if not back:
+        g = logo("sym", 368, 296, 64) + cap("3.2094°N  101.1865°E", 400, 358, "middle", 7.5)
+    else:
+        g = logo("wm", 322, 236, 156) + cap("OFN—SKY—001  /  30°C  70%  07:10", 400, 270, "middle", 7.5)
+    return base(("", seams + g), back, "dA" + ("b" if back else "f"))
+
+def dirB(back):
+    """B. Arm: nothing on the chest. One white sleeve carries the O."""
     c = SKY
-    pr = f'<path d="M524,226 C550,262 568,300 576,338 L584,340 L648,392 L702,340 C650,300 580,250 524,226Z" fill="{c["panel"]}"/>'
-    wedge = f'<path d="M584,588 L505,588 L582,716 Z" fill="{c["panel"]}"/>'
-    f = (fold("M300,330 C320,430 290,560 310,720", "#000", .05) + fold("M510,330 C490,440 520,580 500,720", "#000", .05)
-         + fold("M400,240 C380,400 420,560 400,720", "#000", .13, 60))
-    neck = '<path d="M318,150 C360,170 440,170 482,150 L474,140 C440,156 360,156 326,140 Z" fill="#000" opacity=".16"/>'
-    ring = ""
-    for k_, (n, r, R) in enumerate(((18, 3.8, 62), (26, 2.3, 76))):
-        for i in range(n):
-            a = 6.283 * i / n; x_, y_ = 478 + math.cos(a) * R * 1.3, 292 + math.sin(a) * R * .86
-            if k_ == 0 and i == 16: x_ += 16; y_ -= 16
-            ring += f'<circle cx="{x_:.1f}" cy="{y_:.1f}" r="{r}" fill="#fff"/>'
-    x = (pr + wedge + neck + seam("M462,170 C508,200 556,262 576,338", c["thread"]) + seam("M524,226 C580,250 650,300 702,340", c["thread"], 3)
-         + seam("M252,176 L576,716", c["thread"]) + seam("M240,182 L564,722", c["thread"], 2.6)
-         + seam("M584,588 H508", c["thread"], 3) + seam("M513,612 H216", c["thread"], 3)
-         + rdot(252, 176) + rdot(508, 588, 3.4) + rdot(513, 612, 3.4) + rdot(216, 612, 3.4)
-         + ring + logo("sym", 428, 256, 100)
-         + logo("f", 244, 470, 66) + logo("nm", 326, 470, 78)
-         + mono("3.2094°N", 244, 546, 8, INK, sp=.08) + mono("101.1865°E", 326, 546, 8, INK, sp=.08)
-         + mono("30°C / 70% / 07:10", 478, 388, 8.5, INK, "middle", .14)
-         + stitch("M222,694 H578", "#000", .18))
-    pins = pin(8, 300, 256, 90, 200) + pin(9, 560, 262, 720, 190) + pin(10, 262, 500, 90, 500) + pin(11, 478, 392, 716, 440)
-    return tile(cloth(TEEB, c["body"], False, f, "g1b", x) + pins, "#F1F2F0", label="The Sky panel tee, back")
+    pan, ps = sleeve_panels(c, left=not back, right=back)
+    rag = seam(RL if not back else RR, c["thread"])
+    if not back:
+        g = (f'<g transform="translate(150,342) rotate(-38)">{logo("sym", -30, -20, 60)}</g>'
+             + cap("3.2094°N  101.1865°E", 216, 684, "start", 7.5)
+             + f'<g transform="translate(566,650) rotate(-3)"><rect width="34" height="20" fill="{c["thread"]}"/></g>')
+    else:
+        g = (f'<g transform="translate(650,342) rotate(38)">{logo("sym", -30, -20, 60)}</g>'
+             + logo("f", 222, 636, 40) + logo("nm", 532, 636, 48) + cap("30°C / 70% / 07:10", 400, 684, "middle", 7.5))
+    return base((pan, ps + rag + g), back, "dB" + ("b" if back else "f"))
+
+def dirC(back):
+    """C. The quiet O: the body's panel lines trace the logo's O in tonal thread. Logo on the arm."""
+    c = SKY; th = "#4F8DC2"
+    if not back:
+        ring = seam("M356,236 H330 A94,94 0 0 0 236,330 V548 A94,94 0 0 0 330,642 H352", th) + seam("M444,236 H470 A94,94 0 0 1 564,330 V548 A94,94 0 0 1 470,642 H374", th)
+        bar = seam("M236,470 H384", th, 3.4) + seam("M408,458 H564", th, 3.4)
+        cut = seam("M352,642 L436,236", th, 2.2) + seam("M374,642 L458,236", th, 2.2)
+        g = f'<g transform="translate(662,348) rotate(38)">{logo("sym", -26, -18, 52, "t_white")}</g>' + cap("3.2094°N  101.1865°E", 216, 684, "start", 7.5)
+    else:
+        ring = seam("M444,236 H470 A94,94 0 0 1 564,330 V548 A94,94 0 0 1 470,642 H448", th) + seam("M356,236 H330 A94,94 0 0 0 236,330 V548 A94,94 0 0 0 330,642 H426", th)
+        bar = seam("M564,470 H416", th, 3.4) + seam("M392,458 H236", th, 3.4)
+        cut = seam("M448,642 L364,236", th, 2.2) + seam("M426,642 L342,236", th, 2.2)
+        g = f'<g transform="translate(138,348) rotate(-38)">{logo("sym", -26, -18, 52, "t_white")}</g>' + cap("30°C / 70% / 07:10", 584, 684, "end", 7.5)
+    return base(("", ring + bar + cut + g), back, "dC" + ("b" if back else "f"))
 
 head = open(os.path.join(OUT, "..", "identity", "source", "page.html")).read()
 head = head[head.index("<meta"):head.index("</style>")]
@@ -92,6 +105,7 @@ html = (PAGE.replace("{{HEAD}}", head).replace("{{DEFS}}", DEFS)
         .replace("{{HERO}}", f'<svg class="mk hero-mark" viewBox="0 0 781 83"><use href="#lg_wm" width="781" height="83" filter="url(#t_white)"/></svg>')
         .replace("{{PARTS}}", part("sym", ("The O", "Chest mark, cap, labels"), "62%") + part("f", ("The F", "Back, sleeve, sock"), "44%")
                  + part("nm", ("The NM", "Back, hem, shorts"), "52%") + part("wm", ("Wordmark", "Neck label, hang tag, packaging"), "86%"))
-        .replace("{{SKY_F}}", sky_front()).replace("{{SKY_B}}", sky_back()))
+        .replace("{{A_F}}", dirA(False)).replace("{{A_B}}", dirA(True)).replace("{{B_F}}", dirB(False)).replace("{{B_B}}", dirB(True))
+        .replace("{{C_F}}", dirC(False)).replace("{{C_B}}", dirC(True)))
 open(f"{OUT}/designs.html", "w").write(html)
 print("ok", {k: round(v, 2) for k, v in AR.items()})

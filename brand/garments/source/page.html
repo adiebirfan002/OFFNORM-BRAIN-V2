@@ -19,6 +19,13 @@ ol.call b{font-weight:700}
 .steps .now{outline:3px solid var(--ink);outline-offset:-3px}
 .steps .now small::after{content:" · waiting for you"}
 @media (max-width:640px){.two{grid-template-columns:1fr}}
+.dirs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.dir{display:flex;flex-direction:column;gap:10px;min-width:0}
+.dhead{display:flex;flex-direction:column;gap:4px;min-height:150px}
+.dhead small{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.dhead b{font-family:var(--display);font-stretch:125%;font-weight:850;text-transform:uppercase;font-size:clamp(20px,2.2vw,28px);line-height:1}
+.dhead span{font-size:14.5px}
+@media (max-width:900px){.dirs{grid-template-columns:1fr}.dhead{min-height:0}}
 </style>
 {{DEFS}}
 
@@ -26,15 +33,15 @@ ol.call b{font-weight:700}
   <div class="eyebrow"><span>Garment designs</span><span>Line-up 01</span><span>One piece at a time</span></div>
   {{HERO}}
   <div class="hero-foot">
-    <div class="big">Design 01: The Sky tee</div>
-    <div class="status"><b>Step 2</b>The design rules are approved. This is the first flat design. Nothing moves to a 3D mock-up until you approve it.</div>
+    <div class="big">Design 01, round 2: The Sky tee</div>
+    <div class="status"><b>Step 2</b>Round 1 was rejected. Here are three new directions for the same tee. Nothing moves to a 3D mock-up until you approve one.</div>
   </div>
 </div></header>
 
 <section class="band"><div class="in">
   <div class="steps">
     <div class="done"><small>Step 1</small>FPA analysis and OFFNORM design rules</div>
-    <div class="now"><small>Step 2</small>The Sky tee, flat design</div>
+    <div class="now"><small>Step 2, round 2</small>The Sky tee, pick a direction</div>
     <div><small>Step 3</small>The Sky tee, 3D mock-up</div>
     <div><small>Step 4 onward</small>The Dune, then Ocean, Monsoon, Moss, Wild, Caves</div>
   </div>
@@ -45,25 +52,15 @@ ol.call b{font-weight:700}
 </div></section>
 
 <section class="band" style="padding-top:0"><div class="in">
-  <div class="col"><div class="eyebrow"><span>Design 01</span><span>OFN—SKY—001</span><span>3.2094°N 101.1865°E</span></div>
-  <h2>The Sky panel tee</h2>
-  <p>Pale sky blue with one white panel and sun-yellow thread. The seam lines are the design; the print stays small on the front and large on the back.</p></div>
-  <div class="two">
-    <figure class="flat">{{SKY_F}}<figcaption><b>Front</b><span>Flat drawing, not to final pattern</span></figcaption></figure>
-    <figure class="flat">{{SKY_B}}<figcaption><b>Back</b><span>Flat drawing, not to final pattern</span></figcaption></figure>
-  </div>
-  <ol class="call">
-    <li><span><b>The slash.</b> One double seam crosses the body at the same angle as the cut in your logo. This replaces FPA's curved frame.</span></li>
-    <li><span><b>One raglan only.</b> A contrast raglan seam and white sleeve panel on one side. The other shoulder is plain.</span></li>
-    <li><span><b>Seams that miss.</b> The two hem seams sit about a centimetre apart where they meet the slash, on purpose.</span></li>
-    <li><span><b>Small chest mark.</b> The O at about 3 cm, with the product number under it.</span></li>
-    <li><span><b>Coordinate on the seam.</b> The coordinate runs along the slash in small type, where FPA would put a slogan.</span></li>
-    <li><span><b>Reflective dots</b> at every seam end.</span></li>
-    <li><span><b>Hem tab</b> in thread yellow, sewn 3° off level.</span></li>
-    <li><span><b>Mirrored on the back.</b> The slash and the single panel continue round to the other side.</span></li>
-    <li><span><b>The O in a sun ring.</b> The Sky's dot graphic circles the O above the slash, with one dot off.</span></li>
-    <li><span><b>The F and the NM</b> sit below the slash, so the seam splits the logo into two zones.</span></li>
-    <li><span><b>Captions are data.</b> The conditions under the O, latitude under the F, longitude under the NM.</span></li>
-  </ol>
-  <div class="gate"><b>Your approval</b><span>Approve this flat design, or tell me what to change: the slash, the single panel, the colours, the back layout or the logo placement. Once approved it goes to a 3D mock-up.</span></div>
+  <div class="col"><div class="eyebrow"><span>Design 01, round 2</span><span>OFN—SKY—001</span><span>3.2094°N 101.1865°E</span></div>
+  <h2>The Sky tee, three directions</h2>
+  <p>Round 1, the single slash across the body, was rejected. You asked for the logo in the middle or on the arm, and a minimal design that still shows the identity. These are three ways to do that, in the same colours. The cut is now boxier and closer to your reference.</p></div>
+  <div class="dirs">
+    <div class="dir"><div class="dhead"><small>Direction A</small><b>Centre</b><span>A plain tee. Two yellow raglan seams, one hem seam that breaks and misses, and the O small in the middle of the chest. The wordmark sits high on the back.</span></div>
+      <figure class="flat">{{A_F}}<figcaption><b>Front</b></figcaption></figure><figure class="flat">{{A_B}}<figcaption><b>Back</b></figcaption></figure></div>
+    <div class="dir"><div class="dhead"><small>Direction B</small><b>Arm</b><span>Nothing on the chest at all. One white sleeve carries the O. The F and the NM sit small at the two back hem corners.</span></div>
+      <figure class="flat">{{B_F}}<figcaption><b>Front</b></figcaption></figure><figure class="flat">{{B_B}}<figcaption><b>Back</b></figcaption></figure></div>
+    <div class="dir"><div class="dhead"><small>Direction C</small><b>The quiet O</b><span>One colour. The panel lines on the body trace your O at full size in tone-on-tone thread, so the identity is in the build. The O itself is small on the arm.</span></div>
+      <figure class="flat">{{C_F}}<figcaption><b>Front</b></figcaption></figure><figure class="flat">{{C_B}}<figcaption><b>Back</b></figcaption></figure></div>
+  <div class="gate"><b>Your approval</b><span>Pick A, B or C, or mix them (for example the seams of B with the back of A). If none is right, tell me one thing you dislike and one FPA piece you want it closer to.</span></div>
 </div></section>
