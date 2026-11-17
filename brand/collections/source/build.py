@@ -134,6 +134,16 @@ pts = "".join(f'<circle cx="{X(c["lon"]):.1f}" cy="{Y(c["lat"]):.1f}" r="9" fill
 kl = f'<path d="M{X(101.69)-6:.1f},{Y(3.14):.1f}h12m-6,-6v12" stroke="currentColor" stroke-width="2"/><text class="mn" x="{X(101.69)+10:.1f}" y="{Y(3.14)+22:.1f}" font-size="11" fill="currentColor" opacity=".8">KL 3.14°N</text>'
 chart = f'<svg viewBox="0 0 1000 340" class="chart" role="img" aria-label="The seven coordinates plotted by latitude and longitude">{grid}{kl}{pts}</svg>'
 
+def shots():
+    import base64
+    out = ""
+    for v in ("front", "back"):
+        for c in C:
+            p = os.path.join(G, "shots", f'{c["code"]}_{v}.png')
+            if not os.path.exists(p): continue
+            src = "data:image/png;base64," + base64.b64encode(open(p, "rb").read()).decode()
+            out += f'<figure class="shot"><img src="{src}" alt="{c["n"]} tee on a generated model, {v}" loading="lazy"><figcaption><b>{c["n"]}</b><span>{v.title()}</span></figcaption></figure>'
+    return out
 def fig3d(c, view):
     cap = ("Front", "O centre chest, white panel on the right arm") if view == "front" else ("Back", "Wordmark, product number, conditions, coordinate")
     return (f'<figure class="mock m3d"><div class="r3dwrap"><img class="r3d" data-code="{c["code"]}" data-view="{view}" alt="{c["n"]} tee, 3D model, {view}"></div>'
@@ -183,6 +193,6 @@ html = (PAGE.replace("{{HEAD}}", head).replace("{{DEFS}}", DEFS).replace("{{CHAR
         .replace("{{HERO}}", '<svg class="mk hero-mark" viewBox="176 670 787 89" role="img" aria-label="OFFNORM"><filter id="tw" color-interpolation-filters="sRGB"><feColorMatrix values="0 0 0 0 .953  0 0 0 0 .957  0 0 0 0 .949  1.55 0 0 0 -0.42"/></filter><image href="' + _b(os.path.join(G, "logo", "offnorm-logo-full.png")) + '" width="1112" height="920" filter="url(#tw)"/></svg>')
         .replace("{{BANDS}}", "".join(band(c, i, True) for i, c in enumerate(C))).replace("{{MATRIX}}", matrix)
         .replace("{{PICKS}}", "".join(f'<button type="button" data-pick="{c["code"]}" style="--sw:{c["tee"][0]}">{c["n"]}</button>' for c in C))
-        .replace("{{SCRIPT}}", SCRIPT))
+        .replace("{{SCRIPT}}", SCRIPT).replace("{{SHOTS}}", shots()))
 open(f"{OUT}/lineup.html", "w").write(html)
 print("ok")

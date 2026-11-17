@@ -51,6 +51,12 @@ ul.watch b{display:block;font-family:var(--display);font-stretch:125%;font-weigh
 .picks button[aria-pressed="true"]{background:var(--ink);color:var(--chalk)}
 .picks button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 @media (max-width:800px){.live{grid-template-columns:1fr}}
+.shots{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.shot{background:#fff;display:flex;flex-direction:column}
+.shot img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;max-width:100%}
+.shot figcaption{padding:8px 10px 10px}
+@media (max-width:1000px){.shots{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:560px){.shots{grid-template-columns:repeat(2,1fr)}}
 </style>
 {{DEFS}}
 
@@ -91,6 +97,13 @@ ul.watch b{display:block;font-family:var(--display);font-stretch:125%;font-weigh
       <p style="font-family:var(--mono);font-size:12px;opacity:.75">A model built for this page, not a photograph. Fabric drape and folds are simplified.</p>
     </div>
   </div>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="in">
+  <div class="col"><div class="eyebrow"><span>On a model</span><span>Generated images, not real people</span></div>
+  <h2>The tee, worn</h2>
+  <p>Each collection's approved tee on a generated model, shot in a white-studio product style. Front on top, back below. Made with AI image generation from the flat designs, so small text and the logo can be slightly off; check the details against the flats before using these outside the team.</p></div>
+  <div class="shots">{{SHOTS}}</div>
 </div></section>
 
 {{BANDS}}
