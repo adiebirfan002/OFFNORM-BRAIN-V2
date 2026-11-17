@@ -54,7 +54,8 @@ ul.watch b{display:block;font-family:var(--display);font-stretch:125%;font-weigh
 .shots{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
 .shot{background:#fff;display:flex;flex-direction:column}
 .shot img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;max-width:100%}
-.shot figcaption{padding:8px 10px 10px}
+.shot figcaption{padding:8px 10px 10px;color:var(--ink)}
+.outfits .shot img{aspect-ratio:3/4}
 @media (max-width:1000px){.shots{grid-template-columns:repeat(4,1fr)}}
 @media (max-width:560px){.shots{grid-template-columns:repeat(2,1fr)}}
 </style>
@@ -97,6 +98,13 @@ ul.watch b{display:block;font-family:var(--display);font-stretch:125%;font-weigh
       <p style="font-family:var(--mono);font-size:12px;opacity:.75">A model built for this page, not a photograph. Fabric drape and folds are simplified.</p>
     </div>
   </div>
+</div></section>
+
+<section class="band dark"><div class="in">
+  <div class="col"><div class="eyebrow"><span>Full outfits</span><span>Generated models, not real people</span></div>
+  <h2>Seven kits, head to toe</h2>
+  <p>Each collection's approved tee, cap, shorts with 3/4 tights and long socks worn together. The tee keeps the collection's main colour; the other pieces take different pairings from the same palette, so each kit reads as one place without matching piece for piece.</p></div>
+  <div class="shots outfits">{{OUTFITS}}</div>
 </div></section>
 
 <section class="band" style="padding-top:0"><div class="in">

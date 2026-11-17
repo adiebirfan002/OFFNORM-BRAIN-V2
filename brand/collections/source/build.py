@@ -134,6 +134,15 @@ pts = "".join(f'<circle cx="{X(c["lon"]):.1f}" cy="{Y(c["lat"]):.1f}" r="9" fill
 kl = f'<path d="M{X(101.69)-6:.1f},{Y(3.14):.1f}h12m-6,-6v12" stroke="currentColor" stroke-width="2"/><text class="mn" x="{X(101.69)+10:.1f}" y="{Y(3.14)+22:.1f}" font-size="11" fill="currentColor" opacity=".8">KL 3.14°N</text>'
 chart = f'<svg viewBox="0 0 1000 340" class="chart" role="img" aria-label="The seven coordinates plotted by latitude and longitude">{grid}{kl}{pts}</svg>'
 
+def outfits():
+    import base64
+    out = ""
+    for c in C:
+        p = os.path.join(G, "shots", f'{c["code"]}_outfit.png')
+        if not os.path.exists(p): continue
+        src = "data:image/png;base64," + base64.b64encode(open(p, "rb").read()).decode()
+        out += f'<figure class="shot"><img src="{src}" alt="{c["n"]} full outfit on a generated model" loading="lazy"><figcaption><b>{c["n"]}</b><span>Tee, cap, shorts + 3/4 tights, long socks</span></figcaption></figure>'
+    return out
 def shots():
     import base64
     out = ""
@@ -193,6 +202,6 @@ html = (PAGE.replace("{{HEAD}}", head).replace("{{DEFS}}", DEFS).replace("{{CHAR
         .replace("{{HERO}}", '<svg class="mk hero-mark" viewBox="176 670 787 89" role="img" aria-label="OFFNORM"><filter id="tw" color-interpolation-filters="sRGB"><feColorMatrix values="0 0 0 0 .953  0 0 0 0 .957  0 0 0 0 .949  1.55 0 0 0 -0.42"/></filter><image href="' + _b(os.path.join(G, "logo", "offnorm-logo-full.png")) + '" width="1112" height="920" filter="url(#tw)"/></svg>')
         .replace("{{BANDS}}", "".join(band(c, i, True) for i, c in enumerate(C))).replace("{{MATRIX}}", matrix)
         .replace("{{PICKS}}", "".join(f'<button type="button" data-pick="{c["code"]}" style="--sw:{c["tee"][0]}">{c["n"]}</button>' for c in C))
-        .replace("{{SCRIPT}}", SCRIPT).replace("{{SHOTS}}", shots()))
+        .replace("{{SCRIPT}}", SCRIPT).replace("{{SHOTS}}", shots()).replace("{{OUTFITS}}", outfits()))
 open(f"{OUT}/lineup.html", "w").write(html)
 print("ok")

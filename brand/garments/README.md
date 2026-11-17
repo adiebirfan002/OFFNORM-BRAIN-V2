@@ -35,4 +35,6 @@ One piece at a time. **Nothing moves to the next step without the founder's appr
 | 4 | Cap, shorts with 3/4 tights, long socks with vertical OFFNORM, all seven collections with varied colour combos | **Approved** (2026-11-17) |
 | 5 | Photo-style model shots of the tee, all 7 collections, front and back (14) | Done 2026-11-17. 9 from Canva image generation, 5 from Vyra (Canva hit its limit). Small previews in `shots/`; full size is in the founder's Canva uploads and the Vyra project "OFFNORM model mock-ups". Generated models, not real people |
 
+| 6 | Full-outfit model shots, all 7 collections (tee, cap, shorts + 3/4 tights, long socks) | Done 2026-11-17 with Vyra (70 credits). Previews in `shots/*_outfit.png`; full size in the Vyra project "OFFNORM model mock-ups" |
+
 Rebuild: `python3 brand/garments/source/build.py`
