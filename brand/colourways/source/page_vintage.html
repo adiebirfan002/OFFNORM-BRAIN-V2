@@ -1,0 +1,70 @@
+<title>OFFNORM Vintage Colourways</title>
+{{HEAD}}
+ul.watch{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.watch li{border-left:4px solid var(--pink);padding:2px 0 2px 14px;font-size:15.5px}
+ul.watch b{display:block;font-family:var(--display);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:15px}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:8px}
+.chip{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--paper);color:var(--ink);text-decoration:none;font-size:13.5px;border:1px solid transparent}
+.chip:hover,.chip:focus-visible{border-color:var(--ink)}
+.chip span{width:14px;height:14px;border-radius:50%;outline:1px solid rgba(0,0,0,.18);flex:none}
+.chip span+span{margin-left:-9px}
+.chip b{font-family:var(--mono);font-size:11px;font-weight:600;margin-left:4px}
+.fam{padding-top:0}
+.cws{display:flex;flex-direction:column;gap:18px}
+.cw{background:var(--paper);padding:clamp(16px,2.4vw,26px);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2.4fr);gap:18px 28px;align-items:start;scroll-margin-top:16px}
+.cw header{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cw small{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em}
+.cw h3{font-size:clamp(24px,2.8vw,36px);line-height:1}
+.cw p{font-size:15px}
+.sw{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;grid-column:1;align-self:end}
+.sw div{aspect-ratio:1/1.25;max-width:100%;padding:6px;display:flex;flex-direction:column;justify-content:flex-end;font-family:var(--mono);font-size:9px;line-height:1.3;outline:1px solid rgba(0,0,0,.12);outline-offset:-1px;overflow:hidden}
+.sw b{font-size:9.5px;text-transform:uppercase;letter-spacing:.03em}
+.sw i{font-style:normal;opacity:.75}
+.kitgrid{grid-column:2;grid-row:1/span 2;display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:8px;align-items:end}
+.kitgrid figure{margin:0;display:flex;flex-direction:column;gap:4px;min-width:0}
+.kitgrid svg{display:block;width:100%;height:auto}
+.kitgrid svg .mn{font-family:var(--mono)}
+.kitgrid figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.vint .kitgrid svg{filter:saturate(.88) contrast(.95) sepia(.06)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+@media (max-width:900px){.cw{grid-template-columns:1fr}.sw,.kitgrid{grid-column:1;grid-row:auto}.kitgrid{grid-template-columns:1fr 1fr}}
+</style>
+{{DEFS}}
+
+<header class="band dark"><div class="in">
+  <div class="eyebrow"><span>Colourway proposal</span><span>Vintage</span><span>16 combos</span><span>For founder review</span></div>
+  {{HERO}}
+  <div class="hero-foot">
+    <div class="big">Colours that remember.</div>
+    <div class="status"><b>Proposal</b>Sixteen vintage colourways on the approved tee, cap, shorts with 3/4 tights and long socks, grouped by era. Nothing in the design changes, only the colours and the finish. Pick the ones you want to keep.</div>
+  </div>
+</div></header>
+
+<section class="band"><div class="in">
+  <div class="split" style="align-items:start">
+    <div class="col">
+      <div class="eyebrow"><span>The idea</span></div>
+      <h2>Malaysia, a few decades ago</h2>
+      <p class="lede">Each colourway is taken from something people grew up with here: the pink minibus, the kopitiam floor, the school uniform, the biscuit tin on the shelf.</p>
+      <p>The colours are softer and warmer than the first twenty, as if washed many times and left in the sun. The same five-colour rule applies: Body, Panel, Thread, Deep and Light each have a fixed place on the kit.</p>
+    </div>
+    <div class="col">
+      <div class="eyebrow"><span>Vintage finish</span><span>Proposed, for every piece</span></div>
+      <ul class="watch">
+        <li><b>Pigment wash</b>Garment-dyed after sewing, so seams and edges fade slightly lighter than the body.</li>
+        <li><b>Soft print</b>Logo and wordmark in a water-based print that softens and cracks a little with wear, in cream rather than pure white.</li>
+        <li><b>Tonal stitching</b>Seams sewn in the Thread colour as before, but slightly duller, so they look aged rather than new.</li>
+        <li><b>Aged labels</b>Woven labels on an off-white ground instead of bright white.</li>
+      </ul>
+      <p style="font-family:var(--mono);font-size:12.5px;opacity:.8">Drawings below have a light wash applied to suggest the finish; swatches show the true hex. Fabric needs lab dips and wash tests before anything is final.</p>
+    </div>
+  </div>
+  <div class="strip">{{STRIP}}</div>
+</div></section>
+
+{{FAMS}}
+
+<section class="band pinkb"><div class="in">
+  <div class="col"><div class="eyebrow"><span>Your call</span></div><h2>Pick your favourites</h2>
+  <p>Tell me the numbers you want to keep, for example "01, 06, 10, 15". I can then make model shots of the ones you choose, swap a single colour, or mix these with the first twenty colourways into one capsule.</p></div>
+</div></section>
