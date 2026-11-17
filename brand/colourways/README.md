@@ -1,4 +1,4 @@
-# OFFNORM colourways (proposal)
+# OFFNORM colourways (approved)
 
 **Status: approved 2026-11-18, all 20 kept.** 20 colourways on the approved kit (tee, cap, shorts with 3/4
 tights, long socks). Only colours change; the designs are the approved ones in `brand/garments`.
