@@ -159,6 +159,88 @@ def final(back, kind="D3", vb=None):
         g = block(kind) + logo("f", 248, 632, 40) + logo("nm", 504, 632, 48)
     return base((pl + pr, seams + g), back, "fin" + ("b" if back else "f") + kind + ("z" if vb else ""), vb=vb)
 
+# ---------- Designs 02-04 for The Sky: cap, shorts with 3/4 tights, long socks (flats, awaiting approval)
+def gtile(shapes, label):
+    """shapes: list of (path, fill, light?, clip id, inner svg). Draws each as cloth on one tile."""
+    out = ""
+    for d_, fill, light, cid, inner in shapes:
+        out += cloth(d_, fill, light, fold("M0,0", "#000", 0), cid, inner)
+    return tile(out, "#F1F2F0", label=label)
+def vlogo(x, y, w, tint="t_ink"):      # the wordmark set vertically, reading bottom to top
+    return f'<g transform="translate({x},{y}) rotate(-90)">{logo("wm", 0, 0, w, tint)}</g>'
+
+def lum(h): return (0.299 * int(h[1:3], 16) + 0.587 * int(h[3:5], 16) + 0.114 * int(h[5:7], 16)) / 255
+def dk(h): return lum(h) < 0.55                      # dark fabric -> white logo, light grain
+def tn(h): return "t_white" if dk(h) else "t_ink"
+def ik(h): return "#F3F4F2" if dk(h) else INK
+# Colour combos per collection. Each piece takes a different pairing from the collection's five colours,
+# so the cap, shorts and socks are not just the tee's colours repeated.
+KIT = [
+ dict(code="MOS", n="The Moss", co="4.5239°N  101.3819°E", cap=("#8A9A5B", "#C9CFCB", "#B7C948"), sh=("#3A2E24", "#8A9A5B", "#2F3B2A", "#B7C948"), so=("#C9CFCB", "#2F3B2A", "#2F3B2A", "#B7C948", "#B7C948")),
+ dict(code="WLD", n="The Wild", co="4.6325°N  102.2342°E", cap=("#8A6B4A", "#121A17", "#E08A2B"), sh=("#1F3A2E", "#8A6B4A", "#121A17", "#E08A2B"), so=("#BFC6C0", "#E08A2B", "#121A17", "#8A6B4A", "#E08A2B")),
+ dict(code="SKY", n="The Sky", co="3.2094°N  101.1865°E", cap=("#F1F2EF", "#7FB2DD", "#F4D24A"), sh=("#2E5C8A", "#7FB2DD", "#7FB2DD", "#F4D24A"), so=("#F1F2EF", "#F2C7A0", "#F2C7A0", "#2E5C8A", "#F4D24A")),
+ dict(code="OCN", n="The Ocean", co="5.7750°N  103.0150°E", cap=("#E6D9BD", "#1E9AA8", "#F0775A"), sh=("#0F4C6B", "#E6D9BD", "#1E9AA8", "#F0775A"), so=("#F3F4F2", "#F0775A", "#0F4C6B", "#1E9AA8", "#F0775A")),
+ dict(code="CAV", n="The Caves", co="3.8139°N  113.7814°E", cap=("#B9B0A0", "#4A3A2A", "#C9A24A"), sh=("#141414", "#4F6A4A", "#4A3A2A", "#C9A24A"), so=("#B9B0A0", "#4F6A4A", "#141414", "#C9A24A", "#C9A24A")),
+ dict(code="DUN", n="The Dune", co="2.2164°N  102.1943°E", cap=("#F3EBDD", "#B58B5A", "#D9532B"), sh=("#6B4E33", "#D9B98A", "#B58B5A", "#D9532B"), so=("#F3EBDD", "#D9532B", "#B58B5A", "#6B4E33", "#D9532B")),
+ dict(code="MSN", n="The Monsoon", co="4.1300°N  103.3900°E", cap=("#6E7B85", "#2B3440", "#E0342B"), sh=("#1B4A5A", "#6E7B85", "#2B3440", "#E0342B"), so=("#DDE3E4", "#E0342B", "#2B3440", "#1B4A5A", "#E0342B")),
+]
+def cap_front(k):
+    body, panel, th = k["cap"]; i = k["code"]
+    crown = "M250,470 C250,300 320,230 400,230 C480,230 550,300 550,470 Z"
+    brim = "M232,462 C300,452 500,452 568,462 C592,520 520,562 400,562 C280,562 208,520 232,462 Z"
+    inner = (f'<path d="M250,470 C250,300 320,230 400,232 C360,300 336,380 330,470 Z" fill="{panel}"/>'
+             + seam("M400,232 C360,300 336,380 330,470", th, 3.4) + seam("M400,232 C440,300 464,380 470,470", th, 3.4)
+             + bartack(330, 462, th) + bartack(470, 462, th) + logo("sym", 368, 340, 64, tn(body))
+             + '<rect x="240" y="452" width="320" height="20" fill="#000" opacity=".08"/>')
+    sc = "#fff" if dk(panel) else "#000"
+    b_in = (stitch("M250,480 C320,470 480,470 550,480", sc, .3, 1.3) + stitch("M246,500 C320,520 480,520 554,500", sc, .3, 1.3)
+            + f'<text class="mn" x="400" y="546" font-size="8" fill="{ik(panel)}" text-anchor="middle" letter-spacing=".14em">{k["co"]}</text>')
+    btn = f'<ellipse cx="400" cy="231" rx="13" ry="5" fill="{th}"/>'
+    return tile(cloth(brim, panel, dk(panel), "", "cpb" + i, b_in) + cloth(crown, body, dk(body), fold("M300,300 C280,360 270,420 270,470", "#000", .06, 40), "cpc" + i, inner) + btn, "#F1F2F0", label=f'{k["n"]} cap')
+def shorts_tights(k):
+    sh, panel, tg, th = k["sh"]; i = k["code"]
+    legL, legR = "M236,418 L390,430 L374,700 L270,700 Z", "M564,418 L410,430 L426,700 L530,700 Z"
+    short = "M250,170 L550,170 L574,420 Q575,430 565,431 L420,436 Q411,436 410,427 L400,330 L390,427 Q389,436 380,436 L235,431 Q225,430 226,420 Z"
+    hs = "#fff" if dk(tg) else "#000"
+    t_in_L = (seam("M250,430 C262,520 266,610 274,696", th, 3.2) + rdot(274, 694, 3.2)
+              + f'<text class="mn" transform="translate(286,660) rotate(-87)" font-size="8" fill="{ik(tg)}" letter-spacing=".14em">{k["co"]}</text>'
+              + '<rect x="262" y="676" width="120" height="24" fill="#000" opacity=".16"/>' + stitch("M272,678 H374", hs, .35, 1.2))
+    t_in_R = ('<rect x="420" y="676" width="120" height="24" fill="#000" opacity=".16"/>' + stitch("M428,678 H528", hs, .35, 1.2) + logo("sym", 452, 610, 46, tn(tg)))
+    ss = "#fff" if dk(sh) else "#000"
+    s_in = (f'<path d="M250,170 L304,170 L276,433 L235,431 Q225,430 226,420 Z" fill="{panel}"/>'
+            + '<path d="M250,170 L550,170 L554,212 L246,212 Z" fill="#000" opacity=".12"/>'
+            + "".join(f'<path d="M{262+j*13},174 l-1,34" stroke="{ss}" stroke-opacity=".16" stroke-width="1.6"/>' for j in range(22))
+            + seam("M304,212 L276,433", th, 3.4) + bartack(303, 216, th, -83)
+            + f'<path d="M386,192 C382,250 372,290 364,318 M414,192 C418,250 428,290 436,318" stroke="{th}" stroke-width="4.5" fill="none" stroke-linecap="round"/>'
+            + stitch("M232,414 L384,424", ss, .3, 1.3) + stitch("M416,424 L568,414", ss, .3, 1.3)
+            + f'<path d="M562,372 L574,420" stroke="{ss}" stroke-opacity=".4" stroke-width="2.4"/>' + rdot(562, 372, 3.2)
+            + logo("sym", 478, 360, 54, tn(sh)) + f'<g transform="translate(520,214) rotate(-3)"><rect width="30" height="16" fill="{th}"/></g>')
+    f1 = fold("M320,440 C316,540 322,620 318,700", "#fff", .07, 30); f2 = fold("M480,440 C484,540 478,620 482,700", "#fff", .07, 30)
+    fs = fold("M300,240 C290,320 300,380 290,430", "#000", .05, 40) + fold("M500,240 C510,320 500,380 510,430", "#000", .05, 40) + fold("M400,230 L400,330", "#000", .14, 30)
+    return tile(cloth(legL, tg, dk(tg), f1, "stl" + i, t_in_L) + cloth(legR, tg, dk(tg), f2, "str" + i, t_in_R) + cloth(short, sh, dk(sh), fs, "sts" + i, s_in), "#F1F2F0", label=f'{k["n"]} shorts with 3/4 tights')
+def socks(k):
+    a, ah, b, bh, band = k["so"]; i = k["code"]
+    K = "M0,0 H120 V420 C120,456 138,470 188,486 C258,508 272,572 218,586 C158,602 58,578 22,532 C-4,498 0,460 0,420 Z"
+    def one(tx, ty, rot, body, heel, cid):
+        ink = ik(body)
+        ribs = "".join(f'<path d="M{8+j*9.6},0 V62" stroke="{ink}" stroke-opacity=".16" stroke-width="2"/>' for j in range(12))
+        inner = (ribs + f'<rect x="0" y="70" width="120" height="10" fill="{band}"/>'
+                 + f'<path d="M0,420 C0,460 -4,498 22,532 L62,498 C44,470 56,440 120,420Z" fill="{heel}"/>'
+                 + f'<path d="M188,486 C258,508 272,572 218,586 C204,552 194,520 188,486Z" fill="{heel}"/>'
+                 + vlogo(46, 392, 290, tn(body))
+                 + f'<text class="mn" x="60" y="98" font-size="7" fill="{ink}" text-anchor="middle" letter-spacing=".12em">OFN—{i}</text>')
+        return f'<g transform="translate({tx},{ty}) rotate({rot})">' + cloth(K, body, dk(body), fold("M90,100 V400", "#000", .06, 26), cid, inner) + '</g>'
+    return tile(one(190, 96, -4, a, ah, "sk1" + i) + one(440, 110, 4, b, bh, "sk2" + i), "#F1F2F0", label=f'{k["n"]} long socks')
+def kitrows():
+    out = ""
+    for k in KIT:
+        sw = "".join(f'<i style="background:{h}"></i>' for h in dict.fromkeys(list(k["cap"]) + list(k["sh"]) + list(k["so"])))
+        out += (f'<div class="kitrow"><div class="kithead"><b>{k["n"]}</b><span class="mn">OFN—{k["code"]}</span><div class="chips">{sw}</div></div>'
+                f'<figure class="flat">{cap_front(k)}<figcaption><b>Cap</b></figcaption></figure>'
+                f'<figure class="flat">{shorts_tights(k)}<figcaption><b>Shorts + 3/4 tights</b></figcaption></figure>'
+                f'<figure class="flat">{socks(k)}<figcaption><b>Long socks</b></figcaption></figure></div>')
+    return out
+
 head = open(os.path.join(OUT, "..", "identity", "source", "page.html")).read()
 head = head[head.index("<meta"):head.index("</style>")]
 PAGE = open(f"{HERE}/page.html").read()
@@ -171,6 +253,8 @@ html = (PAGE.replace("{{HEAD}}", head).replace("{{DEFS}}", DEFS)
         .replace("{{PARTS}}", part("sym", ("The O", "Chest mark, cap, labels"), "62%") + part("f", ("The F", "Back, sleeve, sock"), "44%")
                  + part("nm", ("The NM", "Back, hem, shorts"), "52%") + part("wm", ("Wordmark", "Neck label, hang tag, packaging"), "86%"))
         .replace("{{F_F}}", final(False)).replace("{{F_B}}", final(True))
-        .replace("{{D3}}", final(True, "D3", "262 212 276 100")))
+        .replace("{{D3}}", final(True, "D3", "262 212 276 100"))
+        .replace("{{KIT}}", kitrows())
+        .replace("{{SHOT}}", "data:image/png;base64," + b64(f"{OUT}/shots/sky-tee-front-test-thumb.png")))
 open(f"{OUT}/designs.html", "w").write(html)
 print("ok", {k: round(v, 2) for k, v in AR.items()})
