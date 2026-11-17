@@ -32,7 +32,7 @@ One piece at a time. **Nothing moves to the next step without the founder's appr
 | 2 | The Sky tee flat, round 4: B2 base with changes | Founder: everything okay, but white panel on the right arm only; take D3; no further approval needed for this amendment |
 | 2 | The Sky tee, final flat (panel on wearer's right arm, D3 back) | **Approved** (2026-11-16) |
 | 3 | 3D mock-ups of the tee for all seven collections | **Accepted by founder 2026-11-17** ("Good enough"). WebGL model in `brand/collections` (lineup.html, `source/tee3d.js`). A model, not a photograph |
-| 4 | Cap, shorts with 3/4 tights, long socks with vertical OFFNORM: flats for all seven collections with varied colour combos (`KIT` in build.py) | **Awaiting approval** |
+| 4 | Cap, shorts with 3/4 tights, long socks with vertical OFFNORM, all seven collections with varied colour combos | **Approved** (2026-11-17) |
 | 5 | Photo-style model shots of the tee, all 7 collections, front and back (14) | Done 2026-11-17. 9 from Canva image generation, 5 from Vyra (Canva hit its limit). Small previews in `shots/`; full size is in the founder's Canva uploads and the Vyra project "OFFNORM model mock-ups". Generated models, not real people |
 
 Rebuild: `python3 brand/garments/source/build.py`
