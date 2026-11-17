@@ -19,9 +19,9 @@ Rebuild: `python3 brand/colourways/source/build.py`
 
 ---
 
-# Vintage colourways (proposal)
+# Vintage colourways (approved)
 
-**Status: proposal, awaiting founder's picks.** 16 vintage colourways on the same kit, built by
+**Status: approved 2026-11-18, all 16 kept.** 16 vintage colourways on the same kit, built by
 `source/build_vintage.py` into [vintage.html](vintage.html). Proposed vintage finish for all pieces: pigment wash,
 soft water-based print in cream, duller tonal stitching, off-white woven labels.
 
