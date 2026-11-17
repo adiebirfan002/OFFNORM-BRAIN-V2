@@ -1,6 +1,6 @@
 # OFFNORM colourways (proposal)
 
-**Status: proposal, awaiting founder's picks.** 20 colourways on the approved kit (tee, cap, shorts with 3/4
+**Status: approved 2026-11-18, all 20 kept.** 20 colourways on the approved kit (tee, cap, shorts with 3/4
 tights, long socks). Only colours change; the designs are the approved ones in `brand/garments`.
 
 Each colourway is five colours with fixed jobs: Body (tee, tights), Panel (right-sleeve panel, short hip panel),
