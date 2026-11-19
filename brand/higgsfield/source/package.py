@@ -51,6 +51,43 @@ Do not copy from the shirt photo: the panels on both sleeves, the coloured lines
 PHOTOGRAPHY: premium sportswear lookbook photo, seamless light grey studio backdrop, soft diffused key light from the front-left, gentle fill, soft natural shadow on the floor, full-frame camera, 85mm lens, f/4, eye-level, sharp focus on the fabric so the rib texture, heathered knit and stitching are visible, colours true to the DESIGN images, natural colour grading, high resolution, photorealistic.
 
 AVOID: logos, text, prints or colours from the photos (UVU, Nike, FPA or any other brand), misspelled or invented text, a chunky knitted or cuffed beanie, knee-high socks, stripes, shorts over the tights, long leggings, a sleeve panel or arm sleeve on both arms, changed colours, cartoon, 3D-render look, plastic skin, distorted hands or feet."""
+LOC = {
+ "KPO": "the limestone hills of Ipoh, Perak at first light: tall jungle-topped karst cliffs rising behind him, a dry gravel and scrub foreground with scattered dark rocks",
+ "MSN": "the east-coast shore at Cherating, Pahang in monsoon season: dark rocky headland and wind-bent casuarina trees behind him, wet dark sand and scattered black rocks in the foreground, heavy storm clouds",
+ "SGK": "the coastal cliffs of Terengganu at golden hour: steep green-and-rock headland behind him, a rough foreground of dry grass, dark sand and scattered rocks",
+ "PBK": "the mangrove mudflats of Kuala Selangor at low tide: a wall of dark mangrove forest behind him, cracked mud, roots and scattered stones in the foreground",
+ "KNB": "the granite summit plateau of Mount Kinabalu, Sabah: huge bare granite peaks and cliffs behind him, rough granite slabs and low alpine scrub in the foreground, drifting cloud",
+ "SBH": "Broga Hill, Selangor at sunrise: long grassy ridges and a steep hillside behind him, a rough foreground of dry grass, dirt trail and scattered rocks",
+}
+STYLE_SHOT = ("SHOT: full body, standing still in the middle of the frame, facing the camera, feet slightly apart, arms relaxed by his sides, "
+              "stoic serious expression, wearing plain wrap-around sports sunglasses with no branding. Vertical 4:5 frame, he fills about two thirds of the height, "
+              "with landscape all around him. Camera at chest height, straight on.")
+CLOSE = [
+ ("E1 · CLOSE-UP BEANIE", "beanie",
+  "SHOT: close-up portrait, head and shoulders, three-quarter profile turned to his left, wearing plain wrap sunglasses pushed up or off. The RUNNING BEANIE fills the upper third of the frame: show the thin stretch-jersey fabric, the soft gathered top, the flat-stitched hem band and the small tone-on-tone OFN logo above the hem in sharp focus. The t-shirt collar and raglan stitching just visible at the bottom. Vertical 4:5 frame, 85mm lens look, shallow depth of field, the landscape soft behind him."),
+ ("E2 · CLOSE-UP T-SHIRT", "tee",
+  "SHOT: medium close-up from the chin to the waist, straight on, arms relaxed. The T-SHIRT fills the frame: the small round OFFNORM symbol on the chest, the raised contrast-stitched raglan seams, the heathered quick-dry knit texture, the coloured panel on the lower RIGHT sleeve and the small woven tab at the hem, all in sharp focus. Vertical 4:5 frame, 50mm lens look."),
+ ("E3 · CLOSE-UP ARM SLEEVE", "sleeve",
+  "SHOT: close-up of his RIGHT arm, hand resting on his hip, from the shoulder to the hand, side-on to the camera. The ARM SLEEVE fills the frame from wrist to mid-bicep: smooth matte compression fabric, snug fit, and the small tone-on-tone OFFNORM symbol near the wrist in sharp focus. The edge of the t-shirt's lower-sleeve panel just above it. Vertical 4:5 frame, 85mm lens look, background soft."),
+ ("E4 · CLOSE-UP SHORT TIGHTS", "tights",
+  "SHOT: close-up from the waist to just above the knees, slightly angled to show his LEFT thigh, his left hand resting loosely beside the thigh like in Image 10. The SHORT TIGHTS fill the frame: fine vertical ribbed fabric, the wide waistband with drawcord and small tonal wordmark, the curved inner-thigh seam, the raw-cut hem, and the large silver reflective OFN logo running vertically down the outer LEFT thigh catching the low sun, all in sharp focus. Vertical 4:5 frame, 85mm lens look."),
+ ("E5 · CLOSE-UP CREW SOCKS", "socks",
+  "SHOT: low close-up from mid-shin down to the shoes, both feet planted on the rocky ground, camera at ankle height. The CREW SOCKS fill the frame: ribbed leg and cuff at mid-calf, cushioned foot visible above the shoe, and the OFFNORM wordmark knitted vertically down the outer side in a darker tone, in sharp focus. Plain white running shoes with dust on them. Horizontal 4:5 or 3:2 frame, 50mm lens look, warm side light."),
+]
+def closeup(k, shot):
+    s = outdoor(k).replace(outdoor_shot_marker(), shot)
+    return s.replace("PHOTOGRAPHY, recreate the style of Image 12:", "This is a CLOSE-UP DETAIL photo: the named garment must be the hero, perfectly matching its DESIGN colours and logo and its PHOTO fabric and shape. Everything else in the outfit stays as described but may be partly out of frame.\n\nPHOTOGRAPHY, recreate the style of Image 12:")
+def outdoor_shot_marker(): return STYLE_SHOT
+def outdoor(k):
+    s = prompt(k, STYLE_SHOT)
+    s = s.replace("Image 11: 11_PHOTO_socks", "Image 11: 11_PHOTO_socks\nImage 12: 14_STYLE_photography (in the OUTDOOR-SHOT folder)")
+    s = s.replace("- In the PHOTOS, ignore", "- Image 12 is the PHOTOGRAPHY STYLE reference only: copy its light, mood, composition, colour grade and film look. Do NOT copy its person, clothes, vest, shorts, shoes, tattoos or exact location.\n- In the PHOTOS, ignore")
+    a = s.index("PHOTOGRAPHY:"); b = s.index("AVOID:")
+    photo = f"""PHOTOGRAPHY, recreate the style of Image 12: an outdoor editorial trail-running portrait in the style of a premium running brand campaign. Location: {LOC[k["code"]]}. Late-afternoon or early-morning sun low from the left, warm and hard, raking across the runner and the landscape, so his front is lit with crisp shadows and parts of the hills fall into deep shadow; dark moody grey clouds over part of the sky. Earthy, slightly muted colour grade: olive greens, browns, ochres, deep shadows, warm highlights, the OFFNORM colours still true and clear. Shot on a 35mm full-frame camera at f/5.6 so the runner is pin sharp and the background is slightly soft but readable. Fine 35mm film grain, Kodak Portra 400 look, slightly lifted blacks, natural skin with sweat sheen, real fabric texture. Documentary feel, quiet and calm, no posing tricks. Photorealistic, high resolution.
+
+"""
+    s = s[:a] + photo + s[b:]
+    return s.replace("AVOID: ", "AVOID: copying the person or clothes of Image 12, a hydration vest, running shorts, ")
 def short(k):
     b, (tb, tp, ts, tl, tx), sl, tg, so = k["beanie"], k["tee"], k["sleeve"], k["tights"], k["socks"]
     return (f"Photoreal full-body studio lookbook photo of a lean Malaysian male runner, mid-20s, facing the camera, light grey seamless backdrop, soft light, 85mm. "
@@ -76,12 +113,15 @@ for n, k in enumerate(H.KITS, start=2):
     for f, r in zip(FILES[6:], ["REF_beanie", "REF_shirt_front", "REF_armsleeve", "REF_shorttights", "REF_socks"]):
         shutil.copy(f"{REFS}/{r}.jpg", f"{kd}/{f}.jpg")
     jpg(f"{src}/{c}_03_tee_back.png", f"{kd}/BACK-SHOT/12_DESIGN_tee_back.jpg"); shutil.copy(f"{REFS}/REF_shirt_back.jpg", f"{kd}/BACK-SHOT/13_PHOTO_tee_back.jpg")
+    os.makedirs(os.path.join(kd, "OUTDOOR-SHOT")); shutil.copy(f"{REFS}/REF_style.jpg", f"{kd}/OUTDOOR-SHOT/14_STYLE_photography.jpg")
     jpg(f"{src}/{c}_99_board.png", f"{kd}/zz_COLOUR-GUIDE_do-not-upload.jpg")
     txt = [f"OFFNORM {k['n']} (OFN—{c}) · Higgsfield prompts", "",
            "1. Upload images 01 to 11 from this folder, in number order.",
            "2. Copy one prompt (everything between the ===== lines) and paste it.",
            "3. Generate 4, keep the best.", ""]
     for t, shot, back in SHOTS: txt += [f"===== {t} =====", prompt(k, shot, back), ""]
+    txt += ["===== D · OUTDOOR EDITORIAL (also upload OUTDOOR-SHOT/14_STYLE_photography as Image 12) =====", outdoor(k), ""]
+    for t, _, shot in CLOSE: txt += [f"===== {t} (upload 01-11 + OUTDOOR-SHOT/14_STYLE_photography as Image 12) =====", closeup(k, shot), ""]
     txt += ["===== SHORT VERSION (only if Higgsfield says the prompt is too long) =====", short(k), ""]
     open(os.path.join(kd, "PROMPTS.txt"), "w").write("\n".join(txt))
     print("kit", c)
@@ -96,6 +136,7 @@ HOW (same for every colourway):
    01-06 DESIGN = our colours and logos.  07-11 PHOTO = real-life shape, fit and fabric.
 3. Open PROMPTS.txt in the same folder, copy prompt A, paste, generate 4.
 4. For the back view use prompt B and also upload the 2 images in BACK-SHOT (they become 12 and 13).
+   For the outdoor campaign photo (prompt D) and the close-ups of each item (prompts E1 to E5), also upload the image in OUTDOOR-SHOT (it becomes 12).
 5. Do NOT upload zz_COLOUR-GUIDE. Use it to check the colours.
 6. If a logo comes out wrong, fix it with Higgsfield's edit tool or the clean logos in 8-LOGOS-for-fixing.
 
