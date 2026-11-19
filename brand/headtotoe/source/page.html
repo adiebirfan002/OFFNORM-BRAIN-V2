@@ -1,0 +1,104 @@
+<title>OFFNORM Head to Toe</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: one column. Palette strip, the colour rule per piece, a full flat lay, then one card per piece with why. */
+:root{--bg:#F1F2F0;--surface:#FFFFFF;--fg:#17181A;--muted:#666B70;--line:#DCDDD9;--accent:#B7862C;
+  --display:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141412;--surface:#1D1D1B;--fg:#EDEBE6;--muted:#9C9A94;--line:#34332F;--accent:#E8B04A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141412;--surface:#1D1D1B;--fg:#EDEBE6;--muted:#9C9A94;--line:#34332F;--accent:#E8B04A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 80px}
+main{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.12;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,60px);font-weight:700;letter-spacing:-.015em}
+h2{font-size:26px;font-weight:600}
+h3{font-size:20px;font-weight:600}
+p{margin:0;max-width:65ch}
+.mn{font-family:var(--mono)}
+.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.lede{font-size:18px;color:var(--muted);margin-top:12px}
+.draft{display:inline-block;margin-top:16px;font:600 12px/1 var(--mono);letter-spacing:.1em;border:1px solid var(--accent);color:var(--accent);padding:6px 10px;border-radius:999px}
+section{display:flex;flex-direction:column;gap:18px}
+.pal{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.sw{padding:16px 14px;display:flex;flex-direction:column;gap:2px;min-height:118px;justify-content:flex-end;font-size:13px}
+.sw b{font-family:var(--display);font-size:17px}.sw span{font-family:var(--mono);font-size:12px;opacity:.85}.sw i{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+@media (max-width:620px){.pal{grid-template-columns:repeat(2,minmax(0,1fr))}.sw:last-child{grid-column:span 2}}
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font:600 11px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lay{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+.lay figure{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#F1F2F0}
+.lay svg{display:block;width:100%;height:auto}
+.lay .notes{display:flex;flex-direction:column;gap:14px;font-size:15px}
+@media (max-width:820px){.lay{grid-template-columns:1fr}}
+.cards{display:flex;flex-direction:column;gap:18px}
+.pc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;align-items:center}
+.pics{display:grid;gap:10px}.pics.two{grid-template-columns:1fr 1fr}
+.pics svg{display:block;width:100%;height:auto;border-radius:8px}
+.txt{display:flex;flex-direction:column;gap:10px;min-width:0}
+.txt small{font:600 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:4px 10px 4px 5px}
+.chip i{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+@media (max-width:720px){.pc{grid-template-columns:1fr}}
+.next{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.next ol{margin:0;padding-left:20px}
+</style>
+{{DEFS}}
+<main>
+  <header>
+    <div class="eyebrow">OFFNORM · Head to toe · Draft 1</div>
+    <h1 style="margin-top:14px">{{NAME}}</h1>
+    <p class="lede">{{LINE}} Six pieces, each with its own colour rule, so the colours are placed on purpose instead of repeated on every garment.</p>
+    <span class="draft">OFN—{{CODE}} · for approval</span>
+  </header>
+
+  <section>
+    <div class="pal">{{SW}}</div>
+  </section>
+
+  <section>
+    <h2>The colour rule per piece</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Piece</th><th>Rule</th><th>How many colours</th><th>Logo</th></tr></thead>
+      <tbody>
+        <tr><td>Beanie</td><td>The pop colour only</td><td>1</td><td>OFN mark, tone on tone</td></tr>
+        <tr><td>Tee</td><td>Main, sub and pop mixed, plus light for the print</td><td>3 + print</td><td>Symbol front, wordmark and data back</td></tr>
+        <tr><td>Arm sleeve</td><td>One colour, picked to suit the tee</td><td>1</td><td>Small symbol at the wrist, tonal</td></tr>
+        <tr><td>Shorts</td><td>Same vibe as the tee, a different mix of the combo</td><td>2–3</td><td>Symbol on the leg</td></tr>
+        <tr><td>3/4 tights</td><td>One colour</td><td>1</td><td>OFN stacked vertically, reflective</td></tr>
+        <tr><td>Long socks</td><td>One colour, the same as the beanie</td><td>1</td><td>OFFNORM wordmark vertical, tone on tone</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Head to toe</h2>
+    <div class="lay">
+      <figure>{{FLAT}}</figure>
+      <div class="notes">
+        <p><b>Gold at both ends.</b> The beanie and socks share the pop colour, so the outfit is framed top and bottom.</p>
+        <p><b>Dark through the middle.</b> Kopi tee, Pekat shorts and Kopi tights keep the body of the outfit deep, like black coffee.</p>
+        <p><b>One side carries the detail.</b> The tee's sleeve panel, the arm sleeve and the shorts' side panel all sit on the wearer's right, so the asymmetry reads as one idea.</p>
+        <p><b>Logo spread.</b> OFN on the beanie and tights, the symbol on the tee, sleeve and shorts, the full wordmark on the tee's back and the socks. Each piece shows one form of the logo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Piece by piece</h2>
+    <div class="cards">{{CARDS}}</div>
+  </section>
+
+  <section>
+    <div class="next">
+      <h2>If you say proceed</h2>
+      <p>I'll apply the same rules to the seven line-up 01 collections, each with its own colour combo:</p>
+      <ol><li>The Moss</li><li>The Wild</li><li>The Sky</li><li>The Ocean</li><li>The Caves</li><li>The Dune</li><li>The Monsoon</li></ol>
+      <p>Colours are screen colours. The factory will need lab dips, and the reflective print needs a sample.</p>
+    </div>
+  </section>
+</main>
