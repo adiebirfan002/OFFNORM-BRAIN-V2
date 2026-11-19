@@ -1,0 +1,46 @@
+<title>OFFNORM Long Sleeve</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: one column. What changes from the tee, then one row per colourway with front and back side by side. */
+:root{--bg:#F1F2F0;--surface:#FFFFFF;--fg:#17181A;--muted:#666B70;--line:#DCDDD9;--accent:#9A6B1E;
+  --display:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141412;--surface:#1D1D1B;--fg:#EDEBE6;--muted:#9C9A94;--line:#34332F;--accent:#E8B04A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141412;--surface:#1D1D1B;--fg:#EDEBE6;--muted:#9C9A94;--line:#34332F;--accent:#E8B04A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 80px}
+main{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
+h1,h2{font-family:var(--display);margin:0;line-height:1.12;text-wrap:balance}
+h1{font-size:clamp(32px,5.5vw,54px);font-weight:700}h2{font-size:26px;font-weight:700}
+p{margin:0;max-width:65ch}.mn{font-family:var(--mono)}
+.eyebrow,small{font:600 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.lede{font-size:18px;color:var(--muted);margin-top:12px}
+ul.what{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.ls{display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--line);padding-top:28px}
+.ls header{display:flex;flex-direction:column;gap:8px}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+figure svg{display:block;width:100%;height:auto}
+figcaption{padding:8px 12px;font-size:14px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 4px}
+.chip i{width:15px;height:15px;border-radius:50%;border:1px solid rgba(127,127,127,.4)}
+@media (max-width:560px){.pair{grid-template-columns:1fr}}
+</style>
+{{DEFS}}
+<main>
+  <header>
+    <div class="eyebrow">OFFNORM · Long sleeve · Draft 1</div>
+    <h1 style="margin-top:14px">The tee, long sleeve</h1>
+    <p class="lede">The approved tee taken to the wrist, in the six head-to-toe colourways. Same body, same raglan seams, same logo placement; only the sleeves change.</p>
+  </header>
+  <section>
+    <ul class="what">
+      <li><b>Sleeves to the wrist,</b> with a rib cuff. The raglan seams in the pop colour run from the neck to the underarm, as on the tee.</li>
+      <li><b>The panel stays on the wearer's right arm only.</b> It starts at the same point on the raglan seam and runs down the outer forearm to the cuff, so every seam still meets another seam.</li>
+      <li><b>Front:</b> symbol on the chest, small tab on the hem. <b>Back:</b> wordmark and data block, F and NM at the hem corners. The number reads <span class="mn">OFN—code—LS1</span>.</li>
+      <li><b>With the long sleeve, the arm sleeve is no longer needed.</b> In the head-to-toe kit it replaces the tee and arm sleeve together.</li>
+    </ul>
+  </section>
+  {{ROWS}}
+</main>
