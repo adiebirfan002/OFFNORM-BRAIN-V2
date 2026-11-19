@@ -1,10 +1,12 @@
-# OFFNORM × Higgsfield
+# OFFNORM × Higgsfield (version 2, 2026-11-20)
 
-The team folder is built by `source/package.py` (needs the founder's real-photo references, which are kept out of this public repo):
+Version 1 sent 11-13 images per shot; the founder reported mismatched clothes, wrong colours/style and too many images.
+Version 2 sends three images per colourway, in this order:
 
-    python3 brand/higgsfield/source/export.py            # design images -> kits/ and logo/
-    python3 brand/higgsfield/source/package.py <out> <refs>   # ordered team folder with prompts
+1. `1_OUTFIT_DESIGN.jpg` – our six items in a 3×2 grid: beanie, tee front, arm sleeve / short tights, crew socks, tee back
+2. `2_REAL_LIFE_REFERENCE.jpg` – the founder's real-photo references in the same grid, other brands' logos blurred (`source/real_sheet.html`)
+3. `3_PHOTO_STYLE.jpg` – the outdoor photography style reference
 
-Each colourway folder holds images 01-11 in upload order (01-06 DESIGN, 07-11 PHOTO), a BACK-SHOT folder (12-13), PROMPTS.txt and a colour guide not to upload.
-References used (2026-11-19): UVU Half Tight 2.0 (short tights), UVU jersey running beanie, FPA raglan tee front and back, Nike arm sleeve, UVU crew socks.
-The beanie (thin jersey running beanie) and socks (mid-calf crew) were redrawn to match those references.
+Prompts (about 3,500 characters): outdoor front, back, running, and close-ups of beanie, tee, arm sleeve, short tights, socks, each with a Malaysian location per colourway and an explicit rule that the colour grade must not change garment colours.
+
+Build: `python3 brand/higgsfield/source/export.py` then `python3 brand/higgsfield/source/package.py <out> <refs>` (refs = REAL_sheet.png + REF_style.jpg, kept out of this public repo).

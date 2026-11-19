@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:#fff}</style>
+<canvas id="c" width="2400" height="1600"></canvas>
+<script>
+const C=[
+ ["REF_beanie.jpg",[640,0,640,587],[[950,170,105,90]]],
+ ["REF_shirt_front.jpg",[90,440,1110,900],[[685,735,100,80]]],
+ ["REF_armsleeve.jpg",[120,330,1120,1000],[[580,480,100,55],[915,950,100,65]]],
+ ["REF_shorttights.jpg",[0,0,640,670],[[205,260,130,270]]],
+ ["REF_socks.jpg",[0,0,1260,1390],[[315,495,160,115],[555,300,170,115]]],
+ ["REF_shirt_back.jpg",[230,60,730,900],[[485,470,260,250],[226,90,120,440]]],
+];
+const g=document.getElementById('c').getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,2400,1600);
+let n=0;
+C.forEach(([f,cr,bl],i)=>{const im=new Image();im.onload=()=>{
+  const off=document.createElement('canvas');off.width=im.width;off.height=im.height;const o=off.getContext('2d');o.drawImage(im,0,0);
+  bl.forEach(([x,y,w,h])=>{o.save();o.beginPath();o.rect(x,y,w,h);o.clip();o.filter='blur(14px)';o.drawImage(im,0,0);o.drawImage(off,0,0);o.restore();
+     o.save();o.beginPath();o.rect(x,y,w,h);o.clip();o.filter='blur(18px)';o.drawImage(off,0,0);o.restore();});
+  const [sx,sy,sw,sh]=cr, cx=(i%3)*800, cy=Math.floor(i/3)*800, s=Math.min(760/sw,760/sh), w=sw*s,h=sh*s;
+  g.drawImage(off,sx,sy,sw,sh,cx+(800-w)/2,cy+(800-h)/2,w,h); if(++n==C.length) document.title='done';};im.src=f;});
+</script>
