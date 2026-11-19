@@ -11,6 +11,13 @@ WORD = {
  "#55503F": "mud olive brown", "#C8CDB4": "pale sage green", "#B5763A": "root copper brown", "#2C2A20": "dark swamp brown", "#F2F2EA": "mist white",
  "#3F5560": "granite blue-grey", "#E5E9EA": "mist white", "#9BC2A6": "soft alpine mint", "#1E2C33": "summit charcoal", "#F6F8F8": "snow white",
  "#2D3A6B": "pre-dawn navy", "#F0C9A8": "dawn peach", "#E57A44": "sunrise orange", "#161E3D": "midnight navy", "#FBF1E8": "warm white",
+ "#C7B3A8": "terrazzo pink-grey", "#EFE7E0": "cement white", "#A0523D": "rust red", "#6E5E57": "stone grey-brown", "#F8F4F0": "pale off-white",
+ "#6E2232": "velvet burgundy", "#E7D3B0": "ticket cream", "#C9A04E": "antique gold", "#3E1219": "dark burgundy", "#F6EEDF": "screen cream",
+ "#F1EDE3": "school-shirt white", "#B9C2CF": "pale blue-grey", "#8A2E2E": "maroon", "#2F3D5C": "school navy", "#FBF8F1": "warm white",
+ "#5F7387": "CRT blue-grey", "#D9CFBE": "broadcast beige", "#E1B64A": "test-card yellow", "#6B4B2E": "wood-cabinet brown", "#F2EEE6": "pale cream",
+ "#2E4C8C": "cobalt blue", "#E9DDBF": "biscuit-tin cream", "#C9A24A": "tin gold", "#1B2D55": "deep cobalt navy", "#F6F0E1": "cream",
+ "#141C2E": "midnight blue", "#E7E9EE": "moon white", "#AEB6C2": "silver grey", "#0A0F1A": "near-black navy", "#F7F8FA": "bright white",
+ "#0F6E8C": "deep sea blue", "#F2E6CC": "sand", "#F2A541": "fishing-boat orange", "#083A4A": "deep-sea teal", "#F8F3E8": "foam white",
 }
 W = lambda h: f"{WORD[h]} ({h})"
 def prompt(k, who="a lean Malaysian male distance runner in his mid-20s", pose="standing relaxed, facing the camera, arms by his sides"):

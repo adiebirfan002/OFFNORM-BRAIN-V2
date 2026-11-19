@@ -6,6 +6,9 @@ HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.dirname(HERE); 
 spec = importlib.util.spec_from_file_location("h2t", os.path.join(ROOT, "brand", "headtotoe", "source", "build.py")); H = importlib.util.module_from_spec(spec)
 with contextlib.redirect_stdout(io.StringIO()): spec.loader.exec_module(H)
 G = H.G
+_s2 = importlib.util.spec_from_file_location("h2t02", os.path.join(ROOT, "brand", "headtotoe", "source", "build_02.py")); S2 = importlib.util.module_from_spec(_s2)
+with contextlib.redirect_stdout(io.StringIO()): _s2.loader.exec_module(S2)
+ALL = H.KITS + S2.KITS
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 TMP = tempfile.mkdtemp()
 FONTS = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@500;600;700&display=swap">'
@@ -19,7 +22,7 @@ def shoot(body, path, w, h, transparent=False, css=""):
     subprocess.run(args + ["file://" + f], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
 PIECES = [("01_beanie", "beanie", "Running beanie"), ("02_tee_front", "tee", "Tee, front"), ("03_tee_back", "teeb", "Tee, back"),
           ("04_arm_sleeve", "sleeve", "Arm sleeve"), ("05_short_tights", "tights", "Short tights"), ("06_socks", "socks", "Crew socks")]
-for k in H.KITS:
+for k in ALL:
     d = os.path.join(OUT, "kits", f'{k["code"]}_{k["n"].replace(" ", "-")}'); os.makedirs(d, exist_ok=True)
     parts = dict(beanie=H.beanie(k), tee=H.tee(k, False), teeb=H.tee(k, True), sleeve=H.arm_sleeve(k), tights=H.tights(k), socks=H.socks(k))
     for fn, key, _ in PIECES:

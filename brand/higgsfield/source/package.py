@@ -12,6 +12,9 @@ with contextlib.redirect_stdout(io.StringIO()): spec.loader.exec_module(P)
 H, WORD = P.H, P.WORD; G = H.G
 _ls = importlib.util.spec_from_file_location("ls", os.path.join(ROOT, "brand", "headtotoe", "source", "build_ls.py")); LSM = importlib.util.module_from_spec(_ls)
 with contextlib.redirect_stdout(io.StringIO()): _ls.loader.exec_module(LSM)
+_s2 = importlib.util.spec_from_file_location("h2t02", os.path.join(ROOT, "brand", "headtotoe", "source", "build_02.py")); S2 = importlib.util.module_from_spec(_s2)
+with contextlib.redirect_stdout(io.StringIO()): _s2.loader.exec_module(S2)
+ALL = H.KITS + S2.KITS
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; TMP = tempfile.mkdtemp()
 def jpg(src, dst): subprocess.run(["sips", "-s", "format", "jpeg", "-s", "formatOptions", "93", src, "--out", dst], stdout=subprocess.DEVNULL, check=True)
 def design_sheet(k, path, longsleeve=False):
@@ -19,7 +22,7 @@ def design_sheet(k, path, longsleeve=False):
              else [H.beanie(k), H.tee(k, False), H.arm_sleeve(k), H.tights(k), H.socks(k), H.tee(k, True)])
     sz = '<svg width="800" height="800" '
     cells = "".join("<div>" + p.replace("<svg ", sz, 1) + "</div>" for p in parts)
-    defs = G.DEFS + '<svg width="0" height="0" style="position:absolute"><defs>' + "".join(G.tint(i, h) for i, h in H.TINTS.items()) + '</defs></svg>'
+    defs = G.DEFS + '<svg width="0" height="0" style="position:absolute"><defs>' + "".join(G.tint(i, h) for i, h in {**H.TINTS, **LSM.H.TINTS}.items()) + '</defs></svg>'
     tag = k["code"] + ("ls" if longsleeve else "")
     f = os.path.join(TMP, tag + ".html")
     open(f, "w").write('<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&display=swap">'
@@ -36,6 +39,13 @@ LOC = {
  "SGK": "the coastal cliffs of Terengganu at golden hour: a steep green-and-rock headland behind him, dry grass, dark sand and scattered rocks in the foreground",
  "PBK": "the mangrove mudflats of Kuala Selangor at low tide: a wall of dark mangrove forest behind him, cracked mud, roots and stones in the foreground",
  "KNB": "the granite summit plateau of Mount Kinabalu, Sabah: huge bare granite peaks behind him, granite slabs and low alpine scrub in the foreground, drifting cloud",
+ "JTZ": "the pink granite ridge of Bukit Tabur, Selangor in late afternoon: pale pink-grey granite slabs and boulders behind him, rust-red earth, dry grass and scattered stones in the foreground",
+ "PGW": "the old tin-mining hills outside Ipoh, Perak at dusk: red-brown earth banks and limestone behind him, dry grass and gravel in the foreground, warm gold light",
+ "SRG": "the hill trails of Bukit Fraser, Pahang in the morning: rolling green ridges and pine trees behind him, a dry dirt trail and low mist in the foreground",
+ "TVL": "the tea-plantation ridges of Cameron Highlands on an overcast morning: rows of tea bushes rolling over the hills behind him, a brown earth track and wooden posts in the foreground",
+ "TBK": "the coast of Langkawi, Kedah in late golden light: a tall limestone headland and deep blue sea behind him, dark rocks and coarse sand in the foreground",
+ "BLN": "the grassy summit of Broga Hill, Selangor at blue hour just after sunset: dark ridges behind him, the last cold light low on the horizon, a rising moon, dry grass and rocks in the foreground",
+ "LSB": "the coast of Semporna, Sabah in early morning: a limestone island and deep blue sea behind him, coral sand and dark rocks in the foreground",
  "SBH": "Broga Hill, Selangor at sunrise: long grassy ridges and a steep hillside behind him, dry grass, a dirt trail and scattered rocks in the foreground",
 }
 def head(k):
@@ -98,7 +108,7 @@ SHOTS = [
 ]
 if os.path.exists(DST): shutil.rmtree(DST)
 os.makedirs(DST)
-for n, k in enumerate(H.KITS, start=2):
+for n, k in enumerate(ALL, start=2):
     kd = os.path.join(DST, f'{n}-{k["n"].upper().replace(" ", "-")}'); os.makedirs(kd)
     jpg(os.path.join(OUT, "kits", f'{k["code"]}_{k["n"].replace(" ", "-")}', f'{k["code"]}_99_board.png'), f"{kd}/zz_COLOUR-GUIDE_do-not-upload.jpg")
     for sub, ls_, real, hd, of, shots, label in (
@@ -115,7 +125,7 @@ for n, k in enumerate(H.KITS, start=2):
             txt += [f"===== {t} =====", hd(k) + "\n" + shot + "\n\n" + of(k) + "\n" + (photo(k).replace("panels on both sleeves, arm sleeves on both arms, ", "coloured panels on his LEFT side, an arm sleeve, a bandana, purple or lavender colours, ").replace("extra stripes or lines on the t-shirt", "extra stripes or panels not in Image 1") if ls_ else photo(k)), ""]
         open(f"{sd}/PROMPTS.txt", "w").write("\n".join(txt))
     print("kit", k["code"])
-shutil.copytree(os.path.join(OUT, "logo"), os.path.join(DST, "8-LOGOS-for-fixing"))
+shutil.copytree(os.path.join(OUT, "logo"), os.path.join(DST, f"{len(ALL)+2}-LOGOS-for-fixing"))
 open(os.path.join(DST, "1-READ-ME-FIRST.txt"), "w").write("""OFFNORM × HIGGSFIELD (version 2)
 
 Each colourway folder has two kits:
@@ -132,9 +142,9 @@ HOW:
 3. Open PROMPTS.txt in the same kit folder, copy prompt 1 (OUTDOOR FRONT), paste, generate 4.
 4. Same 3 images for every other prompt in that kit: back, running and the close-ups.
 5. Do NOT upload zz_COLOUR-GUIDE. Use it to check colours.
-6. If a logo comes out wrong, fix it with Higgsfield's edit tool or the clean logos in 8-LOGOS-for-fixing.
+6. If a logo comes out wrong, fix it with Higgsfield's edit tool or the clean logos in the LOGOS-for-fixing folder.
 
-Use the SAME model/face for all 6 colourways. Start with Kopi O, prompt 1, and send it to me first.
+Use the SAME model/face for every colourway. Start with Kopi O, prompt 1, and send it to me first.
 
 CHECK EVERY SHOT:
 - tee: panel on the lower RIGHT sleeve only, arm sleeve on the RIGHT arm only
