@@ -112,7 +112,7 @@ for n, k in enumerate(H.KITS, start=2):
                "Upload the 3 images in this folder in order (1_OUTFIT_DESIGN, 2_REAL_LIFE_REFERENCE, 3_PHOTO_STYLE).",
                "Copy ONE prompt (everything between the ===== lines), paste, generate 4. Same 3 images for every prompt.", ""]
         for t, shot in shots:
-            txt += [f"===== {t} =====", hd(k) + "\n" + shot + "\n\n" + of(k) + "\n" + photo(k).replace("arm sleeves on both arms, ", "an arm sleeve, bandana, purple or lavender colours, " if ls_ else "arm sleeves on both arms, "), ""]
+            txt += [f"===== {t} =====", hd(k) + "\n" + shot + "\n\n" + of(k) + "\n" + (photo(k).replace("panels on both sleeves, arm sleeves on both arms, ", "coloured panels on his LEFT side, an arm sleeve, a bandana, purple or lavender colours, ").replace("extra stripes or lines on the t-shirt", "extra stripes or panels not in Image 1") if ls_ else photo(k)), ""]
         open(f"{sd}/PROMPTS.txt", "w").write("\n".join(txt))
     print("kit", k["code"])
 shutil.copytree(os.path.join(OUT, "logo"), os.path.join(DST, "8-LOGOS-for-fixing"))
