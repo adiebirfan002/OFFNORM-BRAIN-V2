@@ -34,16 +34,19 @@ def ofn(cx, y, w, t, vertical=False):
 
 # ---------- pieces
 def beanie(k):
-    c = k["beanie"]; i = k["code"]; t = tid(tone(c))
-    crown = "M232,500 C226,300 300,176 400,176 C500,176 574,300 568,500 Z"
-    cuff = "M214,486 H586 Q594,486 594,494 V624 Q594,634 584,634 H216 Q206,634 206,624 V494 Q206,486 214,486 Z"
-    ribs = "".join(f'<path d="M{238+j*16},{200 if 300<238+j*16<500 else 260} L{236+j*16},500" stroke="#000" stroke-opacity=".10" stroke-width="5"/>' for j in range(21))
-    gather = "".join(f'<path d="M400,182 L{400+dx},{248}" stroke="#000" stroke-opacity=".12" stroke-width="2"/>' for dx in (-60, -30, 0, 30, 60))
-    cribs = "".join(f'<path d="M{220+j*15.6},490 V630" stroke="#000" stroke-opacity=".09" stroke-width="5"/>' for j in range(24))
-    fold_line = '<rect x="206" y="486" width="388" height="10" fill="#000" opacity=".10"/>'
-    mark = ofn(400, 510, 74, t)
-    return tile(cloth(crown, c, G.dk(c), fold("M310,240 C290,330 286,420 290,500", "#000", .06, 40), "bnc" + i, ribs + gather)
-                + cloth(cuff, c, G.dk(c), "", "bnf" + i, cribs + fold_line + mark), BG, label=f'{k["n"]} beanie')
+    """Running beanie after the founder's reference: thin stretch jersey, close fit, soft slouchy gathered top,
+    flat-stitched hem band, no cuff and no rib. One colour; small tonal OFN mark at the front-side near the hem."""
+    c = k["beanie"]; i = k["code"]; t = tid(tone(c)); hs = "#fff" if G.dk(c) else "#000"
+    crown = "M232,548 C222,380 250,262 330,214 C392,178 470,176 530,214 C590,252 592,330 584,420 L576,548 Z"
+    band = "M228,520 C330,540 474,540 578,520 L574,570 C474,590 330,590 232,570 Z"
+    slouch = (fold("M300,250 C360,230 430,232 500,262", "#000", .10, 18) + fold("M330,300 C392,282 470,288 540,316", "#fff", .08, 22)
+              + fold("M270,340 C300,300 330,270 380,250", "#000", .07, 16) + fold("M520,230 C560,270 570,320 566,380", "#000", .08, 26))
+    seams = (f'<path d="M430,196 C420,300 424,420 430,524" stroke="#000" stroke-opacity=".16" stroke-width="2" fill="none"/>'
+             + stitch("M436,200 C426,300 430,420 436,522", hs, .22, 1.1))
+    b_in = ('<rect x="200" y="500" width="400" height="100" fill="#000" opacity=".10"/>'
+            + stitch("M234,530 C330,550 474,550 576,530", hs, .28, 1.2) + stitch("M234,560 C330,580 474,580 574,560", hs, .28, 1.2))
+    mark = ofn(330, 438, 62, t)
+    return tile(cloth(crown, c, G.dk(c), slouch, "bnc" + i, seams + mark) + cloth(band, c, G.dk(c), "", "bnf" + i, b_in), BG, label=f'{k["n"]} running beanie')
 
 def tee(k, back):
     body, panel, thread, logo_c, text_c = k["tee"]
@@ -107,17 +110,23 @@ def tights(k):
                 BG, label=f'{k["n"]} short tights')
 
 def socks(k):
+    """Mid-calf crew running socks after the founder's reference: ribbed leg, ribbed cuff, cushioned terry foot,
+    small knitted L and R at the toes. One colour; OFFNORM knitted vertically down the outer leg, a tone darker."""
     c = k["socks"]; i = k["code"]; tc = tone(c); t = tid(tc)
-    K = "M0,0 H120 V420 C120,456 138,470 188,486 C258,508 272,572 218,586 C158,602 58,578 22,532 C-4,498 0,460 0,420 Z"
-    def one(tx, ty, rot, cid):
-        ribs = "".join(f'<path d="M{8+j*9.6},0 V62" stroke="#000" stroke-opacity=".12" stroke-width="2"/>' for j in range(12))
-        inner = (ribs + '<rect x="0" y="62" width="120" height="6" fill="#000" opacity=".08"/>'
-                 + '<path d="M0,420 C0,460 -4,498 22,532 L62,498 C44,470 56,440 120,420Z" fill="#000" opacity=".07"/>'
-                 + '<path d="M188,486 C258,508 272,572 218,586 C204,552 194,520 188,486Z" fill="#000" opacity=".07"/>'
-                 + G.vlogo(46, 392, 290, t)
-                 + f'<text class="mn" x="60" y="92" font-size="7" fill="{tc}" text-anchor="middle" letter-spacing=".12em">OFN—{i}</text>')
-        return f'<g transform="translate({tx},{ty}) rotate({rot})">' + cloth(K, c, G.dk(c), fold("M90,100 V400", "#000", .06, 26), cid, inner) + '</g>'
-    return tile(one(190, 96, -4, "sk1" + i) + one(440, 110, 4, "sk2" + i), BG, label=f'{k["n"]} long socks')
+    K = "M0,0 H130 V262 C130,300 150,314 202,330 C276,352 290,418 234,432 C170,448 64,424 24,376 C-4,342 0,302 0,262 Z"
+    foot = "M0,262 C0,302 -4,342 24,376 C64,424 170,448 234,432 C290,418 276,352 202,330 C150,314 130,300 130,262 Z"
+    def one(tx, ty, rot, cid, side):
+        ribs = "".join(f'<path d="M{7+j*9.4},0 V262" stroke="#000" stroke-opacity=".10" stroke-width="2.4"/>' for j in range(14))
+        terry = "".join(f'<circle cx="{18+(j%14)*16+(8 if (j//14)%2 else 0)}" cy="{290+(j//14)*16}" r="2.2" fill="#000" opacity=".09"/>' for j in range(14*9))
+        inner = (ribs + '<rect x="0" y="0" width="130" height="34" fill="#000" opacity=".10"/>'
+                 + "".join(f'<path d="M{5+j*6.2},2 V32" stroke="#000" stroke-opacity=".10" stroke-width="2"/>' for j in range(21))
+                 + f'<g clip-path="url(#{cid}f)">{terry}</g>'
+                 + '<path d="M0,262 C40,276 92,276 130,262" stroke="#000" stroke-opacity=".12" stroke-width="3" fill="none"/>'
+                 + G.vlogo(50, 244, 196, t)
+                 + f'<text class="mn" x="214" y="412" font-size="15" font-weight="600" fill="{tc}" text-anchor="middle">{side}</text>')
+        return (f'<g transform="translate({tx},{ty}) rotate({rot}) scale(1.22)"><clipPath id="{cid}f"><path d="{foot}"/></clipPath>'
+                + cloth(K, c, G.dk(c), fold("M96,60 V250", "#000", .06, 24), cid, inner) + '</g>')
+    return tile(one(150, 150, -5, "sk1" + i, "L") + one(420, 170, 3, "sk2" + i, "R"), BG, label=f'{k["n"]} crew socks')
 
 def strip(svg):    # tile -> bare inner, for the flat lay
     inner = re.sub(r'^<svg[^>]*>', '', svg); inner = inner[:inner.rfind('</svg>')]
@@ -173,7 +182,7 @@ def build(k):
     T = k["tee"]; S = k["short"]
     tiles = [("Beanie", parts["beanie"], chips(k["beanie"])), ("Tee front", parts["tee"], chips(*T[:4])), ("Tee back", parts["teeb"], chips(T[0], T[4])),
              ("Arm sleeve", parts["sleeve"], chips(k["sleeve"])),
-             ("Short tights", parts["tights"], chips(k["tights"], k["tights_logo"])), ("Long socks", parts["socks"], chips(k["socks"]))]
+             ("Short tights", parts["tights"], chips(k["tights"], k["tights_logo"])), ("Crew socks", parts["socks"], chips(k["socks"]))]
     grid = "".join(f'<figure class="pt">{svg}<figcaption><b>{n}</b><span class="chips">{ch}</span></figcaption></figure>' for n, svg, ch in tiles)
     sw = "".join(f'<div class="sw" style="background:{h};color:{"#F3F4F2" if G.dk(h) else INK}"><b>{nm}</b><span>{h}</span><i>{role}</i></div>' for nm, h, role in k["pal"])
     notes = "".join(f"<li>{x}</li>" for x in k["notes"])

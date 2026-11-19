@@ -17,8 +17,8 @@ def shoot(body, path, w, h, transparent=False, css=""):
     args = [CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars", f"--window-size={w},{h}", "--virtual-time-budget=4000", f"--screenshot={path}"]
     if transparent: args.insert(3, "--default-background-color=00000000")
     subprocess.run(args + ["file://" + f], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
-PIECES = [("01_beanie", "beanie", "Beanie"), ("02_tee_front", "tee", "Tee, front"), ("03_tee_back", "teeb", "Tee, back"),
-          ("04_arm_sleeve", "sleeve", "Arm sleeve"), ("05_short_tights", "tights", "Short tights"), ("06_long_socks", "socks", "Long socks")]
+PIECES = [("01_beanie", "beanie", "Running beanie"), ("02_tee_front", "tee", "Tee, front"), ("03_tee_back", "teeb", "Tee, back"),
+          ("04_arm_sleeve", "sleeve", "Arm sleeve"), ("05_short_tights", "tights", "Short tights"), ("06_socks", "socks", "Crew socks")]
 for k in H.KITS:
     d = os.path.join(OUT, "kits", f'{k["code"]}_{k["n"].replace(" ", "-")}'); os.makedirs(d, exist_ok=True)
     parts = dict(beanie=H.beanie(k), tee=H.tee(k, False), teeb=H.tee(k, True), sleeve=H.arm_sleeve(k), tights=H.tights(k), socks=H.socks(k))
