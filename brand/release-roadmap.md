@@ -19,23 +19,40 @@ designed, one in sampling, one in production.
 
 ## 2. Month by month (working backwards)
 
-| Month | Core line | Drop 001 · The Dune (May) | Drop 002 · The Sky (Jul) | Drop 003 · The Ocean (Sep) | Drop 004 · The Monsoon (Nov) |
+| Month | Permanent collection (Kit 000) | Drop 001 · The Dune (May) | Drop 002 · The Sky (Jul) | Drop 003 · The Ocean (Sep) | Drop 004 · The Monsoon (Nov) |
 |---|---|---|---|---|---|
-| **Dec 2026** | Pick maker, sample core | Design | | | |
-| **Jan 2027** | Bulk production | Sampling | | | |
-| **Feb 2027** | Bulk, shoot | Sampling, approve | Design | | |
-| **Mar 2027** | **LAUNCH** | Bulk production | Sampling | | |
-| **Apr 2027** | Restock 1 | Bulk, shoot at Klebang | Sampling, approve | Design | |
-| **May 2027** | | **DROP** | Bulk production | Sampling | |
-| **Jun 2027** | Restock 2 | Report | Bulk, shoot at Sky Mirror | Sampling, approve | Design |
-| **Jul 2027** | | | **DROP** | Bulk production | Sampling |
-| **Aug 2027** | Restock 3 | | Report | Bulk, shoot at Redang | Sampling, approve |
-| **Sep 2027** | | | | **DROP** | Bulk production |
-| **Oct 2027** | Restock 4 | | | Report | Bulk, shoot at Cherating |
-| **Nov 2027** | | | | | **DROP** |
+| **Dec 2026** | Pick maker. Sample 4 pieces in 3 colours | Design | | | |
+| **Jan 2027** | Approve samples, place first order | Sampling | | | |
+| **Feb 2027** | Production. Shoot. Set up website and shop | Sampling, approve | Design | | |
+| **Mar 2027** | **LAUNCH Kit 000** | Bulk production | Sampling | | |
+| **Apr 2027** | Read sales by size and colour. Reorder 1 | Bulk, shoot at Klebang | Sampling, approve | Design | |
+| **May 2027** | Reorder 1 lands. Design the first new permanent piece | **DROP** | Bulk production | Sampling | |
+| **Jun 2027** | Sample the new piece. Reorder 2 | Report | Bulk, shoot at Sky Mirror | Sampling, approve | Design |
+| **Jul 2027** | Approve and produce the new piece | | **DROP** | Bulk production | Sampling |
+| **Aug 2027** | **ADD the new piece to Kit 000.** Restock before race season | | Report | Bulk, shoot at Redang | Sampling, approve |
+| **Sep 2027** | Race-season stock check before KL Marathon | | | **DROP** | Bulk production |
+| **Oct 2027** | KL Marathon peak. Reorder 3. Start Kit 000 2028 plan | | | Report | Bulk, shoot at Cherating |
+| **Nov 2027** | Year review. Lock Kit 000 for 2028. Year-end restock | | | | **DROP** |
 
-**The crunch: Drop 001 design has to start in December 2026, and the core line needs a maker now.** If that's not
-possible, launch the core in April and move Drop 001 to June.
+**The crunch: Drop 001 design has to start in December 2026, and Kit 000 needs a maker now.** If that's not
+possible, launch Kit 000 in April and move Drop 001 to June.
+
+### How the permanent collection runs
+
+- **Always on sale.** Kit 000 never sells out on purpose. It's what people buy between drops.
+- **Start with 4 pieces in 3 colours:** for example running shirt, short tights, socks and cap. That's 12 products
+  before sizes.
+- **Reorder rule.** A repeat order is faster than a first order, because the pattern is already approved (plan on
+  about 6-8 weeks; confirm with the maker). Reorder a size and colour when about 40% of its stock is left, so it
+  lands before it runs out.
+- **Grow slowly: one new permanent piece per year.** The first one (e.g. a long sleeve or a bandana) is added in
+  August, chosen from what customers asked for and what sold best in the drops.
+- **Promote from the drops.** If a drop piece sells out fast and people keep asking, it can join Kit 000 in a
+  permanent colour. The limited colourway stays limited.
+- **No discounts, no seasonal colour churn.** Colours stay fixed for the year so restocks stay simple. New colours
+  belong to the drops.
+- **Plan 2028 in October.** Fabric upgrades, a fourth colour or a new piece are decided at the year review, so the
+  first 2028 order can be placed in December again.
 
 ## 3. Race calendar hooks (dates to confirm on official sites)
 
@@ -89,7 +106,7 @@ possible, launch the core in April and move Drop 001 to June.
 1. Who makes it, and what are their minimums and lead times?
 2. The price tier for core and for drops.
 3. Quantity per limited piece (e.g. 100? 150? 300?).
-4. Core pieces and colours.
+4. Kit 000 (permanent collection): pieces and colours.
 5. Drop order: The Dune first (May) or keep The Sky + The Dune together.
 6. Website + marketplace, or website only.
 7. Budget for the first year.
